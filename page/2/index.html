@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Quiet to go far！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Quiet to go far！">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+<meta property="og:site_name" content="Quiet to go far！">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quiet to go far！">
+  
+    <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Quiet to go far！</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">高山仰止，景行行止。虽不能至，心向往之。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-原生nodejs爬mdn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/31/原生nodejs爬mdn/" class="article-date">
+  <time datetime="2017-07-31T04:07:51.000Z" itemprop="datePublished">2017-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/31/原生nodejs爬mdn/">原生nodejs爬mdn</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作者的一道题目：<br><br>nodejs爬<a href="https://developer.mozilla.org/zh-CN/docs/Web/API" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API</a>, 把所有api对用的html文档保存在本地。</p>
+<p>作者推荐使用node-fetch，cherrio，super-agent。因为我用过上述三者爬虫，这次打算使用原生api开发，刚好<br>测试一下最近学习的正则表达式有没有长进。</p>
+<p>原材料 ： https + fs + es6 + nodeV8.21</p>
+<h3 id="promise是上帝，promise是魔鬼"><a href="#promise是上帝，promise是魔鬼" class="headerlink" title="promise是上帝，promise是魔鬼"></a>promise是上帝，promise是魔鬼</h3><p>promise是上帝，只要是异步，完全可以用promise替代毁掉函数；promise是魔鬼，只要用了promise就得全盘用promise</p>
+<p>自己对promise在实际使用中的理解 <br><br>callback promise化<br><br>普通回调函数写法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myAwesomeAsyncMethod</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">  http.get(<span class="string">'url'</span>, (res)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(some condition)&#123;</span><br><span class="line">      callback(<span class="string">'success'</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      callback(<span class="string">'error'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>promise化回调函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myAwesomeAsyncMethod</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">    http.get(<span class="string">'url'</span>, (res)=&gt;&#123;</span><br><span class="line">      <span class="keyword">if</span>(some condition)&#123;</span><br><span class="line">        resolve(<span class="string">'success'</span>)</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        reject(<span class="string">'error'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果用了promise需要全盘使用promise<br>这一点让人很不爽，一旦用了promise，代码中其他的异步操作统统需要promise化。</p>
+<p>promsie配合async await一起用<br>单纯的用promise和Promise.then一步步链式调用本质上和callback并没有太大区别，但是配合async await则<br>可以将异步函数改造成形式上的同步函数， 举个板栗：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fetchWebApi = <span class="keyword">async</span> (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> data = <span class="keyword">await</span> fetch(url)</span><br><span class="line">  <span class="keyword">let</span> apiList = getApiList(data)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> fetchAndSave = <span class="function">(<span class="params">apiName</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> (resolve, reject) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> data</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        data = <span class="keyword">await</span> fetch(<span class="string">`https://developer.mozilla.org<span class="subst">$&#123;apiName&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">await</span>  writeToLocal(apiName, data)</span><br><span class="line">        resolve()</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'error'</span>)</span><br><span class="line">        reject()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'apiList length : '</span> + apiList.length)</span><br><span class="line">  <span class="keyword">while</span> (count &lt; apiList.length) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> subApiList = apiList.slice(count, count + <span class="number">100</span>)</span><br><span class="line">      <span class="keyword">let</span> tmp = []</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; subApiList.length; i++) &#123;</span><br><span class="line">        tmp.push(fetchAndSave(subApiList[i]))</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">await</span> <span class="built_in">Promise</span>.all(tmp).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        count += subApiList.length</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'error '</span> + e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  stats(resultList)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchWebApi(url)</span><br></pre></td></tr></table></figure></p>
+<p>理由很简单： await修饰的函数必须要promise化。需要注意的是，使用到await的函数必须是async,<br>promise是promise，async是async，二者promsie对象接受的函数当然也可以用async修饰，参照fetchAndSave方法。</p>
+<h3 id="https请求"><a href="#https请求" class="headerlink" title="https请求"></a>https请求</h3><p>如果目标url是http，需要使用http模块，如果是https，需要使用https模块。使用http模块调用<br>https url会报错。</p>
+<p>实际问题中遇到重定向问题。[300, 400）之间的状态码是重定向，又细分301的永久重定向和302的临时重定向。对于2者和搜索引擎<br>的纠葛在此不做深入探讨。对于需求，只需要获取重定向后的url内容即可。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> fetch(res.headers.location)</span><br></pre></td></tr></table></figure></p>
+<p><code>res.headers.location</code>中包含了重定向的url</p>
+<p>获取数据用到的data事件很有趣，返回的data应该对应http的一个请求包。一堆请求包组成一个html文档。</p>
+<h3 id="清洗html文档，提取apiList"><a href="#清洗html文档，提取apiList" class="headerlink" title="清洗html文档，提取apiList"></a>清洗html文档，提取apiList</h3><p>当获取完成包含api的html文档后，下一步是要提取apiList。cherrio是node的jquery,api和jquery，zepto大同小异。<br>但是我们的目标是<s>没有蛀牙</s>不使用第三方库。我改怎样做呢？</p>
+<p>request.get返回html文档的字符串，如果在浏览器端，会被浏览器解析成dom树。服务端并不需要解析成dom树，只要从字符串中提取<br>api的路径。</p>
+<p>一开始观察，发现关键字段在<code>&lt;code&gt;API&lt;/code&gt;</code>中，正则用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> reg = <span class="regexp">/&lt;code&gt;.+?&lt;\/code&gt;/ig</span>  <span class="comment">//惰性匹配</span></span><br></pre></td></tr></table></figure></p>
+<p>注意全局搜索和利用?实现惰性匹配，否则会将开头的<code>&lt;code&gt;</code>和结尾<code>&lt;/code&gt;</code>之间的所有字符串一次性匹配。</p>
+<p>坑爹是的，code之间的字段并不能100%当时api的路径，老老实实用href里的字段，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> reg = <span class="regexp">/"\/zh-CN\/docs\/Web\/API\/.+?"/ig</span></span><br></pre></td></tr></table></figure></p>
+<p>自从刷了hackerrank里的大部分正则基础题后，写这些正则变得砍瓜切菜一样简单。</p>
+<h3 id="分布提取api文档"><a href="#分布提取api文档" class="headerlink" title="分布提取api文档"></a>分布提取api文档</h3><p>一共有748个api，如果for循环一次性请求会挂掉。从作者那里偷学了while用法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(some condition)&#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="built_in">Promise</span>.all(partOfApiList)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里，Promise.all接受一个数组，数组的每个元素都是promise对象。于是又要promise化。</p>
+<h3 id="为什么只写入了747个文档？"><a href="#为什么只写入了747个文档？" class="headerlink" title="为什么只写入了747个文档？"></a>为什么只写入了747个文档？</h3><p>可能是99%的情况下永远少写入一个文档，只有一次测试的时候，5个请求写入3个文档，其他都是写入4个文档。测试很久之后才反应过来，<br>fs.writeFile也是个异步方法，需要promise化。</p>
+<p>至此，爬虫遇到的主要难点都写完了，我们实现了纯nodejs api爬虫。</p>
+<p>附录：百行代码就不开git仓库了：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by pingfengafei on 2017/7/30.</span></span><br><span class="line"><span class="comment"> * pure node.js api without any third part library</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> https = <span class="built_in">require</span>(<span class="string">'https'</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'https://developer.mozilla.org/zh-CN/docs/Web/API'</span></span><br><span class="line"><span class="keyword">const</span> dir = <span class="string">'./web-api'</span></span><br><span class="line"><span class="keyword">const</span> resultList = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fetch = <span class="function">(<span class="params">url</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    https.get(url, <span class="keyword">async</span> (res) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (res.statusCode !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.statusCode &gt;= <span class="number">300</span> &amp;&amp; res.statusCode &lt; <span class="number">400</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> data = <span class="keyword">await</span> fetch(res.headers.location)</span><br><span class="line">          resolve(data)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          reject(<span class="string">'error code '</span> + res.statusCode)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> responseData = <span class="string">''</span></span><br><span class="line">        res.on(<span class="string">'data'</span>, (data) =&gt; &#123;</span><br><span class="line">          responseData += data</span><br><span class="line">        &#125;)</span><br><span class="line">        res.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">          resolve(responseData)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getApiList = <span class="function"><span class="keyword">function</span> (<span class="params">content</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//let reg = /&lt;code&gt;.+?&lt;\/code&gt;/ig  //惰性匹配  枣糕，code不是精确匹配</span></span><br><span class="line">  <span class="keyword">let</span> reg = <span class="regexp">/"\/zh-CN\/docs\/Web\/API\/.+?"/ig</span></span><br><span class="line">  <span class="keyword">let</span> arr = []</span><br><span class="line">  <span class="keyword">let</span> apiList = []</span><br><span class="line">  <span class="keyword">while</span> (arr = reg.exec(content)) &#123;</span><br><span class="line">    apiList.push(arr[<span class="number">0</span>].substring(<span class="number">1</span>, arr[<span class="number">0</span>].length - <span class="number">1</span>))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> apiList</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> writeToLocal = <span class="keyword">async</span> (title, content) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    fs.writeFile(<span class="string">`<span class="subst">$&#123;dir&#125;</span>/<span class="subst">$&#123;title.substring(<span class="number">20</span>, title.length)&#125;</span>`</span>, content, (err) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        obj = &#123;</span><br><span class="line">          status: <span class="string">'error'</span>,</span><br><span class="line">          api: title</span><br><span class="line">        &#125;</span><br><span class="line">        reject()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        obj = &#123;</span><br><span class="line">          status: <span class="string">'success'</span>,</span><br><span class="line">          api: title,</span><br><span class="line">          path: <span class="string">`<span class="subst">$&#123;dir&#125;</span>/<span class="subst">$&#123;title&#125;</span>`</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      resultList.push(obj)</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> stats = <span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//todo 调查实际是748，最后却只输出了747个文档</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'resultList length : '</span> + list.length)</span><br><span class="line">  fs.appendFile(<span class="string">'./stats.json'</span>, <span class="built_in">JSON</span>.stringify(list), (err) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(err)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fetchWebApi = <span class="keyword">async</span> (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> data = <span class="keyword">await</span> fetch(url)</span><br><span class="line">  <span class="keyword">let</span> apiList = getApiList(data)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> fetchAndSave = <span class="function">(<span class="params">apiName</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> (resolve, reject) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> data</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        data = <span class="keyword">await</span> fetch(<span class="string">`https://developer.mozilla.org<span class="subst">$&#123;apiName&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">await</span>  writeToLocal(apiName, data)</span><br><span class="line">        resolve()</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'error'</span>)</span><br><span class="line">        reject()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'apiList length : '</span> + apiList.length)</span><br><span class="line">  <span class="keyword">while</span> (count &lt; apiList.length) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> subApiList = apiList.slice(count, count + <span class="number">100</span>)</span><br><span class="line">      <span class="keyword">let</span> tmp = []</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; subApiList.length; i++) &#123;</span><br><span class="line">        tmp.push(fetchAndSave(subApiList[i]))</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">await</span> <span class="built_in">Promise</span>.all(tmp).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        count += subApiList.length</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'error '</span> + e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  stats(resultList)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchWebApi(url)</span><br></pre></td></tr></table></figure></p>
+<p>—————————–我是分割线———————————-</p>
+<p>作者小小的修改了代码：更严谨的代码，更抽象的逻辑和更高的可复用性</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/31/原生nodejs爬mdn/" data-id="ck7kig7jb001cw4951b5cai2s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/">reptile</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js类与继承" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/31/js类与继承/" class="article-date">
+  <time datetime="2017-07-31T04:07:51.000Z" itemprop="datePublished">2017-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/31/js类与继承/">js 的类与继承</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>js的继承真是天坑，看过红宝书的原型链和继承章节不知所云。各种继承方式，颇有种乱花渐欲迷人眼的感觉。</p>
+<p>es6的class和extends给了我一丝曙光。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Foo &#123;</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    this.name = name</span><br><span class="line">  &#125;</span><br><span class="line">  sayHello()&#123;</span><br><span class="line">    console.log(`super name is $&#123;this.name&#125;`)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Bar extends Foo&#123;</span><br><span class="line">  sayHello()&#123;</span><br><span class="line">    super.sayHello()</span><br><span class="line">    console.log(`sub name is $&#123;this.name&#125;`)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var bar = new Bar(&apos;aaa&apos;)</span><br><span class="line">bar.sayHello()</span><br></pre></td></tr></table></figure>
+<p>这个简单例子包含了类，继承和调用父类。麻雀虽小却五脏俱全。不知道有没有人想的和我一样，类<br>只是个语法糖，在现有的环境下还是要被babel转换成es5的原型链继承方法。</p>
+<p>wait,<code>被babel转换成es5的原型链继承方法</code>，babel翻译后的一定是优秀的继承方式，我仿佛找到了onepiece</p>
+<p>先看看babel如何翻译Foo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos; //严格模式</span><br><span class="line"></span><br><span class="line">var _createClass = function () &#123;</span><br><span class="line">  function defineProperties (target, props) &#123;</span><br><span class="line">    for (var i = 0; i &lt; props.length; i++) &#123;</span><br><span class="line">      var descriptor = props[i]</span><br><span class="line">      descriptor.enumerable = descriptor.enumerable || false</span><br><span class="line">      descriptor.configurable = true</span><br><span class="line">      if (&apos;value&apos; in descriptor) descriptor.writable = true</span><br><span class="line">      Object.defineProperty(target, descriptor.key, descriptor)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return function (Constructor, protoProps, staticProps) &#123;</span><br><span class="line">    if (protoProps) defineProperties(Constructor.prototype, protoProps)</span><br><span class="line">    if (staticProps) defineProperties(Constructor, staticProps)</span><br><span class="line">    return Constructor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">function _classCallCheck (instance, Constructor) &#123;</span><br><span class="line">  if (!(instance instanceof Constructor)) &#123;</span><br><span class="line">    throw new TypeError(&apos;Cannot call a class as a function&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var Foo = function () &#123;</span><br><span class="line">  function Foo (name) &#123;</span><br><span class="line">    _classCallCheck(this, Foo)</span><br><span class="line"></span><br><span class="line">    this.name = name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  _createClass(Foo, [</span><br><span class="line">    &#123;</span><br><span class="line">      key: &apos;sayHello&apos;,</span><br><span class="line">      value: function sayHello () &#123;</span><br><span class="line">        console.log(&apos;super name is &apos; + this.name)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;])</span><br><span class="line"></span><br><span class="line">  return Foo</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure></p>
+<p>深入代码理清逻辑：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var Foo = function()&#123;&#125;()</span><br></pre></td></tr></table></figure></p>
+<p>还有这种写法？？？匿名函数先赋值给Foo，Foo和()结合在一起，执行Foo</p>
+<p>看看关键函数<code>_createClass</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var _createClass = function () &#123;</span><br><span class="line">  function defineProperties (target, props) &#123;</span><br><span class="line">    for (var i = 0; i &lt; props.length; i++) &#123;</span><br><span class="line">      var descriptor = props[i]</span><br><span class="line">      descriptor.enumerable = descriptor.enumerable || false</span><br><span class="line">      descriptor.configurable = true</span><br><span class="line">      if (&apos;value&apos; in descriptor) descriptor.writable = true</span><br><span class="line">      Object.defineProperty(target, descriptor.key, descriptor)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return function (Constructor, protoProps, staticProps) &#123;</span><br><span class="line">    if (protoProps) defineProperties(Constructor.prototype, protoProps)</span><br><span class="line">    if (staticProps) defineProperties(Constructor, staticProps)</span><br><span class="line">    return Constructor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+<p>背后的原理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Foo.prototype.key = value</span><br><span class="line">Foor.key = value //静态方法</span><br></pre></td></tr></table></figure></p>
+<p>再看看继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function _inherits (subClass, superClass) &#123;</span><br><span class="line">  if (typeof superClass !== &apos;function&apos; &amp;&amp; superClass !== null) &#123;</span><br><span class="line">    throw new TypeError(&apos;Super expression must either be null or a function, not &apos; + typeof superClass)</span><br><span class="line">  &#125;</span><br><span class="line">  subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype,</span><br><span class="line">    &#123;constructor: &#123;value: subClass, enumerable: false, writable: true, configurable: true&#125;&#125;)</span><br><span class="line">  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="回味原型链和继承"><a href="#回味原型链和继承" class="headerlink" title="回味原型链和继承"></a>回味原型链和继承</h3><p>对象都有一个私有属性<code>[[prptotype]]</code>,attention,这个私有属性有别于<code>prototype</code>,通常私有属性实现时用<strong>proto</strong>替代。<br>每个对象都有<strong>proto</strong><br>函数对象拥有prototype对象，函数也是对象，自然也拥有<strong>proto</strong></p>
+<p>object.<strong>proto</strong>指向object的原型<br>object.prototype指向object的原型对象 ？？？</p>
+<p><code>Object.defineProperty</code><br><code>Object.create</code><br><code>Object.getPrototypeOf</code><br><code>Object.setPrototypeOf</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/31/js类与继承/" data-id="ck7kig7ig000gw495arj9ie5j" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/inherit/">inherit</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-杂文" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/11/杂文/" class="article-date">
+  <time datetime="2017-07-11T08:27:17.000Z" itemprop="datePublished">2017-07-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/essay/">essay</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/11/杂文/">杂文</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="新版博客主题"><a href="#新版博客主题" class="headerlink" title="新版博客主题"></a>新版博客主题</h3><p>受到<a href="https://icyfish.me/categories/Web/" target="_blank" rel="noopener">icyfish</a>小朋友的启发，决定给粗鄙的博客换一个主题。遍历了<a href="https://www.zhihu.com/question/24422335" target="_blank" rel="noopener">知乎</a>上的优秀主题，选中了<a href="https://github.com/tufu9441/maupassant-hexo/" target="_blank" rel="noopener">莫泊桑</a>。自己写过一整年<code>material-ui</code>风格的网站，对于各种酷炫的交互都不感冒。诚如作者说的:大道至简。繁华过后，只希望有一片净土，写写文章，品品生活，足矣。完全不记得昨天<code>icyfish</code>小朋友推荐的就是<code>莫泊桑</code>，选中它，大约是因为人都会欣赏优秀的事物。</p>
+<h3 id="机械键盘"><a href="#机械键盘" class="headerlink" title="机械键盘"></a>机械键盘</h3><p>就在今早，又败了一个机械键盘。至此，我拥有一块<code>plum 104黑轴</code>，两块<code>酷冷至尊87红轴</code>和即将到来的<code>酷冷至尊87青轴</code>。<br><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTh_ESYwm1YlM37rmzVpkSG1F2xnzI0p9uEgupyAqUy0sr0wDpGA" alt><br>都到这地步了，为什么不充值一波信仰，直接filco 双模一步到位？因为在前东家的时候，filco青轴给我留下了不如300块凯酷青轴的印象。<br>更真实的情况是，仿佛这一刻全世界的<code>filco 双模忍者87青轴</code>都缺货。zby小朋友一口气买了2块minila，一块青轴一块红轴。红轴的手感非常好，青轴的手感一般。她买键盘前<br>做的功课和买键盘的魄力已经执行力给我深深上了一课。</p>
+<h3 id="title-date-tags-失效"><a href="#title-date-tags-失效" class="headerlink" title="title date tags 失效"></a>title date tags 失效</h3><p>使用CRLF替换CR</p>
+<h3 id="md文件里换行导致编译后的文件也换行"><a href="#md文件里换行导致编译后的文件也换行" class="headerlink" title="md文件里换行导致编译后的文件也换行"></a>md文件里换行导致编译后的文件也换行</h3><p><code>hexo-renderer-marked/index.js</code>下的<code>breaks: false</code></p>
+<h3 id="关于react的思考"><a href="#关于react的思考" class="headerlink" title="关于react的思考"></a>关于react的思考</h3><p>最近维护一个小功能掉坑里了。一个需求需要同时修改四处html字符串。服务端一处，客户端3处字符串拼接。此时我十分怀恋react。理论上如果框架设计的精妙，即使是SSR也只需要修改一个react文件，甚至仅需要<br>添加一个state对象。</p>
+<h3 id="高山仰止景行行止"><a href="#高山仰止景行行止" class="headerlink" title="高山仰止景行行止"></a>高山仰止景行行止</h3><p>我喜欢和聪明的人共事。在ctrip，我有很大几率遇到比我聪明的人，比如作者，比如xmy，和他们聊天时，能感觉到他们都在发光，睿智，逻辑，激情，理性。这让我又兴奋又后悔。<br>后悔自己游戏人生太久，渐渐地身体开始走下坡路，大约没有赶上他们的资本了，另一方面，就像我旁边的绿萝，即是不能，我也要快速的成长，虽不能至，心向往之，同时也要努力靠近。</p>
+<h3 id="if-else-debug-小技巧"><a href="#if-else-debug-小技巧" class="headerlink" title="if else debug 小技巧"></a>if else debug 小技巧</h3><p>今天领悟到了一个if else debug小技巧。例如<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(a)&#123;</span><br><span class="line">    do A</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们有时候会遇到一种情况：不想走a的逻辑或者一定走a的逻辑。有一天突然想到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if(true || a)&#123;</span><br><span class="line">    do A</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if(false &amp;&amp; a)&#123; //and 符号怎么都打不出来呢？</span><br><span class="line">        do A</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这样写有个一好处，写完需求后，只要删除掉true或false后就能还原逻辑，不会造成过多修改代码造成的潜在bug风险。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/11/杂文/" data-id="ck7kig7io000yw495jvx58yzv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随想/">随想</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-style-and-getComputedStyle" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/04/style-and-getComputedStyle/" class="article-date">
+  <time datetime="2017-03-04T10:49:21.000Z" itemprop="datePublished">2017-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/04/style-and-getComputedStyle/">.style and getComputedStyle</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#.style vs window.getComputedStyle<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=&quot;filter-header-tabs&quot; ref=&quot;filterHeaderTabs&quot; style=&#123;&#123;&apos;width&apos;: &apos;500px&apos;&#125;&#125;&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.filter-header-tabs &#123;</span><br><span class="line">   display: inline-block;</span><br><span class="line">   width: 85%;</span><br><span class="line">   min-width: 660px;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(window.getComputedStyle(this.refs.filterHeaderTabs).width); // 660px</span><br><span class="line">console.log(this.refs.filterHeaderTabs.style.width); // 500px</span><br></pre></td></tr></table></figure>
+<p>总结：<br>1：.style只能获得div标签上的style，无法获得css内的style和真实的style, 未设置的style都是<code>&quot;&quot;</code><br>2：window.getComputedStyle获取的是节点的真实style</p>
+<p>#getDOMNode() vs findDOMNode() vs this.refs<br>从react14版本开始，getDOMNode被遗弃，使用findDOMNode替代<br><code>With this change, we’re deprecating .getDOMNode() and replacing it with ReactDOM.findDOMNode (see below). If your components are currently using .getDOMNode(), they will continue to work with a warning until 0.15.</code></p>
+<p>##findDOMNode()和this.refs的区别<br>14版本又说了：<br><code>Starting with this release, this.refs.giraffe is the actual DOM node</code><br>从这个版本开始，this.refs等同于真实的dom节点，也就是说（部分地）， findDOMNode9()等同于this.refs<br>14版本又说了：<br><code>Note that refs to custom (user-defined) components work exactly as before; only the built-in DOM components are affected by this change.</code></p>
+<p>总结：<br>1：在dom节点（div, p, span…）上用findDOMNode()等同于this.refs<br>2：在React组件上用，this.refs获取的是组件的引用，findDOMNode()获取的是组件的dom树</p>
+<p>作用在dom节点上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=&quot;filter-header-tabs&quot; ref=&quot;filterHeaderTabs&quot;&gt;</span><br><span class="line">//&lt;div class=&quot;filter-header-tabs&quot;&gt;...&lt;/div&gt;</span><br><span class="line">console.log(ReactDOM.findDOMNode(this.refs.filterHeaderTabs));</span><br><span class="line">//&lt;div class=&quot;filter-header-tabs&quot;&gt;...&lt;/div&gt;</span><br><span class="line">console.log(this.refs.filterHeaderTabs);</span><br></pre></td></tr></table></figure></p>
+<p>作用在React组件上<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/refs.png" alt></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/04/style-and-getComputedStyle/" data-id="ck7kig7ij000lw495vutvmqqr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-callback和promise" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/04/callback和promise/" class="article-date">
+  <time datetime="2017-03-04T10:38:48.000Z" itemprop="datePublished">2017-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/04/callback和promise/">callback和promise</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>对个人而言，刚开始学习js，最难的一点在理解回调函数上。滑稽与可笑，前端一年半了，在昨天晚上回去的路上才想通了回调函数，算是打通了js的任督二脉吧。</p>
+<p>所谓回调函数，即在函数返回时被调用的函数。在js中函数可以为当做参数传递。简单的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function b(callback)&#123;</span><br><span class="line">    var src = &apos;hello world&apos;;</span><br><span class="line">    //b do other steps;</span><br><span class="line">    //返回时调用了一次callback，即a函数</span><br><span class="line">    return callback(src);</span><br><span class="line">&#125;</span><br><span class="line">b(a);</span><br><span class="line">//匿名函数也一样</span><br><span class="line">b(src=&gt;console.log(src))</span><br></pre></td></tr></table></figure>
+<p>知乎上看到一个很有趣的理解回调函数的例子：</p>
+<p>我去商店买东西，没有了，我给商店留下了电话号码。这里，电话号码就是回调函数。东西到货了，商家打电话给我。打电话这个过程就叫调用回调哈数。</p>
+<p>打通理解回调函数后，es6的promise就好理解了：</p>
+<p>Promise对象接受一个回调函数作为参数，该回调函数接受2个回调函数作为参数，第一个为pennding-&gt;sucess时调用，第二个参数为pending-&gt;failed时调用的；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var time = function(time)&#123;</span><br><span class="line">    return new Promise((sucess, failed)=&gt;&#123;</span><br><span class="line">        setTimeout(sucess, time,[&apos;hello&apos;,&apos;world&apos;,&apos;pingfengafe&apos;]);&#125;);</span><br><span class="line">&#125;</span><br><span class="line">time(1000).then(src=&gt;console.log(src));</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/04/callback和promise/" data-id="ck7kig7i50003w495xxeguqep" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring13小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/04/spring13小结/" class="article-date">
+  <time datetime="2017-03-04T03:48:02.000Z" itemprop="datePublished">2017-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/04/spring13小结/">spring13小结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>马云讲过人离职的原因，钱给的少  || 呆的不开心。以前我一直只觉得第一个原因，如今第二个原因也满足了。到该走了时候了。</p>
+<p>直到现在才开始写项目总结，想想蛮可笑的。写一写自己的项目心得吧。</p>
+<p>一句话总结：学到很多，项目设计很乱，时间人为地很赶，自己进步一点。</p>
+<p>这次项目需要写2个配置页面，使用2个带有get和put方法的Restful风格接口从服务器端获取J和上传JSON对象。</p>
+<p>页面设计图：</p>
+<p>就从router入口写吧。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route path=&quot;device_endpoint_feature&quot; component=&#123;DeviceSingleFeatureContainer&#125;/&gt;</span><br><span class="line">&lt;Route path=&quot;device_frequency_feature&quot; component=&#123;EventFrequencyFeatureContainer&#125;/&gt;</span><br></pre></td></tr></table></figure></p>
+<p>SingleFeature页面比较简单:<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/device_single.png" alt><br>1.写了一个mapKeyToDisplayName方法，匹配key和显示的名字。<br>2.以前一直有个烦心事，用className方法生成新的class不知道取什么名字，有一天在看ant-design源代码，发现他们如下用，一举解决了命名问题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const titleCls = className(&#123;title : this.state.showTitle&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>3.下拉框设计难点:<br>UI设计稿中，异常度下拉框是个输入框，不是下拉框。考虑到未来的可扩展性，我建议UI改成了下拉框，被采纳。手写了个下拉框组件，有如下特点：<br>3.1 如果下拉框内容只有1条，则禁止触发onClick和onMouseOver事件，并且:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cursor:not-allow;</span><br></pre></td></tr></table></figure></p>
+<p>3.2 鼠标hover时展开，离开后下拉框收起。有2个难点:<br>   onMouseOut, onMouseLeave的选择。二者都能相应鼠标离开事件，区别是，out只对被设置的DOM对象起作用，比如，out在父DOM节点上，移动到子DOM节点上就触发一次out，leave则是离开整个DOM节点才会触发。这里，选择onMouseLeave。</p>
+<p>   通过父组件position:realative,子组件absolution + z-index方式生成，遇到个问题，图片中上面的边框和下面的边框有个间隙，鼠标触碰到间隙后也会触发Leave事件，解决的办法是，用个大div包裹下面的dom并连接上面的dom，设置成透明即可。</p>
+<p>4 关于重置逻辑:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.setState(&#123;config:this.props.config&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>5 关于保存逻辑:<br>在reducer中，如果后台返回了类似<code>{ok:true}</code>字段，则使用上传给后台的数据。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">case PUT_DEVICE_SINGLE_FEATURE_CONFIG_SUCCESS:</span><br><span class="line">return &#123;config: action.data, status: &apos;put_device_single_feature_success&apos;&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>6:源于添加逻辑:<br>通过<code>feature.disabled</code>的值来判断，true在放置在添加栏内，false则放置在属性展示框内</p>
+<p>7：关于小开关的逻辑:<br>    感谢state和prop,让我实现各种逻辑得心应手。</p>
+<p>8：关于Immutable对象的思考:<br>如果没有Immutable.JS，我也不知道该怎样去安全地去操作对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;&#125;;</span><br><span class="line">var b = a;</span><br><span class="line">b.a = 1;</span><br></pre></td></tr></table></figure></p>
+<p>同样，如果没有this.state也存在被共用修改内容的危险。Immutable.JS一举解决了所有问题。实测效率不差。网上关于Immutable.JS有2种不好的观点，第一，api很难用，第二，体积有点大（其实是api太多了）。我觉得，类似于java风格的api，用着用着就习惯了。第二，（个人猜测）Immutable.JS是有野心的。api覆盖了js原生操作对象，数组的所有方法，这样，我们不妨脑洞大开，以后在React项目中，全部用Immutable.JS API操作对象（数组）。下一个项目打算这么干。</p>
+<p>[后续补充], oh my dear,恰巧遇到了错误修改state姿势，导致的迷之bug，修改了半天。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">this.state = &#123;</span><br><span class="line">     paginationConfig: &#123;</span><br><span class="line">       total: 30,</span><br><span class="line">       selectedPage: 10</span><br><span class="line">     &#125;</span><br><span class="line">   &#125;;</span><br><span class="line"> handlePaginationChange(page) &#123;</span><br><span class="line">   let paginationConfig = Object.assign(this.state.paginationConfig);</span><br><span class="line">   paginationConfig.selectedPage = page;</span><br><span class="line">   this.setState(&#123;paginationConfig: paginationConfig&#125;);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">   return !(_.isEqual(nextProps, this.props) &amp;&amp; _.isEqual(nextState, this.state));</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>一个分页组件的点击页面逻辑。<br>bug描述 : 分页组件失效。<br>bug追踪 : 从react-dev-tool中发现，<code>this.sate.paginationConfig.selectedPage</code>发生了变化，但是分页组件实现。分析可能是没有触发render,上游原因是<code>shouldComponentUpdate</code>, 分析可知:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">paginationConfig.selectedPage = page; //共享对象,直接修改了state</span><br></pre></td></tr></table></figure></p>
+<p>导致<code>_.isEqual(nextState, this.state)</code>返回true.<br>先不忙着修改，此处应该还有更有趣的问题。<br>1:错误使用了<code>Object.assign</code>方法,正确姿势：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const paginationConfig = Object.assign(&#123;&#125;, this.state.paginationConfig);</span><br></pre></td></tr></table></figure></p>
+<p>2.<code>Object.assign</code>本质上是浅拷贝<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const obj = &#123;a:1,b:&#123;c:1&#125;&#125;;</span><br><span class="line">const cp = Object.assign(&#123;&#125;,obj);</span><br><span class="line">cp.a = 2;</span><br><span class="line">cp.b.c = 2;</span><br><span class="line">console.log(obj.a); //1</span><br><span class="line">console.log(obj.b.c); //2 assign是浅拷贝</span><br></pre></td></tr></table></figure></p>
+<p>吓得我赶紧换回Immutable，彻底清净了。</p>
+<p>EventFrequency页面比较复杂:<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/%E4%B8%9A%E5%8A%A1%E4%BA%8B%E4%BB%B6.png" alt><br>这里坑比较多。总结起来有点：</p>
+<ol>
+<li>设计不合理，不合理，不合理！</li>
+<li>因为1的关系，操作json数据逻辑复杂</li>
+<li>UI设计没有适配低分辨率屏幕</li>
+</ol>
+<p>关于1和3具体内容我不想过多讨论，但是直接导致了实际开发中，我抛弃设计稿，调整了排版布局，也导致了问题2，一度困扰了我整个周末。整个周末都没过好，在电影院看电影都在想如何操作数据。</p>
+<ol>
+<li><p>接口字段名和API不一致<br>小问题</p>
+</li>
+<li><p>一堆子的交互逻辑<br>小问题，配合state和props好写，担心后来人看不懂为什么代码里要添加那么多开关，多写了几行注释。</p>
+</li>
+<li><p>频次数值和异常度每次只能修改其中1个。要突出timeFerature（分钟，小时，日）的作用<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/%E9%A2%91%E6%AC%A1%E6%95%B0%E5%80%BC.png" alt><br>2个很大问题。<br>按照后台设计逻辑，只能传输<code>频次数值（value）和异常度（anomaly）</code>其中的一个。这个坑了。之前设计好的逻辑是，在container容器中统一分发给每个component内容，获取和修改的json所有key都相同，只有value不同。这种方式修改起来比较简单。但是现在接口每次只给一个value或anomaly，我在上传json前也做做判断，判断用户选择了哪个字段，我要剔除相应的字段。</p>
+</li>
+</ol>
+<p>为了适应前期的工作，我在get到数据后，在container组件里，手动添加了所有缺失的字段。按照设计理念，timeFeature可以全选，但不能全空，选择后对应显示对应的字段，关闭后，不选择对应的字段。</p>
+<p>1.timeFeature开关逻辑<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line">selectTimeFeature(type) &#123;</span><br><span class="line">    //判断时间feature不能全为空</span><br><span class="line">    switch (type) &#123;</span><br><span class="line">      case &apos;minute&apos;: &#123;</span><br><span class="line">        if (!(this.state.config.day || this.state.config.hour || !this.state.config.minute)) &#123;</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      case &apos;hour&apos;: &#123;</span><br><span class="line">        if (!(this.state.config.day || !this.state.config.hour || this.state.config.minute)) &#123;</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      case &apos;day&apos;: &#123;</span><br><span class="line">        if (!(!this.state.config.day || this.state.config.hour || this.state.config.minute)) &#123;</span><br><span class="line">          return;</span><br><span class="line">        &#125;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      default :</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 向对象里添加字段和删除字段</span><br><span class="line">     * 删除： 删除key &amp;&amp; value</span><br><span class="line">     * 添加： 添加key &amp;&amp; value</span><br><span class="line">     */</span><br><span class="line">    const reg = new RegExp(type, &apos;i&apos;);</span><br><span class="line">    let obj = &#123;&#125;;</span><br><span class="line">    const newConfig = &#123;&#125;;</span><br><span class="line">    const config = Immutable.fromJS(this.state.config.data).toJS();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    if (this.state.config[type]) &#123; //关闭时间按钮，去除timeFeature</span><br><span class="line">      _.forEach(config, (val, item1) =&gt; &#123;</span><br><span class="line">        obj[item1] = &#123;&#125;;</span><br><span class="line">        _.forEach(val, (val, item2) =&gt; &#123;</span><br><span class="line">          if (item2 === &apos;disabled&apos;) &#123;</span><br><span class="line">            obj[item1].disabled = val;</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            obj[item1][item2] = &#123;&#125;;</span><br><span class="line">            _.forEach(val, (val, item3) =&gt; &#123;</span><br><span class="line">              obj[item1][item2][item3] = &#123;&#125;;</span><br><span class="line">              _.forEach(val, (val, item4) =&gt; &#123;</span><br><span class="line">                if (!reg.test(item4)) &#123;</span><br><span class="line">                  obj[item1][item2][item3][item4] = val;</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;);</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      //组装newConfig</span><br><span class="line">      newConfig.data = obj;</span><br><span class="line">      newConfig.minute = (type !== &apos;minute&apos;) ? this.state.config.minute : !this.state.config[type];</span><br><span class="line">      newConfig.hour = (type !== &apos;hour&apos;) ? this.state.config.hour : !this.state.config[type];</span><br><span class="line">      newConfig.day = (type !== &apos;day&apos;) ? this.state.config.day : !this.state.config[type];</span><br><span class="line"></span><br><span class="line">      this.setState(&#123;config: newConfig, configChanged: true&#125;);</span><br><span class="line"></span><br><span class="line">    &#125; else if (!this.state.config[type]) &#123; //打开时间按钮，添加timeFeature</span><br><span class="line">      _.forEach(config, (val, item1) =&gt; &#123;</span><br><span class="line">        _.forEach(val, (val, item2) =&gt; &#123;</span><br><span class="line">          if (item2 !== &apos;disabled&apos;) &#123;</span><br><span class="line">            _.forEach(val, (val, item3) =&gt; &#123;</span><br><span class="line">              switch (type) &#123;</span><br><span class="line">                case &apos;minute&apos;: &#123;</span><br><span class="line">                  config[item1][item2][item3].oneMinute = &#123;</span><br><span class="line">                    disabled: false,</span><br><span class="line">                    value: item3 === &apos;anomaly&apos; ? 1 : &apos;&apos;</span><br><span class="line">                  &#125;;</span><br><span class="line">                  config[item1][item2][item3].fiveMinute = &#123;</span><br><span class="line">                    disabled: false,</span><br><span class="line">                    value: item3 === &apos;anomaly&apos; ? 1 : &apos;&apos;</span><br><span class="line">                  &#125;;</span><br><span class="line">                  config[item1][item2][item3].fifteenMinute = &#123;</span><br><span class="line">                    disabled: false,</span><br><span class="line">                    value: item3 === &apos;anomaly&apos; ? 1 : &apos;&apos;</span><br><span class="line">                  &#125;;</span><br><span class="line">                  break;</span><br><span class="line">                &#125;</span><br><span class="line">                case &apos;hour&apos;: &#123;</span><br><span class="line">                  config[item1][item2][item3].oneHour = &#123;</span><br><span class="line">                    disabled: false,</span><br><span class="line">                    value: item3 === &apos;anomaly&apos; ? 1 : &apos;&apos;</span><br><span class="line">                  &#125;;</span><br><span class="line">                  config[item1][item2][item3].sixHour = &#123;</span><br><span class="line">                    disabled: false,</span><br><span class="line">                    value: item3 === &apos;anomaly&apos; ? 1 : &apos;&apos;</span><br><span class="line">                  &#125;;</span><br><span class="line">                  break;</span><br><span class="line">                &#125;</span><br><span class="line">                case &apos;day&apos;: &#123;</span><br><span class="line">                  config[item1][item2][item3].oneDay = &#123;</span><br><span class="line">                    disabled: false,</span><br><span class="line">                    value: item3 === &apos;anomaly&apos; ? 1 : &apos;&apos;</span><br><span class="line">                  &#125;;</span><br><span class="line">                  config[item1][item2][item3].sevenDay = &#123;</span><br><span class="line">                    disabled: false,</span><br><span class="line">                    value: item3 === &apos;anomaly&apos; ? 1 : &apos;&apos;</span><br><span class="line">                  &#125;;</span><br><span class="line">                  break;</span><br><span class="line">                &#125;</span><br><span class="line">                default :</span><br><span class="line">                  break;</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      //组装newConfig</span><br><span class="line">      newConfig.data = config;</span><br><span class="line">      newConfig.minute = (type !== &apos;minute&apos;) ? this.state.config.minute : !this.state.config[type];</span><br><span class="line">      newConfig.hour = (type !== &apos;hour&apos;) ? this.state.config.hour : !this.state.config[type];</span><br><span class="line">      newConfig.day = (type !== &apos;day&apos;) ? this.state.config.day : !this.state.config[type];</span><br><span class="line"></span><br><span class="line">      this.setState(&#123;config: newConfig, configChanged: true&#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.自动填充数据逻辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * 后台的逻辑是anomaly或者value只能上传一个</span><br><span class="line"> *</span><br><span class="line"> * @param config</span><br><span class="line"> * @return newConfig</span><br><span class="line"> */</span><br><span class="line">autoFillConfig(config) &#123;</span><br><span class="line">  const newConfig = Immutable.fromJS(config).toJS();</span><br><span class="line">  const anomaly = &#123;</span><br><span class="line">    fiveMinute: &#123;disabled: false, value: 1&#125;,</span><br><span class="line">    oneMinute: &#123;disabled: false, value: 1&#125;,</span><br><span class="line">    sevenDay: &#123;disabled: false, value: 1&#125;,</span><br><span class="line">    oneHour: &#123;disabled: false, value: 1&#125;,</span><br><span class="line">    fifteenMinute: &#123;disabled: false, value: 1&#125;,</span><br><span class="line">    sixHour: &#123;disabled: false, value: 1&#125;,</span><br><span class="line">    oneDay: &#123;disabled: false, value: 1&#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  const value = &#123;</span><br><span class="line">    fiveMinute: &#123;disabled: false, value: &apos;&apos;&#125;,</span><br><span class="line">    oneMinute: &#123;disabled: false, value: &apos;&apos;&#125;,</span><br><span class="line">    sevenDay: &#123;disabled: false, value: &apos;&apos;&#125;,</span><br><span class="line">    oneHour: &#123;disabled: false, value: &apos;&apos;&#125;,</span><br><span class="line">    fifteenMinute: &#123;disabled: false, value: &apos;&apos;&#125;,</span><br><span class="line">    sixHour: &#123;disabled: false, value: &apos;&apos;&#125;,</span><br><span class="line">    oneDay: &#123;disabled: false, value: &apos;&apos;&#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  for (const key in anomaly) &#123;</span><br><span class="line">    if (!config.minute) &#123;</span><br><span class="line">      if ((/minute/i.test(key))) &#123;</span><br><span class="line">        delete anomaly[key];</span><br><span class="line">        delete value[key];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!config.hour) &#123;</span><br><span class="line">      if ((/hour/i.test(key))) &#123;</span><br><span class="line">        delete anomaly[key];</span><br><span class="line">        delete value[key];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (!config.day) &#123;</span><br><span class="line">      if ((/day/i.test(key))) &#123;</span><br><span class="line">        delete anomaly[key];</span><br><span class="line">        delete value[key];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  for (const akey in newConfig.data) &#123; //sameIPGeo</span><br><span class="line">    for (const bkey in newConfig.data[akey]) &#123;</span><br><span class="line">      if (bkey !== &apos;disabled&apos;) &#123; //transaction createAccount</span><br><span class="line">        if (newConfig.data[akey][bkey].anomaly) &#123;//value不存在</span><br><span class="line">          newConfig.data[akey][bkey].value = value;</span><br><span class="line">        &#125; else if (newConfig.data[akey][bkey].value) &#123;</span><br><span class="line">          newConfig.data[akey][bkey].anomaly = anomaly;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return newConfig;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>我需要一个state记录每次修改的下拉框类型，以便上传数据时剔除没有被选中的字段。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">case &apos;changeType&apos;: &#123;</span><br><span class="line">  const configDropSelectedType = Immutable.fromJS(this.state.configDropSelectedType).toJS();</span><br><span class="line">  if (!configDropSelectedType[feature][type][dropdownType]) &#123;</span><br><span class="line">    switch (dropdownType) &#123;</span><br><span class="line">      case &apos;value&apos;: &#123;</span><br><span class="line">        delete configDropSelectedType[feature][type].anomaly;</span><br><span class="line">        configDropSelectedType[feature][type][dropdownType] = true;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      case &apos;anomaly&apos;: &#123;</span><br><span class="line">        delete configDropSelectedType[feature][type].value;</span><br><span class="line">        configDropSelectedType[feature][type][dropdownType] = true;</span><br><span class="line">        break;</span><br><span class="line">      &#125;</span><br><span class="line">      default:</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    this.setState(&#123;configChanged: true&#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  this.setState(&#123;configDropSelectedType: configDropSelectedType&#125;);</span><br><span class="line">  break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>4.比较config和记录修改下拉框类型的state，上传数据<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//比较configDropSelectedType和config，去除多余的数据</span><br><span class="line">const config = Immutable.fromJS(this.state.config).toJS();</span><br><span class="line">for (const akey in config.data) &#123;</span><br><span class="line">  for (const bkey in config.data[akey]) &#123;</span><br><span class="line">    if (bkey !== &apos;disabled&apos;) &#123;</span><br><span class="line">      if (this.state.configDropSelectedType[akey][bkey].value) &#123;</span><br><span class="line">        delete config.data[akey][bkey].anomaly;</span><br><span class="line">      &#125; else if (this.state.configDropSelectedType[akey][bkey].anomaly) &#123;</span><br><span class="line">        delete config.data[akey][bkey].value;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>学习到一个技巧:修改原生dom的class样式:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const node = this.refs.promotion_bonus_fraud;</span><br><span class="line">node.classNmae = &apos;scene-content scene-content-2&apos;;</span><br><span class="line">node.setAttribute(&apos;class&apos;, &apos;scene-content scene-content-2&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>还有输入框内容校验等，不多赘述。</p>
+<p>至此，项目写完了。全部原生代码，没有使用任何UI组件库。原因是，觉得material-ui下拉框太丑，引入ant-design dropdown会导致bundle.js（未压缩）多了6M,权衡下手写了个下拉框组件，花了点时间。<br>其次就是组织业务事件频次的数据上花了不少时间。再一次深刻的感受了下，不合理的设计会给实现带来很大的困难。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/03/04/spring13小结/" data-id="ck7kig7j10018w495ax8m24mo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-数组去重" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/04/数组去重/" class="article-date">
+  <time datetime="2016-12-04T10:47:33.000Z" itemprop="datePublished">2016-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/04/数组去重/">数组去重</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#js数组去重<br>暴力做<a href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/题，报超时错误。从题库的输入看，测试数据一个范围在[-999,9999]，长度为21998的有序数组。剔除重复项后长度为10999。" target="_blank" rel="noopener">https://leetcode.com/problems/remove-duplicates-from-sorted-array/题，报超时错误。从题库的输入看，测试数据一个范围在[-999,9999]，长度为21998的有序数组。剔除重复项后长度为10999。</a></p>
+<p>####暴力代码：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removeDuplicates = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt; nums.length; i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> j = i + <span class="number">1</span>; j &lt; nums.length; j++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(nums[i] === nums[j])&#123;</span><br><span class="line">				nums.splice(j,<span class="number">1</span>);</span><br><span class="line">				j--; <span class="comment">//nums剔除了重复数，相应的j的index-1</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> nums.length;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>chrome控制台用了274ms，一般ACM超时不都是1000ms么。<br>假装自己会计算算法时间，两次循环用了O(n*n)，splice时间不知。</p>
+<p>####Object keys方法：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removeDuplicatesByObject = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> obj = &#123;&#125;;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">		obj[nums[i]] = <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> arr = <span class="built_in">Array</span>.from(<span class="built_in">Object</span>.keys(obj)); <span class="comment">//arr内容变成了string</span></span><br><span class="line">	<span class="built_in">console</span>.log(arr.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>平均耗时约12ms。</p>
+<p>####es6 Set方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removeDuplicatesBySet = <span class="function"><span class="keyword">function</span>(<span class="params">nums</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> arr = <span class="built_in">Array</span>.from(<span class="keyword">new</span> <span class="built_in">Set</span>(nums));</span><br><span class="line">	<span class="built_in">console</span>.log(arr.length);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>耗时26ms</p>
+<p>####看看lodash去重时间<br>4ms！！！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/12/04/数组去重/" data-id="ck7kig7io000xw495qpcgucnt" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-react-autoFocus问题总结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/23/react-autoFocus问题总结/" class="article-date">
+  <time datetime="2016-11-23T10:50:04.000Z" itemprop="datePublished">2016-11-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/23/react-autoFocus问题总结/">react autoFocus问题总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="react-autoFocus问题总结"><a href="#react-autoFocus问题总结" class="headerlink" title="react autoFocus问题总结"></a>react autoFocus问题总结</h1><p>标签（空格分隔）： react</p>
+<hr>
+<p>有个组件，展开时<code>input</code>需要自动focus.</p>
+<pre><code>&lt;MyComponent&gt;
+    &lt;input autoFocus = {true} /&gt;
+&lt;/MyComponent&gt;
+</code></pre><p>这样在组件加载后（componentDidMount）input可以自动focus了。<br>测试后发现，focus只会在<code>mounted</code>后触发，当nextProps来了之后就不能autoFocus了。</p>
+<p>解决办法：</p>
+<pre><code>class MyComponent exetends React.Component{
+    componentWillReceiveProps(nextProps){
+         //make sure render returned before following code
+         this.refs.input.focus();
+    }
+    componentDidMount(){
+        this.refs.input.focus();
+    }
+    render(){
+    &lt;input ref = &quot;input&quot;/&gt;
+}
+</code></pre><p>组件加载完成和收到nextProps后都调用一次focus(), ==,好像有更好的解决办法，=我查看一下react生命周期。15.4里<code>componentDidUpdate()</code>是个更好的选择。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/23/react-autoFocus问题总结/" data-id="ck7kig7ii000jw495g9lum6ol" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-to_my_friend_项目小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/04/to_my_friend_项目小结/" class="article-date">
+  <time datetime="2016-11-04T10:49:21.000Z" itemprop="datePublished">2016-11-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/04/to_my_friend_项目小结/">to my friend 小项目总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写在最前面：<br>一直想找个云服务器玩一玩。一些日子前下定决心买一个试试。一顿折腾后发现了新大陆，架了VPN，突然想到，放个页面到云上也不错。</p>
+<h3 id="选择哪家云"><a href="#选择哪家云" class="headerlink" title="选择哪家云"></a>选择哪家云</h3><p>国内阿里云很稳定，但是因为墙和价格，最终放弃。国外最先选中了AWS EC2，AWS一上来就让绑定信用卡，听说不少人被恶意消费掉了很多钱，因此又作废。DigitalOcean和LiNode最终选择了前者，送了10美刀，开了2个服务器，一个在SFC，一个在新加坡。新加坡连公司速度还行，服务器上访问主流网站简直是光速，之前每天大约会断4，5次，最近貌似好了。吐槽一句，家里用的是宽带通，访问服务器，说多了都是泪。未来很有可能尝试liNode.（后续添加），liNode不适合自己。</p>
+<h3 id="选择哪个操作系统"><a href="#选择哪个操作系统" class="headerlink" title="选择哪个操作系统"></a>选择哪个操作系统</h3><p>ubuntu16.0.4 我的地盘听我的。</p>
+<h3 id="架设VPN"><a href="#架设VPN" class="headerlink" title="架设VPN"></a>架设VPN</h3><p>1:<a href="https://www.digitalocean.com/community/tutorials/how-to-setup-your-own-vpn-with-pptp" target="_blank" rel="noopener">官方开启PPTP</a><br>2：<a href="http://jingyan.baidu.com/article/84b4f5653067d360f6da32cf.html" target="_blank" rel="noopener">mac vpn</a><br>想抽自己2巴掌，刚写的重启服务器后自动启动PPTP教程遗失了。</p>
+<h3 id="写个前端页面"><a href="#写个前端页面" class="headerlink" title="写个前端页面"></a>写个前端页面</h3><h5 id="前端页面用到的技术栈"><a href="#前端页面用到的技术栈" class="headerlink" title="前端页面用到的技术栈"></a>前端页面用到的技术栈</h5><p>UI: React + ReactDOM<br>路由：React-router<br>数据管理 ： Redux + Immutable<br>脚手架工具 ： npm + webpack<br>其他通用工具：babel + eslint + ReduxDevTool + ReactDevTool<br>异步： fetch + promise</p>
+<h5 id="前端架构"><a href="#前端架构" class="headerlink" title="前端架构"></a>前端架构</h5><p>写个简单页面可以用不到上面的技术，但是作为一个前端，接受组件化思想后，写出来的页面要可维护，好扩展。<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="页面架构图"><br>page ：每一个页面即为一个page<br>container：容器组件，Redux写在container里，管理多个component<br>component：展示组件</p>
+<p>经过博文的提点，我们认为一个container就是一个container是错误的。项目中发现，页面比较复杂是，container变得巨大无比，缺乏维护性。不如按逻辑拆成多个container，每个container dispatch事件和数据，container之间通过redux通信。componet即为展示组件。<code>个人认为，在不断细拆分组件和保持保持一定的组件杂糅之间折中，是一门艺术。</code></p>
+<h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><p>按照RESTful设计规范，使用fetch和promise解决异步。目前用不到身份验证和异常处理，因此这一部分处理的很简单。</p>
+<h3 id="后台设计"><a href="#后台设计" class="headerlink" title="后台设计"></a>后台设计</h3><p>重头戏来了，之前完全不了解后台，摸索了2个礼拜后，居然写出了个小后台。</p>
+<h5 id="后端用到的技术栈"><a href="#后端用到的技术栈" class="headerlink" title="后端用到的技术栈"></a>后端用到的技术栈</h5><p>服务器：koa koa-server<br>数据库：mongo<br>异步：generator + promise<br>爬虫：superagent + cheerio</p>
+<h5 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h5><p>1：数据库设计<br>想法很简单，爬百度贴吧数据，保留四个字段：</p>
+<pre><code>title ：帖子名
+star ： 被跟帖数量
+link ： 帖子的url链接
+date ： 最后回帖时间
+</code></pre><p>数据没什么价值，仅当练习。<br>2：mongo数据库的增删改查<br>自己写了个简单的驱动，先截断仅仅是满足了需求而已</p>
+<pre><code>var MongoClient = require(&apos;mongodb&apos;).MongoClient;
+// Connection URL
+var url = &apos;mongodb://localhost:27017/reptile&apos;;
+
+var insertDocuments = function (db, connectionName, data, callback) {
+  var collection = db.collection(connectionName);
+  collection.insertMany(data, function (err, result) {
+    callback(result);
+  });
+};
+
+var findDocuments = function (db, callback) {
+  var collection = db.collection(&apos;baidutieba&apos;);
+  collection.find({}).toArray(function (err, docs) {
+    callback(docs);
+  });
+};
+
+var removeDocument = function (db, callback) {
+  var collection = db.collection(&apos;video&apos;);
+  collection.remove({}, function (err, result) {
+    callback(result);
+  });
+};
+
+var updateDocument = function (db, callback) {
+  var collection = db.collection(&apos;video&apos;);
+  collection.updateOne({a: 2}
+    , {$set: {b: 1}}, function (err, result) {
+      callback(result);
+    });
+};
+
+var dropDocument = function (db, callback) {
+  var collection = db.collection(&apos;video&apos;);
+  collection.drop(null, function () {
+    console.log(&apos;drop video&apos;);
+  });
+};
+
+var mongoDriver = {
+  koaConnection: function (callback) {
+    return MongoClient.connect(url, function (err, db) {
+      assert.equal(null, err);
+      findDocuments(db, function (data) {
+        callback(data);
+        db.close();
+      });
+    });
+  },
+
+  writeToConnection: function (connectionName, data, callback) {
+    return MongoClient.connect(url, function (err, db) {
+      assert.equal(null, err);
+      insertDocuments(db, connectionName, data, function () {
+        callback();
+        db.close();
+      });
+    });
+  }
+};
+
+module.exports = mongoDriver;
+</code></pre><h5 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h5><p>基本思路：用superagent爬取数据，用cheerio清洗数据，用上面main的驱动写到数据库里。</p>
+<pre><code>var superagent = require(&apos;superagent&apos;);
+var charset = require(&apos;superagent-charset&apos;);
+var cheerio = require(&apos;cheerio&apos;);
+var async = require(&apos;async&apos;);
+
+var fs = require(&apos;fs&apos;);
+var request = require(&quot;request&quot;);
+var result = [];
+var pageUrl = [];
+
+charset(superagent);
+
+var mongoDriver = require(&apos;./server/mongodbApp&apos;);
+
+pageUrl.push(&apos;http://tieba.baidu.com/f?kw=%BA%A3%D4%F4%CD%F5&amp;fr=ala0&amp;tpl=5&apos;);
+
+function start() {
+  pageUrl.forEach((url, index) =&gt; {
+    superagent.get(url).end((err, res) =&gt; {
+      console.log(url);
+      if (err) {
+        console.log(&apos;error&apos;);
+      } else if (res) {
+        var $ = cheerio.load(res.text, {decodeEntities: false});
+        var contentList = $(&apos;body .j_thread_list&apos;);
+
+        console.log(contentList.length);
+        for (var i = 0; i &lt; contentList.length; i++) {
+          let obj = {
+            star: 0,
+            title: &apos;&apos;,
+            url: &apos;&apos;,
+            date: &apos;&apos;
+          };
+
+          var $liContent = cheerio.load(contentList[i], {decodeEntities: false});
+
+          obj.star = $liContent(&apos;.threadlist_rep_num&apos;).html();
+          obj.title = $liContent(&apos;.threadlist_title&gt;a&apos;).html();
+          obj.url = &apos;tieba.baidu.com&apos; + $liContent(&apos;.threadlist_title &gt; a&apos;).attr(&apos;href&apos;);
+          //百度里是最后的回复时间
+          if (!$liContent(&apos;.threadlist_reply_date&apos;).html()) {
+            obj.date = null;
+          } else {
+            obj.date = $liContent(&apos;.threadlist_reply_date&apos;).html().match(/\d\d:\d\d/)[0];
+          }
+          result.push(obj);
+        }
+        console.log(result);
+
+        mongoDriver.writeToConnection(&apos;baidutieba&apos;, result, function () {
+          console.log(&apos;write to baidutieba success&apos;);
+        });
+      }
+    });
+  });
+}
+
+start();
+</code></pre><p>在爬另一个编码为gb2312网页时中文显示为乱码。<br><a href="https://segmentfault.com/q/1010000007716929?_ea=1431934" target="_blank" rel="noopener">我的解决方法</a></p>
+<h5 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h5><p>逼着自己放弃express，投入koa怀抱。</p>
+<pre><code>var koa = require(&apos;koa&apos;);
+var router = require(&apos;koa-router&apos;)();
+var cors = require(&apos;koa-cors&apos;);
+var mongoDriver = require(&apos;./mongodbApp&apos;);
+var app = new koa();
+//一键搞定跨域
+app.use(cors());
+router.get(&apos;/video&apos;, function*(next) {
+    this.body = yield new Promise(function (resolve, reject) {
+      mongoDriver.koaConnection(function (data) {
+        resolve(data);
+      });
+    }).then(function (data) {
+      return data;
+    });
+  });
+app.use(router.routes()).use(router.allowedMethods());
+app.listen(3000, () =&gt; {
+    console.log(&apos;koa start!&apos;);
+});
+</code></pre><h3 id="最终效果："><a href="#最终效果：" class="headerlink" title="最终效果："></a>最终效果：</h3><p><img src="http://7xne0t.com1.z0.glb.clouddn.com/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt></p>
+<h3 id="补充：服务器端部署"><a href="#补充：服务器端部署" class="headerlink" title="补充：服务器端部署"></a>补充：服务器端部署</h3><p>没想到部署到服务器上也够我喝上一壶。遇到问题有3个：<br>1：如何本地写好代码后，一键部署到服务器上。现在还不知道，靠手工scp<br>2：服务器上npm install 报killed错误。因为512M内存不够用。使用了swap。<br>3：npm run build后，我的电脑可以打开，其他电脑不能打开。经过分析，是redux-dev-tool问题。通过环境变量一顿折腾后解决问题。</p>
+<h3 id="再补充"><a href="#再补充" class="headerlink" title="再补充"></a>再补充</h3><p>仿照阿里的rc组件库，手写了个乞丐版本的分页组件，同时写好了分页接口。but，发现自己不会写数据库分页查询。网上找到的绝大多教程都是node-mongose，于是想了个蠢方法，让接口看起来支持分页查询。。。。</p>
+<p>最终效果：</p>
+<h3 id="后记："><a href="#后记：" class="headerlink" title="后记："></a>后记：</h3><p>至此，前后端打通。自我膨胀一波。接下来需要改进的地方：<br>1：理解generator。服务器代码里的generator函数，是我试了一个晚上试出来的，到现在我还没搞懂为什么是这样的。为此，我显示回味了一遍generator函数语法逻辑，然后看了一眼《深入浅出NodeJS》里的异步章节，还是搞不懂，于是又看了一眼koa-router源码，koa源码，co源码，手动实现了一遍基础版co。虽然猪坚强，但是还是没搞懂。</p>
+<p>2：改进driver，现在的driver只能说能用，回调嵌套回调，想改写成promise方式，或者未来熟悉了generator，用generator也说不定。</p>
+<p>3：贴啊只是练手，接下来去扒一扒另一个网站，送给朋友们。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/04/to_my_friend_项目小结/" data-id="ck7kig7jb001bw495pp1ltzom" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-transform-bug" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/17/transform-bug/" class="article-date">
+  <time datetime="2016-10-17T10:46:19.000Z" itemprop="datePublished">2016-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/17/transform-bug/">transform bug</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#transform有毒<br><code>transform : translate(1px, 1px)</code>有毒，<code>translate</code>会导致<code>z-index</code>混乱，stackoverflow上有大神解析了原因：<a href="http://stackoverflow.com/questions/20851452/z-index-is-canceled-by-setting-transformrotate" target="_blank" rel="noopener">z-index is canceled by setting transform(rotate)</a>,奈何等级不够无法理解，不知道怎么去处理这个问题。那就只能绕过这个问题：实际项目中的需求是鼠标hover上去x轴上平移-2个像素，完全可以用<code>margin</code>去替代<code>transform</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">element&#123;</span><br><span class="line">    transition : margin <span class="number">1</span>s linear;</span><br><span class="line">    margin : <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br><span class="line">element:hover&#123;</span><br><span class="line">    margin : <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">-2</span>px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/17/transform-bug/" data-id="ck7kig7ij000mw495v5p8w6cp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/frontend/">frontend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inherit/">inherit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离职感言/">离职感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/frontend/" style="font-size: 20px;">frontend</a> <a href="/tags/inherit/" style="font-size: 10px;">inherit</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/reptile/" style="font-size: 15px;">reptile</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/离职感言/" style="font-size: 10px;">离职感言</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/随想/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/09/当缺点变成桎梏/">当缺点变成桎梏.md</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/一月记/">一月记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 pingfengafei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

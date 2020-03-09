@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>原生nodejs爬mdn | Quiet to go far！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="作者的一道题目：nodejs爬https://developer.mozilla.org/zh-CN/docs/Web/API, 把所有api对用的html文档保存在本地。 作者推荐使用node-fetch，cherrio，super-agent。因为我用过上述三者爬虫，这次打算使用原生api开发，刚好测试一下最近学习的正则表达式有没有长进。 原材料 ： https + fs + es6 + no">
+<meta name="keywords" content="frontend,nodejs,reptile">
+<meta property="og:type" content="article">
+<meta property="og:title" content="原生nodejs爬mdn">
+<meta property="og:url" content="http://yoursite.com/2017/07/31/原生nodejs爬mdn/index.html">
+<meta property="og:site_name" content="Quiet to go far！">
+<meta property="og:description" content="作者的一道题目：nodejs爬https://developer.mozilla.org/zh-CN/docs/Web/API, 把所有api对用的html文档保存在本地。 作者推荐使用node-fetch，cherrio，super-agent。因为我用过上述三者爬虫，这次打算使用原生api开发，刚好测试一下最近学习的正则表达式有没有长进。 原材料 ： https + fs + es6 + no">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-09T13:03:01.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原生nodejs爬mdn">
+<meta name="twitter:description" content="作者的一道题目：nodejs爬https://developer.mozilla.org/zh-CN/docs/Web/API, 把所有api对用的html文档保存在本地。 作者推荐使用node-fetch，cherrio，super-agent。因为我用过上述三者爬虫，这次打算使用原生api开发，刚好测试一下最近学习的正则表达式有没有长进。 原材料 ： https + fs + es6 + no">
+  
+    <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Quiet to go far！</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">高山仰止，景行行止。虽不能至，心向往之。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-原生nodejs爬mdn" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/31/原生nodejs爬mdn/" class="article-date">
+  <time datetime="2017-07-31T04:07:51.000Z" itemprop="datePublished">2017-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      原生nodejs爬mdn
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>作者的一道题目：<br><br>nodejs爬<a href="https://developer.mozilla.org/zh-CN/docs/Web/API" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/API</a>, 把所有api对用的html文档保存在本地。</p>
+<p>作者推荐使用node-fetch，cherrio，super-agent。因为我用过上述三者爬虫，这次打算使用原生api开发，刚好<br>测试一下最近学习的正则表达式有没有长进。</p>
+<p>原材料 ： https + fs + es6 + nodeV8.21</p>
+<h3 id="promise是上帝，promise是魔鬼"><a href="#promise是上帝，promise是魔鬼" class="headerlink" title="promise是上帝，promise是魔鬼"></a>promise是上帝，promise是魔鬼</h3><p>promise是上帝，只要是异步，完全可以用promise替代毁掉函数；promise是魔鬼，只要用了promise就得全盘用promise</p>
+<p>自己对promise在实际使用中的理解 <br><br>callback promise化<br><br>普通回调函数写法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myAwesomeAsyncMethod</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">  http.get(<span class="string">'url'</span>, (res)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(some condition)&#123;</span><br><span class="line">      callback(<span class="string">'success'</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      callback(<span class="string">'error'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>promise化回调函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myAwesomeAsyncMethod</span>(<span class="params">callback</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span>&#123;</span><br><span class="line">    http.get(<span class="string">'url'</span>, (res)=&gt;&#123;</span><br><span class="line">      <span class="keyword">if</span>(some condition)&#123;</span><br><span class="line">        resolve(<span class="string">'success'</span>)</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        reject(<span class="string">'error'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果用了promise需要全盘使用promise<br>这一点让人很不爽，一旦用了promise，代码中其他的异步操作统统需要promise化。</p>
+<p>promsie配合async await一起用<br>单纯的用promise和Promise.then一步步链式调用本质上和callback并没有太大区别，但是配合async await则<br>可以将异步函数改造成形式上的同步函数， 举个板栗：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fetchWebApi = <span class="keyword">async</span> (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> data = <span class="keyword">await</span> fetch(url)</span><br><span class="line">  <span class="keyword">let</span> apiList = getApiList(data)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> fetchAndSave = <span class="function">(<span class="params">apiName</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> (resolve, reject) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> data</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        data = <span class="keyword">await</span> fetch(<span class="string">`https://developer.mozilla.org<span class="subst">$&#123;apiName&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">await</span>  writeToLocal(apiName, data)</span><br><span class="line">        resolve()</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'error'</span>)</span><br><span class="line">        reject()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'apiList length : '</span> + apiList.length)</span><br><span class="line">  <span class="keyword">while</span> (count &lt; apiList.length) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> subApiList = apiList.slice(count, count + <span class="number">100</span>)</span><br><span class="line">      <span class="keyword">let</span> tmp = []</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; subApiList.length; i++) &#123;</span><br><span class="line">        tmp.push(fetchAndSave(subApiList[i]))</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">await</span> <span class="built_in">Promise</span>.all(tmp).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        count += subApiList.length</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'error '</span> + e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  stats(resultList)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchWebApi(url)</span><br></pre></td></tr></table></figure></p>
+<p>理由很简单： await修饰的函数必须要promise化。需要注意的是，使用到await的函数必须是async,<br>promise是promise，async是async，二者promsie对象接受的函数当然也可以用async修饰，参照fetchAndSave方法。</p>
+<h3 id="https请求"><a href="#https请求" class="headerlink" title="https请求"></a>https请求</h3><p>如果目标url是http，需要使用http模块，如果是https，需要使用https模块。使用http模块调用<br>https url会报错。</p>
+<p>实际问题中遇到重定向问题。[300, 400）之间的状态码是重定向，又细分301的永久重定向和302的临时重定向。对于2者和搜索引擎<br>的纠葛在此不做深入探讨。对于需求，只需要获取重定向后的url内容即可。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">await</span> fetch(res.headers.location)</span><br></pre></td></tr></table></figure></p>
+<p><code>res.headers.location</code>中包含了重定向的url</p>
+<p>获取数据用到的data事件很有趣，返回的data应该对应http的一个请求包。一堆请求包组成一个html文档。</p>
+<h3 id="清洗html文档，提取apiList"><a href="#清洗html文档，提取apiList" class="headerlink" title="清洗html文档，提取apiList"></a>清洗html文档，提取apiList</h3><p>当获取完成包含api的html文档后，下一步是要提取apiList。cherrio是node的jquery,api和jquery，zepto大同小异。<br>但是我们的目标是<s>没有蛀牙</s>不使用第三方库。我改怎样做呢？</p>
+<p>request.get返回html文档的字符串，如果在浏览器端，会被浏览器解析成dom树。服务端并不需要解析成dom树，只要从字符串中提取<br>api的路径。</p>
+<p>一开始观察，发现关键字段在<code>&lt;code&gt;API&lt;/code&gt;</code>中，正则用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> reg = <span class="regexp">/&lt;code&gt;.+?&lt;\/code&gt;/ig</span>  <span class="comment">//惰性匹配</span></span><br></pre></td></tr></table></figure></p>
+<p>注意全局搜索和利用?实现惰性匹配，否则会将开头的<code>&lt;code&gt;</code>和结尾<code>&lt;/code&gt;</code>之间的所有字符串一次性匹配。</p>
+<p>坑爹是的，code之间的字段并不能100%当时api的路径，老老实实用href里的字段，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> reg = <span class="regexp">/"\/zh-CN\/docs\/Web\/API\/.+?"/ig</span></span><br></pre></td></tr></table></figure></p>
+<p>自从刷了hackerrank里的大部分正则基础题后，写这些正则变得砍瓜切菜一样简单。</p>
+<h3 id="分布提取api文档"><a href="#分布提取api文档" class="headerlink" title="分布提取api文档"></a>分布提取api文档</h3><p>一共有748个api，如果for循环一次性请求会挂掉。从作者那里偷学了while用法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(some condition)&#123;</span><br><span class="line">  <span class="keyword">await</span> <span class="built_in">Promise</span>.all(partOfApiList)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里，Promise.all接受一个数组，数组的每个元素都是promise对象。于是又要promise化。</p>
+<h3 id="为什么只写入了747个文档？"><a href="#为什么只写入了747个文档？" class="headerlink" title="为什么只写入了747个文档？"></a>为什么只写入了747个文档？</h3><p>可能是99%的情况下永远少写入一个文档，只有一次测试的时候，5个请求写入3个文档，其他都是写入4个文档。测试很久之后才反应过来，<br>fs.writeFile也是个异步方法，需要promise化。</p>
+<p>至此，爬虫遇到的主要难点都写完了，我们实现了纯nodejs api爬虫。</p>
+<p>附录：百行代码就不开git仓库了：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Created by pingfengafei on 2017/7/30.</span></span><br><span class="line"><span class="comment"> * pure node.js api without any third part library</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> https = <span class="built_in">require</span>(<span class="string">'https'</span>)</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> url = <span class="string">'https://developer.mozilla.org/zh-CN/docs/Web/API'</span></span><br><span class="line"><span class="keyword">const</span> dir = <span class="string">'./web-api'</span></span><br><span class="line"><span class="keyword">const</span> resultList = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fetch = <span class="function">(<span class="params">url</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    https.get(url, <span class="keyword">async</span> (res) =&gt; &#123;</span><br><span class="line">      <span class="keyword">if</span> (res.statusCode !== <span class="number">200</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (res.statusCode &gt;= <span class="number">300</span> &amp;&amp; res.statusCode &lt; <span class="number">400</span>) &#123;</span><br><span class="line">          <span class="keyword">let</span> data = <span class="keyword">await</span> fetch(res.headers.location)</span><br><span class="line">          resolve(data)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          reject(<span class="string">'error code '</span> + res.statusCode)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> responseData = <span class="string">''</span></span><br><span class="line">        res.on(<span class="string">'data'</span>, (data) =&gt; &#123;</span><br><span class="line">          responseData += data</span><br><span class="line">        &#125;)</span><br><span class="line">        res.on(<span class="string">'end'</span>, () =&gt; &#123;</span><br><span class="line">          resolve(responseData)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getApiList = <span class="function"><span class="keyword">function</span> (<span class="params">content</span>) </span>&#123;</span><br><span class="line">  <span class="comment">//let reg = /&lt;code&gt;.+?&lt;\/code&gt;/ig  //惰性匹配  枣糕，code不是精确匹配</span></span><br><span class="line">  <span class="keyword">let</span> reg = <span class="regexp">/"\/zh-CN\/docs\/Web\/API\/.+?"/ig</span></span><br><span class="line">  <span class="keyword">let</span> arr = []</span><br><span class="line">  <span class="keyword">let</span> apiList = []</span><br><span class="line">  <span class="keyword">while</span> (arr = reg.exec(content)) &#123;</span><br><span class="line">    apiList.push(arr[<span class="number">0</span>].substring(<span class="number">1</span>, arr[<span class="number">0</span>].length - <span class="number">1</span>))</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> apiList</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> writeToLocal = <span class="keyword">async</span> (title, content) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    fs.writeFile(<span class="string">`<span class="subst">$&#123;dir&#125;</span>/<span class="subst">$&#123;title.substring(<span class="number">20</span>, title.length)&#125;</span>`</span>, content, (err) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> obj = &#123;&#125;</span><br><span class="line">      <span class="keyword">if</span> (err) &#123;</span><br><span class="line">        obj = &#123;</span><br><span class="line">          status: <span class="string">'error'</span>,</span><br><span class="line">          api: title</span><br><span class="line">        &#125;</span><br><span class="line">        reject()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        obj = &#123;</span><br><span class="line">          status: <span class="string">'success'</span>,</span><br><span class="line">          api: title,</span><br><span class="line">          path: <span class="string">`<span class="subst">$&#123;dir&#125;</span>/<span class="subst">$&#123;title&#125;</span>`</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      resultList.push(obj)</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> stats = <span class="function">(<span class="params">list</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//todo 调查实际是748，最后却只输出了747个文档</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'resultList length : '</span> + list.length)</span><br><span class="line">  fs.appendFile(<span class="string">'./stats.json'</span>, <span class="built_in">JSON</span>.stringify(list), (err) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(err)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> fetchWebApi = <span class="keyword">async</span> (url) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> data = <span class="keyword">await</span> fetch(url)</span><br><span class="line">  <span class="keyword">let</span> apiList = getApiList(data)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> fetchAndSave = <span class="function">(<span class="params">apiName</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> (resolve, reject) =&gt; &#123;</span><br><span class="line">      <span class="keyword">let</span> data</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">        data = <span class="keyword">await</span> fetch(<span class="string">`https://developer.mozilla.org<span class="subst">$&#123;apiName&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">await</span>  writeToLocal(apiName, data)</span><br><span class="line">        resolve()</span><br><span class="line">      &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'error'</span>)</span><br><span class="line">        reject()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> count = <span class="number">0</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'apiList length : '</span> + apiList.length)</span><br><span class="line">  <span class="keyword">while</span> (count &lt; apiList.length) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">let</span> subApiList = apiList.slice(count, count + <span class="number">100</span>)</span><br><span class="line">      <span class="keyword">let</span> tmp = []</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; subApiList.length; i++) &#123;</span><br><span class="line">        tmp.push(fetchAndSave(subApiList[i]))</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">await</span> <span class="built_in">Promise</span>.all(tmp).then(<span class="function">(<span class="params">result</span>) =&gt;</span> &#123;</span><br><span class="line">        count += subApiList.length</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'error '</span> + e)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  stats(resultList)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetchWebApi(url)</span><br></pre></td></tr></table></figure></p>
+<p>—————————–我是分割线———————————-</p>
+<p>作者小小的修改了代码：更严谨的代码，更抽象的逻辑和更高的可复用性</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/31/原生nodejs爬mdn/" data-id="ck7kig7jb001cw4951b5cai2s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/">reptile</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/08/03/vtmim重构/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          vtmim重构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/07/31/js类与继承/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">js 的类与继承</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/frontend/">frontend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inherit/">inherit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离职感言/">离职感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/frontend/" style="font-size: 20px;">frontend</a> <a href="/tags/inherit/" style="font-size: 10px;">inherit</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/reptile/" style="font-size: 15px;">reptile</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/离职感言/" style="font-size: 10px;">离职感言</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/随想/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/09/当缺点变成桎梏/">当缺点变成桎梏.md</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/一月记/">一月记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 pingfengafei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

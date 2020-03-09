@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>debug之旅--解决jsonwebtoken缺少包问题 | Quiet to go far！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="###debug之旅–解决jsonwebtoken缺少包问题。最近倒腾一个带有实验性质的小程序用到jsonwebtoken。 npm install jsonwebtoken，引入包后出错：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657">
+<meta property="og:type" content="article">
+<meta property="og:title" content="debug之旅--解决jsonwebtoken缺少包问题">
+<meta property="og:url" content="http://yoursite.com/2016/07/23/debug之旅-解决jsonwebtoken缺少包问题/index.html">
+<meta property="og:site_name" content="Quiet to go far！">
+<meta property="og:description" content="###debug之旅–解决jsonwebtoken缺少包问题。最近倒腾一个带有实验性质的小程序用到jsonwebtoken。 npm install jsonwebtoken，引入包后出错：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-09T13:03:01.256Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="debug之旅--解决jsonwebtoken缺少包问题">
+<meta name="twitter:description" content="###debug之旅–解决jsonwebtoken缺少包问题。最近倒腾一个带有实验性质的小程序用到jsonwebtoken。 npm install jsonwebtoken，引入包后出错：123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657">
+  
+    <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Quiet to go far！</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">高山仰止，景行行止。虽不能至，心向往之。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-debug之旅-解决jsonwebtoken缺少包问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/07/23/debug之旅-解决jsonwebtoken缺少包问题/" class="article-date">
+  <time datetime="2016-07-23T10:40:54.000Z" itemprop="datePublished">2016-07-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      debug之旅--解决jsonwebtoken缺少包问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###debug之旅–解决jsonwebtoken缺少包问题。<br>最近倒腾一个带有实验性质的小程序用到jsonwebtoken。 <br><br>npm install jsonwebtoken，引入包后出错：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/dns/</span>~<span class="regexp">/native-dns/</span>lib/server.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'dgram'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/dns/node_modules/native-dns/lib</span><br><span class="line"> @ ./~<span class="regexp">/dns/</span>~<span class="regexp">/native-dns/</span>lib/server.js <span class="number">23</span>:<span class="number">12</span><span class="number">-28</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/dns/</span>~<span class="regexp">/native-dns/</span>lib/platform.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'fs'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/dns/node_modules/native-dns/lib</span><br><span class="line"> @ ./~<span class="regexp">/dns/</span>~<span class="regexp">/native-dns/</span>lib/platform.js <span class="number">23</span>:<span class="number">9</span><span class="number">-22</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/dns/</span>~<span class="regexp">/native-dns/</span>lib/utils.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'dgram'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/dns/node_modules/native-dns/lib</span><br><span class="line"> @ ./~<span class="regexp">/dns/</span>~<span class="regexp">/native-dns/</span>lib/utils.js <span class="number">21</span>:<span class="number">12</span><span class="number">-28</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/native-dns-cache/</span>lookup.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'dgram'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/native-dns-cache</span><br><span class="line"> @ ./~<span class="regexp">/native-dns-cache/</span>lookup.js <span class="number">21</span>:<span class="number">12</span><span class="number">-28</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/tap/</span>lib/test.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'child_process'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/tap/lib</span><br><span class="line"> @ ./~<span class="regexp">/tap/</span>lib/test.js <span class="number">31</span>:<span class="number">12</span><span class="number">-36</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/tap/</span>lib/test.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'fs'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/tap/lib</span><br><span class="line"> @ ./~<span class="regexp">/tap/</span>lib/test.js <span class="number">35</span>:<span class="number">9</span><span class="number">-22</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/graceful-fs/g</span>raceful-fs.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'fs'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/graceful-fs</span><br><span class="line"> @ ./~<span class="regexp">/graceful-fs/g</span>raceful-fs.js <span class="number">1</span>:<span class="number">9</span><span class="number">-22</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/mkdirp/i</span>ndex.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'fs'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/mkdirp</span><br><span class="line"> @ ./~<span class="regexp">/mkdirp/i</span>ndex.js <span class="number">2</span>:<span class="number">9</span><span class="number">-22</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/graceful-fs/</span>fs.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'fs'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/graceful-fs</span><br><span class="line"> @ ./~<span class="regexp">/graceful-fs/</span>fs.js <span class="number">3</span>:<span class="number">9</span><span class="number">-22</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/convert-source-map/i</span>ndex.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'fs'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/convert-source-map</span><br><span class="line"> @ ./~<span class="regexp">/convert-source-map/i</span>ndex.js <span class="number">2</span>:<span class="number">9</span><span class="number">-22</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/glob-stream/</span>~<span class="regexp">/glob/g</span>lob.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'fs'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/glob-stream/node_modules/glob</span><br><span class="line"> @ ./~<span class="regexp">/glob-stream/</span>~<span class="regexp">/glob/g</span>lob.js <span class="number">43</span>:<span class="number">9</span><span class="number">-22</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/clone-stats/i</span>ndex.js</span><br><span class="line">Module not found: <span class="built_in">Error</span>: Cannot resolve <span class="built_in">module</span> <span class="string">'fs'</span> <span class="keyword">in</span> /Users/pingfengafei/Desktop/learn_luo/redux-learn/node_modules/clone-stats</span><br><span class="line"> @ ./~<span class="regexp">/clone-stats/i</span>ndex.js <span class="number">1</span>:<span class="number">11</span><span class="number">-24</span></span><br><span class="line"></span><br><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/constants-browserify/</span>constants.json</span><br><span class="line">Module parse failed: <span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/constants-browserify/constants.json Unexpected token (<span class="number">2</span>:<span class="number">12</span>)</span><br><span class="line">You may need an appropriate loader to handle <span class="keyword">this</span> file type.</span><br><span class="line"><span class="built_in">SyntaxError</span>: Unexpected token (<span class="number">2</span>:<span class="number">12</span>)</span><br><span class="line">    at Parser.pp.raise (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">923</span>:<span class="number">13</span>)</span><br><span class="line">    at Parser.pp.unexpected (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1490</span>:<span class="number">8</span>)</span><br><span class="line">    at Parser.pp.semicolon (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1469</span>:<span class="number">73</span>)</span><br><span class="line">    at Parser.pp.parseExpressionStatement (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1994</span>:<span class="number">8</span>)</span><br><span class="line">    at Parser.pp.parseStatement (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1772</span>:<span class="number">188</span>)</span><br><span class="line">    at Parser.pp.parseBlock (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">2009</span>:<span class="number">21</span>)</span><br><span class="line">    at Parser.pp.parseStatement (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1753</span>:<span class="number">19</span>)</span><br><span class="line">    at Parser.pp.parseTopLevel (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1666</span>:<span class="number">21</span>)</span><br><span class="line">    at Parser.parse (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1632</span>:<span class="number">17</span>)</span><br><span class="line">    at <span class="built_in">Object</span>.parse (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">885</span>:<span class="number">44</span>)</span><br><span class="line"> @ ./~<span class="regexp">/graceful-fs/</span>polyfills.js <span class="number">2</span>:<span class="number">16</span><span class="number">-36</span></span><br></pre></td></tr></table></figure></p>
+<p>一堆错误，说的是缺少必要包。stackoverflow上仅有的几个回答，意思是说在webpack中添加node字段：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">node: &#123;</span><br><span class="line">        tap: <span class="string">'empty'</span>,</span><br><span class="line">        net: <span class="string">'empty'</span>,</span><br><span class="line">        tls: <span class="string">'empty'</span>,</span><br><span class="line">        dns: <span class="string">'empty'</span>,</span><br><span class="line">        fs: <span class="string">'empty'</span>,</span><br><span class="line">        dgram: <span class="string">'empty'</span>,</span><br><span class="line">        child_process :<span class="string">'empty'</span></span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure></p>
+<p>上面添加了所有能忽略的字段，结果还是出现了问题：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">ERROR <span class="keyword">in</span> ./~<span class="regexp">/constants-browserify/</span>constants.json</span><br><span class="line">Module parse failed: <span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/constants-browserify/constants.json Unexpected token (<span class="number">2</span>:<span class="number">12</span>)</span><br><span class="line">You may need an appropriate loader to handle <span class="keyword">this</span> file type.</span><br><span class="line"><span class="built_in">SyntaxError</span>: Unexpected token (<span class="number">2</span>:<span class="number">12</span>)</span><br><span class="line">    at Parser.pp.raise (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">923</span>:<span class="number">13</span>)</span><br><span class="line">    at Parser.pp.unexpected (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1490</span>:<span class="number">8</span>)</span><br><span class="line">    at Parser.pp.semicolon (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1469</span>:<span class="number">73</span>)</span><br><span class="line">    at Parser.pp.parseExpressionStatement (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1994</span>:<span class="number">8</span>)</span><br><span class="line">    at Parser.pp.parseStatement (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1772</span>:<span class="number">188</span>)</span><br><span class="line">    at Parser.pp.parseBlock (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">2009</span>:<span class="number">21</span>)</span><br><span class="line">    at Parser.pp.parseStatement (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1753</span>:<span class="number">19</span>)</span><br><span class="line">    at Parser.pp.parseTopLevel (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1666</span>:<span class="number">21</span>)</span><br><span class="line">    at Parser.parse (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">1632</span>:<span class="number">17</span>)</span><br><span class="line">    at <span class="built_in">Object</span>.parse (<span class="regexp">/Users/</span>pingfengafei/Desktop/learn_luo/redux-learn/node_modules/acorn/dist/acorn.js:<span class="number">885</span>:<span class="number">44</span>)</span><br><span class="line"> @ ./~<span class="regexp">/graceful-fs/</span>polyfills.js <span class="number">2</span>:<span class="number">16</span><span class="number">-36</span></span><br></pre></td></tr></table></figure>
+<p>到这里我已经不想再追究下去了，fs，net等都是node自带的核心包，一般不可能找不到，事出反常必有妖。对比了工友的和老项目的package.json文件，发现了思路：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install jsonwebtoken --save</span><br><span class="line"><span class="comment">//安装的版本：</span></span><br><span class="line"><span class="string">"jsonwebtoken"</span>: <span class="string">"^7.1.6"</span>,</span><br></pre></td></tr></table></figure></p>
+<p>老项目用到的版本：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"jsonwebtoken"</span>: <span class="string">"^5.4.1"</span>,</span><br></pre></td></tr></table></figure></p>
+<p>果断删除掉7.1.6版本，手动安装5.4.1版本。it works！</p>
+<p>ps：配置node项最初是工友告诉我的，他配置后能够运行，但是到我这儿就不行了。初步怀疑是我用的package.json的安装包比较老，不兼容7.1.6版本。  magic！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/07/23/debug之旅-解决jsonwebtoken缺少包问题/" data-id="ck7kig7i60005w4958w72c7y2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/10/17/Immutable总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Immutable总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/18/小随笔/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">小随笔</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/frontend/">frontend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inherit/">inherit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离职感言/">离职感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/frontend/" style="font-size: 20px;">frontend</a> <a href="/tags/inherit/" style="font-size: 10px;">inherit</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/reptile/" style="font-size: 15px;">reptile</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/离职感言/" style="font-size: 10px;">离职感言</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/随想/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/09/当缺点变成桎梏/">当缺点变成桎梏.md</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/一月记/">一月记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 pingfengafei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

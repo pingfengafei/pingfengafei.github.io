@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>es6 promise &amp;&amp; fetch | Quiet to go far！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="初次看阮一峰写的es6 promise和MDN文档里写的promise总有点云里雾里的感觉，一方面是自己心浮气躁，更多的是自己火候没到。自己看了个总结很好的es6 promise总结谈谈 ES6 的 Promise 对象。Talk is cheap, show me the code：12345678910111213141516function testPromise(src) &amp;#123;	r">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6 promise &amp;&amp; fetch">
+<meta property="og:url" content="http://yoursite.com/2016/10/17/es6-promise-fetch/index.html">
+<meta property="og:site_name" content="Quiet to go far！">
+<meta property="og:description" content="初次看阮一峰写的es6 promise和MDN文档里写的promise总有点云里雾里的感觉，一方面是自己心浮气躁，更多的是自己火候没到。自己看了个总结很好的es6 promise总结谈谈 ES6 的 Promise 对象。Talk is cheap, show me the code：12345678910111213141516function testPromise(src) &amp;#123;	r">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-09T13:03:01.256Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="es6 promise &amp;&amp; fetch">
+<meta name="twitter:description" content="初次看阮一峰写的es6 promise和MDN文档里写的promise总有点云里雾里的感觉，一方面是自己心浮气躁，更多的是自己火候没到。自己看了个总结很好的es6 promise总结谈谈 ES6 的 Promise 对象。Talk is cheap, show me the code：12345678910111213141516function testPromise(src) &amp;#123;	r">
+  
+    <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Quiet to go far！</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">高山仰止，景行行止。虽不能至，心向往之。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-es6-promise-fetch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/17/es6-promise-fetch/" class="article-date">
+  <time datetime="2016-10-17T10:45:07.000Z" itemprop="datePublished">2016-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      es6 promise &amp;&amp; fetch
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>初次看阮一峰写的es6 promise和MDN文档里写的promise总有点云里雾里的感觉，一方面是自己心浮气躁，更多的是自己火候没到。自己看了个总结很好的es6 promise总结<a href="https://segmentfault.com/a/1190000002928371" target="_blank" rel="noopener">谈谈 ES6 的 Promise 对象</a>。<br>Talk is cheap, show me the code：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">testPromise</span>(<span class="params">src</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (src === <span class="string">'hello'</span>) &#123;</span><br><span class="line">			resolve(src);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			reject(src);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">testPromise(<span class="string">'hello world'</span>).then(<span class="function">(<span class="params">src</span>)=&gt;</span> &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(src);</span><br><span class="line">&#125;, (src)=&gt; &#123;</span><br><span class="line">	<span class="built_in">console</span>.log(src);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>promise对象有三种状态：pendding,fulfilled和rejected状态。初始化创建一个promise对象，其状态为pendding，promise对象的参数是一个函数，该函数有2个参数，第一个是resolve，第二个是reject。这2个参数都是函数。调用resolve函数，会将pendding状态变成fulfilled状态，调用rejected函数会变成rejected状态。如果是fulfilled,则调用then的第一个函数参数，rejected调用then的第二个函数参数。then方法返回一个新的promise对象（此时新的对象为pendding），一路链式调用then下去。<br><code>attention :</code><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">then(resolve).catch(reject);</span><br><span class="line">等价于</span><br><span class="line">then.(resolve).then(<span class="literal">null</span>, reject);</span><br></pre></td></tr></table></figure></p>
+<p>工程中，异步调用通常会在请求后台API接口。在想去，一招jQuery.ajax+回调函数吃遍所有接口。现在featch是个更好的选择。<br>BOM window提供了fetch接口,返回一个promise对象，nice，可以和promise组合使用了。</p>
+<p><code>为什么要用fetch取代XMLHttpRequest</code>？<br><code>featch(url,option)</code><br>原始的featch写法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//原始config</span><br><span class="line">url = &apos;www.baidu.com&apos;;</span><br><span class="line">options = &#123;</span><br><span class="line">	method : &apos;post&apos;,</span><br><span class="line">	headers : &#123;</span><br><span class="line">		&apos;Content-Type&apos; :&apos;application/json&apos;,</span><br><span class="line">		&apos;Authorization&apos; : `JWT $&#123;token&#125;`,</span><br><span class="line">		&apos;Acception&apos; : &apos;application/json&apos;</span><br><span class="line"> 	&#125;，</span><br><span class="line"> 	body:json.stringfy(payload)</span><br><span class="line">&#125;</span><br><span class="line">fetch(url, options).then();</span><br></pre></td></tr></table></figure></p>
+<p>fetch还有<code>request</code>,<code>header</code>,<code>response</code>对象，但是我不喜欢这些对象，层层用类抽象，最终等价于url和options参数。不如后者来的简单直接。</p>
+<p>现在fetch还不支持全系IE浏览器，chrome从42版本开始，safari从10开始。脊梁吓出了一身冷汗，现在mofa后端用的是fetch。还好用了pollyfill :<a href="https://github.com/github/fetch" target="_blank" rel="noopener">whatwg-fetch</a>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/17/es6-promise-fetch/" data-id="ck7kig7i80007w4955u1fnzdu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/10/17/transform-bug/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          transform bug
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/17/Immutable总结/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Immutable总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/frontend/">frontend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inherit/">inherit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离职感言/">离职感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/frontend/" style="font-size: 20px;">frontend</a> <a href="/tags/inherit/" style="font-size: 10px;">inherit</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/reptile/" style="font-size: 15px;">reptile</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/离职感言/" style="font-size: 10px;">离职感言</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/随想/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/09/当缺点变成桎梏/">当缺点变成桎梏.md</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/一月记/">一月记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 pingfengafei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

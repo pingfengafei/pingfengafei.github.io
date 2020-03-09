@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>js深度拷贝 | Quiet to go far！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="仿佛记得几个月前前端面试的时候，被问到js浅拷贝深拷贝问题。直到现在我也没很明白浅拷贝深拷贝具体指代什么。anyway，在高大上名词下技术才是本质。 12345var a = 1;var b = a;b = 2;console.log(a);		//1console.log(b);		//2 js基本变量Underfined，Boolean，Number，String Null是传值复制。但是js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js深度拷贝">
+<meta property="og:url" content="http://yoursite.com/2015/10/09/js深度拷贝/index.html">
+<meta property="og:site_name" content="Quiet to go far！">
+<meta property="og:description" content="仿佛记得几个月前前端面试的时候，被问到js浅拷贝深拷贝问题。直到现在我也没很明白浅拷贝深拷贝具体指代什么。anyway，在高大上名词下技术才是本质。 12345var a = 1;var b = a;b = 2;console.log(a);		//1console.log(b);		//2 js基本变量Underfined，Boolean，Number，String Null是传值复制。但是js">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-03-09T13:03:01.258Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js深度拷贝">
+<meta name="twitter:description" content="仿佛记得几个月前前端面试的时候，被问到js浅拷贝深拷贝问题。直到现在我也没很明白浅拷贝深拷贝具体指代什么。anyway，在高大上名词下技术才是本质。 12345var a = 1;var b = a;b = 2;console.log(a);		//1console.log(b);		//2 js基本变量Underfined，Boolean，Number，String Null是传值复制。但是js">
+  
+    <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Quiet to go far！</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">高山仰止，景行行止。虽不能至，心向往之。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-js深度拷贝" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/09/js深度拷贝/" class="article-date">
+  <time datetime="2015-10-09T06:26:27.000Z" itemprop="datePublished">2015-10-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      js深度拷贝
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>仿佛记得几个月前前端面试的时候，被问到js浅拷贝深拷贝问题。直到现在我也没很明白浅拷贝深拷贝具体指代什么。anyway，在高大上名词下技术才是本质。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);		<span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(b);		<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>js基本变量Underfined，Boolean，Number，String Null是传值复制。但是js对象却是拷贝复制。原因想一想也就明白了，对象和类一样，太占用内存了，js对象复制和C++类似，传递的是指针地址。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">num</span> : <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b.num = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.num);		<span class="comment">//2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.num);		<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>因为b地址指向a，当b属性被更改时，也修改了a属性。</p>
+<p>解决方法：深度拷贝。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	 <span class="function"><span class="keyword">function</span> <span class="title">clone</span>(<span class="params">Obj</span>) </span>&#123;   </span><br><span class="line">        <span class="keyword">var</span> buf;   </span><br><span class="line">        <span class="keyword">if</span> (Obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>)&#123;   </span><br><span class="line">            buf = [];  <span class="comment">//创建一个空的数组 </span></span><br><span class="line">            <span class="keyword">var</span> i = Obj.length;   </span><br><span class="line">            <span class="keyword">while</span> (i--) &#123;   </span><br><span class="line">                buf[i] = clone(Obj[i]);   </span><br><span class="line">            &#125;   </span><br><span class="line">            <span class="keyword">return</span> buf;   </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (Obj <span class="keyword">instanceof</span> <span class="built_in">Object</span>)&#123;   </span><br><span class="line">            buf = &#123;&#125;;  <span class="comment">//创建一个空对象 </span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> Obj) &#123;  <span class="comment">//为这个对象添加新的属性 </span></span><br><span class="line">                buf[k] = clone(Obj[k]);   </span><br><span class="line">            &#125;   </span><br><span class="line">            <span class="keyword">return</span> buf;   </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;   </span><br><span class="line">            <span class="keyword">return</span> Obj;   </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> a = &#123;<span class="attr">a</span> : <span class="number">1</span>, <span class="attr">b</span> : <span class="number">2</span>&#125;;</span><br><span class="line">	<span class="keyword">var</span> b = clone(a);</span><br><span class="line">	b.a = <span class="number">3</span>;</span><br><span class="line">	b.b = <span class="number">4</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(a.a);       <span class="comment">//1</span></span><br><span class="line">	<span class="built_in">console</span>.log(a.b);       <span class="comment">//2      </span></span><br><span class="line">	<span class="built_in">console</span>.log(b.a);       <span class="comment">//3</span></span><br><span class="line">	<span class="built_in">console</span>.log(b.b);       <span class="comment">//4</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/09/js深度拷贝/" data-id="ck7kig7ie000ew495eoikgedc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/09/js变量提升/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          js变量提升
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/01/hello-gitHub/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello gitHub</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/frontend/">frontend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inherit/">inherit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离职感言/">离职感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/frontend/" style="font-size: 20px;">frontend</a> <a href="/tags/inherit/" style="font-size: 10px;">inherit</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/reptile/" style="font-size: 15px;">reptile</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/离职感言/" style="font-size: 10px;">离职感言</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/随想/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/09/当缺点变成桎梏/">当缺点变成桎梏.md</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/一月记/">一月记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 pingfengafei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

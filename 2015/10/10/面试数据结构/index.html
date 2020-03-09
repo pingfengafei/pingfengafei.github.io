@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>各种面试题 | Quiet to go far！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="标签（空格分隔）： 数据结构 二叉树  根据守恒定律，智商和情商的总和是守恒的。你的高情商高智商和我的低情商低智商维持了世界和平。 ##二叉树 一颗只有左右子节点的数。n层二叉树节点最大个数：2^n-1 ###完全二叉树n层二叉树，n-1层节点全满，第n层节点满足从左往右依次排列。 ###平衡二叉树左右2棵子数高度差小于等于一。 ###前序遍历，中序遍历，后序遍历前序遍历：父节点–&amp;gt;左节点–">
+<meta property="og:type" content="article">
+<meta property="og:title" content="各种面试题">
+<meta property="og:url" content="http://yoursite.com/2015/10/10/面试数据结构/index.html">
+<meta property="og:site_name" content="Quiet to go far！">
+<meta property="og:description" content="标签（空格分隔）： 数据结构 二叉树  根据守恒定律，智商和情商的总和是守恒的。你的高情商高智商和我的低情商低智商维持了世界和平。 ##二叉树 一颗只有左右子节点的数。n层二叉树节点最大个数：2^n-1 ###完全二叉树n层二叉树，n-1层节点全满，第n层节点满足从左往右依次排列。 ###平衡二叉树左右2棵子数高度差小于等于一。 ###前序遍历，中序遍历，后序遍历前序遍历：父节点–&amp;gt;左节点–">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://img.my.csdn.net/uploads/201112/30/0_13252292548L6c.gif">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/AVL_1.jpg">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/AVL_2.jpg">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/AVL_3.jpg">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/AVL_4.jpg">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/201112231832079219[1].png">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/20111223183207124[1].png">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/201112231832082109[1].jpg">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/201112231832085730[1].jpg">
+<meta property="og:updated_time" content="2020-03-09T13:03:01.266Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="各种面试题">
+<meta name="twitter:description" content="标签（空格分隔）： 数据结构 二叉树  根据守恒定律，智商和情商的总和是守恒的。你的高情商高智商和我的低情商低智商维持了世界和平。 ##二叉树 一颗只有左右子节点的数。n层二叉树节点最大个数：2^n-1 ###完全二叉树n层二叉树，n-1层节点全满，第n层节点满足从左往右依次排列。 ###平衡二叉树左右2棵子数高度差小于等于一。 ###前序遍历，中序遍历，后序遍历前序遍历：父节点–&amp;gt;左节点–">
+<meta name="twitter:image" content="http://img.my.csdn.net/uploads/201112/30/0_13252292548L6c.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Quiet to go far！</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">高山仰止，景行行止。虽不能至，心向往之。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-面试数据结构" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/10/面试数据结构/" class="article-date">
+  <time datetime="2015-10-10T08:06:59.000Z" itemprop="datePublished">2015-10-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      各种面试题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>标签（空格分隔）： 数据结构 二叉树</p>
+<hr>
+<p>根据守恒定律，智商和情商的总和是守恒的。你的高情商高智商和我的低情商低智商维持了世界和平。</p>
+<p>##二叉树</p>
+<p>一颗只有左右子节点的数。n层二叉树节点最大个数：<code>2^n-1</code></p>
+<p>###完全二叉树<br>n层二叉树，n-1层节点全满，第n层节点满足从左往右依次排列。</p>
+<p>###平衡二叉树<br>左右2棵子数高度差小于等于一。</p>
+<p>###前序遍历，中序遍历，后序遍历<br>前序遍历：父节点–&gt;左节点–&gt;右节点<br>中序遍历：左节点–&gt;父节点–&gt;右节点<br>后序遍历：左节点–&gt;右节点–&gt;父节点</p>
+<p>例：<br><img src="http://img.my.csdn.net/uploads/201112/30/0_13252292548L6c.gif" alt><br>前序遍历：ABCDEGF<br>中序遍历：CBEGDFA<br>后序遍历：CGEFDBA</p>
+<p>笔试过程中经常遇到知道2个遍历求第三个遍历<br>解题思路上，抓住父节点所在的位置，能够画出二叉树，求出第三种遍历。</p>
+<p>平衡二叉树面试题<br>n个节点二叉树，理想二叉树的操作时间是O(logn)，但是极限状态下二叉树变成一条直线时时间变成O(n)，平衡二叉树能够稳定时间在o(logn)</p>
+<p>插入新节点，调整二叉树：<br>(1)LL型。插入位置为左子树的左结点，进行向右旋转 </p>
+<p><img src="http://7xne0t.com1.z0.glb.clouddn.com/AVL_1.jpg" alt><br>(2)RR型。插入位置为右子树的右孩子，进行向左旋转<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/AVL_2.jpg" alt><br>(3)LR型。插入位置为左子树的右孩子，要进行两次旋转，先左旋转，再右旋转；第一次最小不平衡子树的根结点先不动，调整插入结点所在的子树，第二次再调整最小不平衡子树。<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/AVL_3.jpg" alt><br>(4)RL型。插入位置为右子树的左孩子，进行两次调整，先右旋转再左旋转。<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/AVL_4.jpg" alt></p>
+<p><code>哎嘿嘿，发现md语法不支持解析带中文名的img url！！！</code></p>
+<p>哈夫曼树与哈夫曼编码<br>哈夫曼树：带权路径最短树。<br>对于给定权值w=（w1，w2…wn）的n个节点哈夫曼树。<br>从n个节点中选取最小的2个节点wa，wb.计算wa+wb得到新的节点，将wa,wb从w集合中删除，wab插入集合w中<br>重复进行上述步骤。<br>假设w = {5,4,3,2,1}构造哈夫曼树<br>1:<img src="http://7xne0t.com1.z0.glb.clouddn.com/201112231832079219[1].png" alt></p>
+<p>2:<img src="http://7xne0t.com1.z0.glb.clouddn.com/20111223183207124[1].png" alt></p>
+<p>3:<img src="http://7xne0t.com1.z0.glb.clouddn.com/201112231832082109[1].jpg" alt></p>
+<p>4:<img src="http://7xne0t.com1.z0.glb.clouddn.com/201112231832085730[1].jpg" alt></p>
+<p>那么，D的霍夫曼编码：011</p>
+<p>#DOS攻击。<br>denial of service.<br>攻击者向服务器发送大量http请求，阻塞其他用户正常http请求。<br>好理解：我派一帮流氓堵住了饭店门口，正常客人就进不来吃饭了。<br>DDOS攻击<br>由于攻击者势单力薄，单个攻击服务器很难对拥有较大带宽的服务器发送足够多的http攻击，于是采用分布式方式，来，先搞100000台服务器。</p>
+<p>cookie vs localStorage vs sessionStorage</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th style="text-align:center">cookie</th>
+<th style="text-align:center">localStorage</th>
+<th style="text-align:center">sessionStorage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生命周期</td>
+<td style="text-align:center">由服务器设置时间，默认在浏览器关闭后失效</td>
+<td style="text-align:center">永久存储</td>
+<td style="text-align:center">当前页面关闭页面失效</td>
+</tr>
+<tr>
+<td>大小</td>
+<td style="text-align:center">4K</td>
+<td style="text-align:center">5M</td>
+<td style="text-align:center">5M</td>
+</tr>
+<tr>
+<td>与服务器通信</td>
+<td style="text-align:center">每次http请求都携带cookie</td>
+<td style="text-align:center">无通信，仅存储于客户端</td>
+<td style="text-align:center">无通信，仅存储于客户端</td>
+</tr>
+</tbody>
+</table>
+<p>综上，通常生命周期时间：sessionStorage &lt; cookie &lt; localStorage<br>因为cookie每次都要携带在http中，所以4K也挺大了。性能优化上可以控制cookie大小。<br><code>吐槽一句，md画表格还真是奇葩啊</code></p>
+<p>#javascript模块化开发<br>js发展状态，代码多了，需要模块化<br>CommadJS vs AMD<br>Asynchronous Module Definition 浏览器段开发规范<br>CommadJS服务端开发规范</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/10/面试数据结构/" data-id="ck7kig7is0017w495gyp2ffrr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/11/支持markdown表格/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          hexo markdown支持表格
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/09/搭建github博客走过的路/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">搭建github博客走过的路</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/frontend/">frontend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inherit/">inherit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离职感言/">离职感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/frontend/" style="font-size: 20px;">frontend</a> <a href="/tags/inherit/" style="font-size: 10px;">inherit</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/reptile/" style="font-size: 15px;">reptile</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/离职感言/" style="font-size: 10px;">离职感言</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/随想/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/09/当缺点变成桎梏/">当缺点变成桎梏.md</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/一月记/">一月记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 pingfengafei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

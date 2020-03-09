@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Quiet to go far！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Quiet to go far！">
+<meta property="og:url" content="http://yoursite.com/page/5/index.html">
+<meta property="og:site_name" content="Quiet to go far！">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quiet to go far！">
+  
+    <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Quiet to go far！</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">高山仰止，景行行止。虽不能至，心向往之。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-跨域请求" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/12/跨域请求/" class="article-date">
+  <time datetime="2015-10-12T07:19:19.000Z" itemprop="datePublished">2015-10-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/12/跨域请求/">跨域请求</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>js同源策略：js脚本只能读取同一源的窗口和文档信息。同一源：相同url:协议+域名+端口<br><img src="http://images.cnitblog.com/blog/130623/201307/15184525-747de461b3b14f938b443e72ea25b25a.png" alt><br>安全性。<br>不同源请求会出现js跨域请求。不能使用ajax访问不同源文档<br>1：jsonp跨域<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	function foo(jsondata)&#123;</span><br><span class="line">		//do something</span><br><span class="line">	&#125;</span><br><span class="line">	&lt;script src = &apos;url/data.php?callback=foo&apos;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;?php</span><br><span class="line">	$callback = $_GET(&apos;callback&apos;);</span><br><span class="line">	$data = array(&apos;12121212&apos;);</span><br><span class="line">	echo $callback(&apos;.json.encode($data).&apos;)</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>script src引入url，callback返回数据。就可以访问data了。</p>
+<p>2：修改document.domain来实现跨子域</p>
+<p>3：window.name实现跨域<br>4：html5：window.postMessage实现跨域</p>
+<p>参考：<a href="http://www.cnblogs.com/2050/p/3191744.html" target="_blank" rel="noopener">http://www.cnblogs.com/2050/p/3191744.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/12/跨域请求/" data-id="ck7kig7ir0013w495nyws6yvu" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="hexo-支持markdown表格" class="article article-type-hexo" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/11/支持markdown表格/" class="article-date">
+  <time datetime="2015-10-11T14:54:49.000Z" itemprop="datePublished">2015-10-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/11/支持markdown表格/">hexo markdown支持表格</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>今天遇到md编写表格问题。本地预览无法正确显示表格。又是一番折腾。不过倒是理清楚了很多思路。<br>github page原生支持Jekyll,使用的md解析器是redcarpet，但是hexo不支持啊。hexo的做法，现在本地安装各种modules插件，然后一句<code>hexo generate</code>生成pulic文件夹。public里是纯网页文本。上传到repository中即可。</p>
+<p>hexo使用<code>hexo-renderer-marked</code>解释器，开启支持tables，配置_comfig.yml文件：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">marked:</span><br><span class="line">  gfm: <span class="literal">true</span></span><br><span class="line">  pedantic: <span class="literal">false</span></span><br><span class="line">  sanitize: <span class="literal">false</span></span><br><span class="line">  tables: <span class="literal">true</span></span><br><span class="line">  breaks: <span class="literal">true</span></span><br><span class="line">  smartLists: <span class="literal">true</span></span><br><span class="line">  smartypants: <span class="literal">true</span></span><br></pre></td></tr></table></figure></p>
+<p><code>ps:再次吐槽一下yml语法，marked前面不能有空格，联系到：后面必须有空格</code>。想一想也是醉了。</p>
+<p>but，wait，配置好了，刷新页面，为什么还是无法显示表格？<br>联想到grunt watch文件，只有文件被改动后才会重新解析一遍文件。于是在md中加了个空行。<br>yes，it worked！<br>well done！！！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/11/支持markdown表格/" data-id="ck7kig7io000ww495ibau6ai1" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-面试数据结构" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/10/面试数据结构/" class="article-date">
+  <time datetime="2015-10-10T08:06:59.000Z" itemprop="datePublished">2015-10-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/10/面试数据结构/">各种面试题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>标签（空格分隔）： 数据结构 二叉树</p>
+<hr>
+<p>根据守恒定律，智商和情商的总和是守恒的。你的高情商高智商和我的低情商低智商维持了世界和平。</p>
+<p>##二叉树</p>
+<p>一颗只有左右子节点的数。n层二叉树节点最大个数：<code>2^n-1</code></p>
+<p>###完全二叉树<br>n层二叉树，n-1层节点全满，第n层节点满足从左往右依次排列。</p>
+<p>###平衡二叉树<br>左右2棵子数高度差小于等于一。</p>
+<p>###前序遍历，中序遍历，后序遍历<br>前序遍历：父节点–&gt;左节点–&gt;右节点<br>中序遍历：左节点–&gt;父节点–&gt;右节点<br>后序遍历：左节点–&gt;右节点–&gt;父节点</p>
+<p>例：<br><img src="http://img.my.csdn.net/uploads/201112/30/0_13252292548L6c.gif" alt><br>前序遍历：ABCDEGF<br>中序遍历：CBEGDFA<br>后序遍历：CGEFDBA</p>
+<p>笔试过程中经常遇到知道2个遍历求第三个遍历<br>解题思路上，抓住父节点所在的位置，能够画出二叉树，求出第三种遍历。</p>
+<p>平衡二叉树面试题<br>n个节点二叉树，理想二叉树的操作时间是O(logn)，但是极限状态下二叉树变成一条直线时时间变成O(n)，平衡二叉树能够稳定时间在o(logn)</p>
+<p>插入新节点，调整二叉树：<br>(1)LL型。插入位置为左子树的左结点，进行向右旋转 </p>
+<p><img src="http://7xne0t.com1.z0.glb.clouddn.com/AVL_1.jpg" alt><br>(2)RR型。插入位置为右子树的右孩子，进行向左旋转<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/AVL_2.jpg" alt><br>(3)LR型。插入位置为左子树的右孩子，要进行两次旋转，先左旋转，再右旋转；第一次最小不平衡子树的根结点先不动，调整插入结点所在的子树，第二次再调整最小不平衡子树。<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/AVL_3.jpg" alt><br>(4)RL型。插入位置为右子树的左孩子，进行两次调整，先右旋转再左旋转。<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/AVL_4.jpg" alt></p>
+<p><code>哎嘿嘿，发现md语法不支持解析带中文名的img url！！！</code></p>
+<p>哈夫曼树与哈夫曼编码<br>哈夫曼树：带权路径最短树。<br>对于给定权值w=（w1，w2…wn）的n个节点哈夫曼树。<br>从n个节点中选取最小的2个节点wa，wb.计算wa+wb得到新的节点，将wa,wb从w集合中删除，wab插入集合w中<br>重复进行上述步骤。<br>假设w = {5,4,3,2,1}构造哈夫曼树<br>1:<img src="http://7xne0t.com1.z0.glb.clouddn.com/201112231832079219[1].png" alt></p>
+<p>2:<img src="http://7xne0t.com1.z0.glb.clouddn.com/20111223183207124[1].png" alt></p>
+<p>3:<img src="http://7xne0t.com1.z0.glb.clouddn.com/201112231832082109[1].jpg" alt></p>
+<p>4:<img src="http://7xne0t.com1.z0.glb.clouddn.com/201112231832085730[1].jpg" alt></p>
+<p>那么，D的霍夫曼编码：011</p>
+<p>#DOS攻击。<br>denial of service.<br>攻击者向服务器发送大量http请求，阻塞其他用户正常http请求。<br>好理解：我派一帮流氓堵住了饭店门口，正常客人就进不来吃饭了。<br>DDOS攻击<br>由于攻击者势单力薄，单个攻击服务器很难对拥有较大带宽的服务器发送足够多的http攻击，于是采用分布式方式，来，先搞100000台服务器。</p>
+<p>cookie vs localStorage vs sessionStorage</p>
+<table>
+<thead>
+<tr>
+<th>特点</th>
+<th style="text-align:center">cookie</th>
+<th style="text-align:center">localStorage</th>
+<th style="text-align:center">sessionStorage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>生命周期</td>
+<td style="text-align:center">由服务器设置时间，默认在浏览器关闭后失效</td>
+<td style="text-align:center">永久存储</td>
+<td style="text-align:center">当前页面关闭页面失效</td>
+</tr>
+<tr>
+<td>大小</td>
+<td style="text-align:center">4K</td>
+<td style="text-align:center">5M</td>
+<td style="text-align:center">5M</td>
+</tr>
+<tr>
+<td>与服务器通信</td>
+<td style="text-align:center">每次http请求都携带cookie</td>
+<td style="text-align:center">无通信，仅存储于客户端</td>
+<td style="text-align:center">无通信，仅存储于客户端</td>
+</tr>
+</tbody>
+</table>
+<p>综上，通常生命周期时间：sessionStorage &lt; cookie &lt; localStorage<br>因为cookie每次都要携带在http中，所以4K也挺大了。性能优化上可以控制cookie大小。<br><code>吐槽一句，md画表格还真是奇葩啊</code></p>
+<p>#javascript模块化开发<br>js发展状态，代码多了，需要模块化<br>CommadJS vs AMD<br>Asynchronous Module Definition 浏览器段开发规范<br>CommadJS服务端开发规范</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/10/面试数据结构/" data-id="ck7kig7is0017w495gyp2ffrr" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-搭建github博客走过的路" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/09/搭建github博客走过的路/" class="article-date">
+  <time datetime="2015-10-09T14:46:10.000Z" itemprop="datePublished">2015-10-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/09/搭建github博客走过的路/">搭建github博客走过的路</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>搭建github博客走过了不少歪路子，就在刚刚还踩了一个坑。<br>搭建博客用到的相关：gitbash,node.js, hexo,github pages 七牛云存储 md在线编辑器 markdown</p>
+<p>不多述流水过程，写一写踩过的坑。</p>
+<p>1：node.js npm安装module失败。<br>原因：缓存问题<br>删除<code>C:\Users\af\AppData\Roaming\npm-cache</code>文件夹里的全部内容</p>
+<p>2:hexo无法编译yml文件<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/clipboard.png" alt><br>原因：yml语法错误,:后面必须要一个空格<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/clipboard2.png" alt><br>ps，图库来自<a href="https://portal.qiniu.com/" target="_blank" rel="noopener">七牛</a>图云存储，刚刚注册的新用户，挺好用的。</p>
+<p>3:gitpages repository命令规则<br>完整的 repository name是pingfengafei.github.io</p>
+<p>4源文件使用<a href="https://www.zybuluo.com/" target="_blank" rel="noopener">md在线编辑器</a>，实时生成预览图，挺好用的。我手指在键盘上飞舞着，配合红轴行云流水的操作，自我陶醉，TM我就是传说中的键盘小王子。兴奋中不能自己，于是习惯性的按<code>`ctrl + s</code>,错误按成了<code>ctrl + w</code>。我想静一静，不要问我静静是谁。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/09/搭建github博客走过的路/" data-id="ck7kig7in000vw495m1vlp5o4" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js变量提升" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/09/js变量提升/" class="article-date">
+  <time datetime="2015-10-09T09:40:51.000Z" itemprop="datePublished">2015-10-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/09/js变量提升/">js变量提升</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>js变量提升是什么？为什么？<br>和C++、java、C不同，js没用块级作用域<br>{<br>    var i = 1;<br>}<br>console.log(i); // 1</p>
+<p>js变量提升：<br>1：变量申明提升，定义不提升。<br>2：函数申明提升，定义不提升。因为函数有表达式形式，和函数形式，2者需要分别对待。</p>
+<p>1；变量提升<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(a);</span><br><span class="line">	<span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line">&#125;</span><br><span class="line">foo(); <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">等价于：</span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> a;</span><br><span class="line">		<span class="built_in">console</span>.log(a);</span><br><span class="line">		 a = <span class="number">10</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	foo();</span><br></pre></td></tr></table></figure>
+<p>ps，如果a没有申明输出结果是：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Uncaught <span class="built_in">ReferenceError</span>: a is not defined</span><br></pre></td></tr></table></figure></p>
+<p>在<a href="http://segmentfault.com/a/1190000002904707" target="_blank" rel="noopener">segmentfault</a>上看到一段挺有趣的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> goo = <span class="string">"hello"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    goo = <span class="string">"world"</span>;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    goo = <span class="string">"world"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line"><span class="built_in">console</span>.log(goo); <span class="comment">//world</span></span><br></pre></td></tr></table></figure></p>
+<p>foo 函数内的goo是全局变量<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> goo = <span class="string">"hello"</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">    goo = <span class="string">"world"</span>;</span><br><span class="line">  &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> goo = <span class="string">"world"</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">foo();</span><br><span class="line"><span class="built_in">console</span>.log(goo); <span class="comment">//hello</span></span><br></pre></td></tr></table></figure></p>
+<p>感谢变量提升。foo函数等价于：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string">var goo = "hello";</span></span><br><span class="line"><span class="string">function foo()&#123;</span></span><br><span class="line"><span class="string">  var goo；</span></span><br><span class="line"><span class="string">  if(true)&#123;</span></span><br><span class="line"><span class="string">    goo = "world";</span></span><br><span class="line"><span class="string">  &#125;else &#123;</span></span><br><span class="line"><span class="string">    goo = "world";</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">foo();</span></span><br><span class="line"><span class="string">console.log(goo); //hello</span></span><br></pre></td></tr></table></figure></p>
+<p>这时候foo()内的goo编程了函数内部局部变量。</p>
+<p>2:函数提升<br>函数提升有点意思。众所周知js中函数有2中形式存在。<br><code>function foo(){}</code>和<code>var foo = function(){}</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">foo(); <span class="comment">//1</span></span><br><span class="line">bar(); <span class="comment">//Uncaught ReferenceError: bar is not defined</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="built_in">console</span>.log(<span class="number">2</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可见，普通函数形式被提升，表达式形式的函数不会被提升。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/09/js变量提升/" data-id="ck7kig7ie000dw495vqrwlhdv" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-js深度拷贝" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/09/js深度拷贝/" class="article-date">
+  <time datetime="2015-10-09T06:26:27.000Z" itemprop="datePublished">2015-10-09</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/09/js深度拷贝/">js深度拷贝</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>仿佛记得几个月前前端面试的时候，被问到js浅拷贝深拷贝问题。直到现在我也没很明白浅拷贝深拷贝具体指代什么。anyway，在高大上名词下技术才是本质。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a);		<span class="comment">//1</span></span><br><span class="line"><span class="built_in">console</span>.log(b);		<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>js基本变量Underfined，Boolean，Number，String Null是传值复制。但是js对象却是拷贝复制。原因想一想也就明白了，对象和类一样，太占用内存了，js对象复制和C++类似，传递的是指针地址。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = &#123;<span class="attr">num</span> : <span class="number">1</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> b = a;</span><br><span class="line">b.num = <span class="number">2</span>;</span><br><span class="line"><span class="built_in">console</span>.log(a.num);		<span class="comment">//2</span></span><br><span class="line"><span class="built_in">console</span>.log(b.num);		<span class="comment">//2</span></span><br></pre></td></tr></table></figure>
+<p>因为b地址指向a，当b属性被更改时，也修改了a属性。</p>
+<p>解决方法：深度拷贝。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	 <span class="function"><span class="keyword">function</span> <span class="title">clone</span>(<span class="params">Obj</span>) </span>&#123;   </span><br><span class="line">        <span class="keyword">var</span> buf;   </span><br><span class="line">        <span class="keyword">if</span> (Obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>)&#123;   </span><br><span class="line">            buf = [];  <span class="comment">//创建一个空的数组 </span></span><br><span class="line">            <span class="keyword">var</span> i = Obj.length;   </span><br><span class="line">            <span class="keyword">while</span> (i--) &#123;   </span><br><span class="line">                buf[i] = clone(Obj[i]);   </span><br><span class="line">            &#125;   </span><br><span class="line">            <span class="keyword">return</span> buf;   </span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (Obj <span class="keyword">instanceof</span> <span class="built_in">Object</span>)&#123;   </span><br><span class="line">            buf = &#123;&#125;;  <span class="comment">//创建一个空对象 </span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">var</span> k <span class="keyword">in</span> Obj) &#123;  <span class="comment">//为这个对象添加新的属性 </span></span><br><span class="line">                buf[k] = clone(Obj[k]);   </span><br><span class="line">            &#125;   </span><br><span class="line">            <span class="keyword">return</span> buf;   </span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;   </span><br><span class="line">            <span class="keyword">return</span> Obj;   </span><br><span class="line">        &#125;   </span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> a = &#123;<span class="attr">a</span> : <span class="number">1</span>, <span class="attr">b</span> : <span class="number">2</span>&#125;;</span><br><span class="line">	<span class="keyword">var</span> b = clone(a);</span><br><span class="line">	b.a = <span class="number">3</span>;</span><br><span class="line">	b.b = <span class="number">4</span>;</span><br><span class="line">	<span class="built_in">console</span>.log(a.a);       <span class="comment">//1</span></span><br><span class="line">	<span class="built_in">console</span>.log(a.b);       <span class="comment">//2      </span></span><br><span class="line">	<span class="built_in">console</span>.log(b.a);       <span class="comment">//3</span></span><br><span class="line">	<span class="built_in">console</span>.log(b.b);       <span class="comment">//4</span></span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/09/js深度拷贝/" data-id="ck7kig7ie000ew495eoikgedc" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-gitHub" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/01/hello-gitHub/" class="article-date">
+  <time datetime="2015-10-01T00:33:35.000Z" itemprop="datePublished">2015-10-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/01/hello-gitHub/">Hello gitHub</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="http://pingfengafei.github.io/" target="_blank" rel="noopener">pingfengafei</a>‘s GitHub blog. Thanks GitHub gives me too much to learn.</p>
+<p>##写在最前面</p>
+<p>终于搭建成功github了。从gitbash到node.js，从npm到hexo，从yml到markdown，一点点查资料，几番折腾终于开始用蹩脚markdown语法写这一篇文章。</p>
+<p>博客几番跟新，新浪，csdn，自己买域名空间折腾，繁华过后回头看，自己需要的只是一片净土，偶尔写写静态博客，发发牢骚，足矣。</p>
+<p>从第一个东家离职后，终于明白了什么叫做：成长的鸡味！</p>
+<p>因为偶然，入了前端坑，入了javascript坑，入了node.js坑。回头才发现前端工程师最近很吃香。我这运气也可以的。</p>
+<p>愿努力能给Janet和自己一个美好的明天。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/01/hello-gitHub/" data-id="ck7kig7ia000aw4954da5ab8d" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/frontend/">frontend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inherit/">inherit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离职感言/">离职感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/frontend/" style="font-size: 20px;">frontend</a> <a href="/tags/inherit/" style="font-size: 10px;">inherit</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/reptile/" style="font-size: 15px;">reptile</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/离职感言/" style="font-size: 10px;">离职感言</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/随想/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/09/当缺点变成桎梏/">当缺点变成桎梏.md</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/一月记/">一月记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 pingfengafei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

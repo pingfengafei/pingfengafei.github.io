@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>to my friend 小项目总结 | Quiet to go far！</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在最前面：一直想找个云服务器玩一玩。一些日子前下定决心买一个试试。一顿折腾后发现了新大陆，架了VPN，突然想到，放个页面到云上也不错。 选择哪家云国内阿里云很稳定，但是因为墙和价格，最终放弃。国外最先选中了AWS EC2，AWS一上来就让绑定信用卡，听说不少人被恶意消费掉了很多钱，因此又作废。DigitalOcean和LiNode最终选择了前者，送了10美刀，开了2个服务器，一个在SFC，一个在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="to my friend 小项目总结">
+<meta property="og:url" content="http://yoursite.com/2016/11/04/to_my_friend_项目小结/index.html">
+<meta property="og:site_name" content="Quiet to go far！">
+<meta property="og:description" content="写在最前面：一直想找个云服务器玩一玩。一些日子前下定决心买一个试试。一顿折腾后发现了新大陆，架了VPN，突然想到，放个页面到云上也不错。 选择哪家云国内阿里云很稳定，但是因为墙和价格，最终放弃。国外最先选中了AWS EC2，AWS一上来就让绑定信用卡，听说不少人被恶意消费掉了很多钱，因此又作废。DigitalOcean和LiNode最终选择了前者，送了10美刀，开了2个服务器，一个在SFC，一个在">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png">
+<meta property="og:updated_time" content="2020-03-09T13:03:01.261Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="to my friend 小项目总结">
+<meta name="twitter:description" content="写在最前面：一直想找个云服务器玩一玩。一些日子前下定决心买一个试试。一顿折腾后发现了新大陆，架了VPN，突然想到，放个页面到云上也不错。 选择哪家云国内阿里云很稳定，但是因为墙和价格，最终放弃。国外最先选中了AWS EC2，AWS一上来就让绑定信用卡，听说不少人被恶意消费掉了很多钱，因此又作废。DigitalOcean和LiNode最终选择了前者，送了10美刀，开了2个服务器，一个在SFC，一个在">
+<meta name="twitter:image" content="http://7xne0t.com1.z0.glb.clouddn.com/%E6%9E%B6%E6%9E%84%E5%9B%BE.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Quiet to go far！</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">高山仰止，景行行止。虽不能至，心向往之。</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-to_my_friend_项目小结" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/04/to_my_friend_项目小结/" class="article-date">
+  <time datetime="2016-11-04T10:49:21.000Z" itemprop="datePublished">2016-11-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      to my friend 小项目总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>写在最前面：<br>一直想找个云服务器玩一玩。一些日子前下定决心买一个试试。一顿折腾后发现了新大陆，架了VPN，突然想到，放个页面到云上也不错。</p>
+<h3 id="选择哪家云"><a href="#选择哪家云" class="headerlink" title="选择哪家云"></a>选择哪家云</h3><p>国内阿里云很稳定，但是因为墙和价格，最终放弃。国外最先选中了AWS EC2，AWS一上来就让绑定信用卡，听说不少人被恶意消费掉了很多钱，因此又作废。DigitalOcean和LiNode最终选择了前者，送了10美刀，开了2个服务器，一个在SFC，一个在新加坡。新加坡连公司速度还行，服务器上访问主流网站简直是光速，之前每天大约会断4，5次，最近貌似好了。吐槽一句，家里用的是宽带通，访问服务器，说多了都是泪。未来很有可能尝试liNode.（后续添加），liNode不适合自己。</p>
+<h3 id="选择哪个操作系统"><a href="#选择哪个操作系统" class="headerlink" title="选择哪个操作系统"></a>选择哪个操作系统</h3><p>ubuntu16.0.4 我的地盘听我的。</p>
+<h3 id="架设VPN"><a href="#架设VPN" class="headerlink" title="架设VPN"></a>架设VPN</h3><p>1:<a href="https://www.digitalocean.com/community/tutorials/how-to-setup-your-own-vpn-with-pptp" target="_blank" rel="noopener">官方开启PPTP</a><br>2：<a href="http://jingyan.baidu.com/article/84b4f5653067d360f6da32cf.html" target="_blank" rel="noopener">mac vpn</a><br>想抽自己2巴掌，刚写的重启服务器后自动启动PPTP教程遗失了。</p>
+<h3 id="写个前端页面"><a href="#写个前端页面" class="headerlink" title="写个前端页面"></a>写个前端页面</h3><h5 id="前端页面用到的技术栈"><a href="#前端页面用到的技术栈" class="headerlink" title="前端页面用到的技术栈"></a>前端页面用到的技术栈</h5><p>UI: React + ReactDOM<br>路由：React-router<br>数据管理 ： Redux + Immutable<br>脚手架工具 ： npm + webpack<br>其他通用工具：babel + eslint + ReduxDevTool + ReactDevTool<br>异步： fetch + promise</p>
+<h5 id="前端架构"><a href="#前端架构" class="headerlink" title="前端架构"></a>前端架构</h5><p>写个简单页面可以用不到上面的技术，但是作为一个前端，接受组件化思想后，写出来的页面要可维护，好扩展。<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/%E6%9E%B6%E6%9E%84%E5%9B%BE.png" alt="页面架构图"><br>page ：每一个页面即为一个page<br>container：容器组件，Redux写在container里，管理多个component<br>component：展示组件</p>
+<p>经过博文的提点，我们认为一个container就是一个container是错误的。项目中发现，页面比较复杂是，container变得巨大无比，缺乏维护性。不如按逻辑拆成多个container，每个container dispatch事件和数据，container之间通过redux通信。componet即为展示组件。<code>个人认为，在不断细拆分组件和保持保持一定的组件杂糅之间折中，是一门艺术。</code></p>
+<h3 id="接口设计"><a href="#接口设计" class="headerlink" title="接口设计"></a>接口设计</h3><p>按照RESTful设计规范，使用fetch和promise解决异步。目前用不到身份验证和异常处理，因此这一部分处理的很简单。</p>
+<h3 id="后台设计"><a href="#后台设计" class="headerlink" title="后台设计"></a>后台设计</h3><p>重头戏来了，之前完全不了解后台，摸索了2个礼拜后，居然写出了个小后台。</p>
+<h5 id="后端用到的技术栈"><a href="#后端用到的技术栈" class="headerlink" title="后端用到的技术栈"></a>后端用到的技术栈</h5><p>服务器：koa koa-server<br>数据库：mongo<br>异步：generator + promise<br>爬虫：superagent + cheerio</p>
+<h5 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h5><p>1：数据库设计<br>想法很简单，爬百度贴吧数据，保留四个字段：</p>
+<pre><code>title ：帖子名
+star ： 被跟帖数量
+link ： 帖子的url链接
+date ： 最后回帖时间
+</code></pre><p>数据没什么价值，仅当练习。<br>2：mongo数据库的增删改查<br>自己写了个简单的驱动，先截断仅仅是满足了需求而已</p>
+<pre><code>var MongoClient = require(&apos;mongodb&apos;).MongoClient;
+// Connection URL
+var url = &apos;mongodb://localhost:27017/reptile&apos;;
+
+var insertDocuments = function (db, connectionName, data, callback) {
+  var collection = db.collection(connectionName);
+  collection.insertMany(data, function (err, result) {
+    callback(result);
+  });
+};
+
+var findDocuments = function (db, callback) {
+  var collection = db.collection(&apos;baidutieba&apos;);
+  collection.find({}).toArray(function (err, docs) {
+    callback(docs);
+  });
+};
+
+var removeDocument = function (db, callback) {
+  var collection = db.collection(&apos;video&apos;);
+  collection.remove({}, function (err, result) {
+    callback(result);
+  });
+};
+
+var updateDocument = function (db, callback) {
+  var collection = db.collection(&apos;video&apos;);
+  collection.updateOne({a: 2}
+    , {$set: {b: 1}}, function (err, result) {
+      callback(result);
+    });
+};
+
+var dropDocument = function (db, callback) {
+  var collection = db.collection(&apos;video&apos;);
+  collection.drop(null, function () {
+    console.log(&apos;drop video&apos;);
+  });
+};
+
+var mongoDriver = {
+  koaConnection: function (callback) {
+    return MongoClient.connect(url, function (err, db) {
+      assert.equal(null, err);
+      findDocuments(db, function (data) {
+        callback(data);
+        db.close();
+      });
+    });
+  },
+
+  writeToConnection: function (connectionName, data, callback) {
+    return MongoClient.connect(url, function (err, db) {
+      assert.equal(null, err);
+      insertDocuments(db, connectionName, data, function () {
+        callback();
+        db.close();
+      });
+    });
+  }
+};
+
+module.exports = mongoDriver;
+</code></pre><h5 id="爬虫"><a href="#爬虫" class="headerlink" title="爬虫"></a>爬虫</h5><p>基本思路：用superagent爬取数据，用cheerio清洗数据，用上面main的驱动写到数据库里。</p>
+<pre><code>var superagent = require(&apos;superagent&apos;);
+var charset = require(&apos;superagent-charset&apos;);
+var cheerio = require(&apos;cheerio&apos;);
+var async = require(&apos;async&apos;);
+
+var fs = require(&apos;fs&apos;);
+var request = require(&quot;request&quot;);
+var result = [];
+var pageUrl = [];
+
+charset(superagent);
+
+var mongoDriver = require(&apos;./server/mongodbApp&apos;);
+
+pageUrl.push(&apos;http://tieba.baidu.com/f?kw=%BA%A3%D4%F4%CD%F5&amp;fr=ala0&amp;tpl=5&apos;);
+
+function start() {
+  pageUrl.forEach((url, index) =&gt; {
+    superagent.get(url).end((err, res) =&gt; {
+      console.log(url);
+      if (err) {
+        console.log(&apos;error&apos;);
+      } else if (res) {
+        var $ = cheerio.load(res.text, {decodeEntities: false});
+        var contentList = $(&apos;body .j_thread_list&apos;);
+
+        console.log(contentList.length);
+        for (var i = 0; i &lt; contentList.length; i++) {
+          let obj = {
+            star: 0,
+            title: &apos;&apos;,
+            url: &apos;&apos;,
+            date: &apos;&apos;
+          };
+
+          var $liContent = cheerio.load(contentList[i], {decodeEntities: false});
+
+          obj.star = $liContent(&apos;.threadlist_rep_num&apos;).html();
+          obj.title = $liContent(&apos;.threadlist_title&gt;a&apos;).html();
+          obj.url = &apos;tieba.baidu.com&apos; + $liContent(&apos;.threadlist_title &gt; a&apos;).attr(&apos;href&apos;);
+          //百度里是最后的回复时间
+          if (!$liContent(&apos;.threadlist_reply_date&apos;).html()) {
+            obj.date = null;
+          } else {
+            obj.date = $liContent(&apos;.threadlist_reply_date&apos;).html().match(/\d\d:\d\d/)[0];
+          }
+          result.push(obj);
+        }
+        console.log(result);
+
+        mongoDriver.writeToConnection(&apos;baidutieba&apos;, result, function () {
+          console.log(&apos;write to baidutieba success&apos;);
+        });
+      }
+    });
+  });
+}
+
+start();
+</code></pre><p>在爬另一个编码为gb2312网页时中文显示为乱码。<br><a href="https://segmentfault.com/q/1010000007716929?_ea=1431934" target="_blank" rel="noopener">我的解决方法</a></p>
+<h5 id="服务器"><a href="#服务器" class="headerlink" title="服务器"></a>服务器</h5><p>逼着自己放弃express，投入koa怀抱。</p>
+<pre><code>var koa = require(&apos;koa&apos;);
+var router = require(&apos;koa-router&apos;)();
+var cors = require(&apos;koa-cors&apos;);
+var mongoDriver = require(&apos;./mongodbApp&apos;);
+var app = new koa();
+//一键搞定跨域
+app.use(cors());
+router.get(&apos;/video&apos;, function*(next) {
+    this.body = yield new Promise(function (resolve, reject) {
+      mongoDriver.koaConnection(function (data) {
+        resolve(data);
+      });
+    }).then(function (data) {
+      return data;
+    });
+  });
+app.use(router.routes()).use(router.allowedMethods());
+app.listen(3000, () =&gt; {
+    console.log(&apos;koa start!&apos;);
+});
+</code></pre><h3 id="最终效果："><a href="#最终效果：" class="headerlink" title="最终效果："></a>最终效果：</h3><p><img src="http://7xne0t.com1.z0.glb.clouddn.com/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt></p>
+<h3 id="补充：服务器端部署"><a href="#补充：服务器端部署" class="headerlink" title="补充：服务器端部署"></a>补充：服务器端部署</h3><p>没想到部署到服务器上也够我喝上一壶。遇到问题有3个：<br>1：如何本地写好代码后，一键部署到服务器上。现在还不知道，靠手工scp<br>2：服务器上npm install 报killed错误。因为512M内存不够用。使用了swap。<br>3：npm run build后，我的电脑可以打开，其他电脑不能打开。经过分析，是redux-dev-tool问题。通过环境变量一顿折腾后解决问题。</p>
+<h3 id="再补充"><a href="#再补充" class="headerlink" title="再补充"></a>再补充</h3><p>仿照阿里的rc组件库，手写了个乞丐版本的分页组件，同时写好了分页接口。but，发现自己不会写数据库分页查询。网上找到的绝大多教程都是node-mongose，于是想了个蠢方法，让接口看起来支持分页查询。。。。</p>
+<p>最终效果：</p>
+<h3 id="后记："><a href="#后记：" class="headerlink" title="后记："></a>后记：</h3><p>至此，前后端打通。自我膨胀一波。接下来需要改进的地方：<br>1：理解generator。服务器代码里的generator函数，是我试了一个晚上试出来的，到现在我还没搞懂为什么是这样的。为此，我显示回味了一遍generator函数语法逻辑，然后看了一眼《深入浅出NodeJS》里的异步章节，还是搞不懂，于是又看了一眼koa-router源码，koa源码，co源码，手动实现了一遍基础版co。虽然猪坚强，但是还是没搞懂。</p>
+<p>2：改进driver，现在的driver只能说能用，回调嵌套回调，想改写成promise方式，或者未来熟悉了generator，用generator也说不定。</p>
+<p>3：贴啊只是练手，接下来去扒一扒另一个网站，送给朋友们。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/04/to_my_friend_项目小结/" data-id="ck7kig7jb001bw495pp1ltzom" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/23/react-autoFocus问题总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          react autoFocus问题总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/10/17/transform-bug/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">transform bug</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/essay/">essay</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/frontend/">frontend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/inherit/">inherit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/npm/">npm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/reptile/">reptile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端/">前端</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/离职感言/">离职感言</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/重构/">重构</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随想/">随想</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/frontend/" style="font-size: 20px;">frontend</a> <a href="/tags/inherit/" style="font-size: 10px;">inherit</a> <a href="/tags/js/" style="font-size: 10px;">js</a> <a href="/tags/nodejs/" style="font-size: 15px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/reptile/" style="font-size: 15px;">reptile</a> <a href="/tags/前端/" style="font-size: 10px;">前端</a> <a href="/tags/离职感言/" style="font-size: 10px;">离职感言</a> <a href="/tags/重构/" style="font-size: 10px;">重构</a> <a href="/tags/随想/" style="font-size: 10px;">随想</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+          </li>
+        
+          <li>
+            <a href="/2020/03/09/当缺点变成桎梏/">当缺点变成桎梏.md</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/24/一月记/">一月记</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 pingfengafei<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

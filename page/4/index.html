@@ -66,9 +66,9 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-git ignore&amp;&amp;es6 export" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-原生js-ajax" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/11/02/git ignore&&es6 export/" class="article-date">
+    <a href="/2015/11/02/原生js-ajax/" class="article-date">
   <time datetime="2015-11-02T07:56:47.000Z" itemprop="datePublished">2015-11-02</time>
 </a>
     
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/02/git ignore&&es6 export/">gitignore无法ignore问题解决 &amp;&amp; es6的import带不带{}</a>
+      <a class="article-title" href="/2015/11/02/原生js-ajax/">原生js_ajax</a>
     </h1>
   
 
@@ -88,35 +88,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>###.gitignore无法ignore问题解决 &amp;&amp; es6的import带不带{}<br>webstorm会给项目自动生成一个.idea文件夹，第一次创建项目并上传到github，没有注意到.idea文件也被上传上去。再次编辑文件并上传时发现了.idea文件也做了修改：</p>
-<pre><code>modified:   .idea/workspace.xml
-modified:   components/Counter.js
-modified:   reducers/counterReducer.js
-</code></pre><p>在.gitignore中添加配置项：</p>
-<pre><code>#ignore .ignore files
-#.ignore
-#ignore node_modules
-/node_modules/*
-.idea
-</code></pre><p>然而似乎.gitignore似乎失效了，每次修改后还是会提示modified了.idea文件。<br><br>查证资料：如果一个文件已经存在于git远程仓库中，向.gitignore中添加配置项会失效（有人说这是git bug）。<br>删除远程git仓库代码：</p>
-<pre><code>git rm -r —cached  .idea
-git commit -m &apos;delete file&apos;
-git push origin master
-</code></pre><p>再次编辑文件，.gitignore就能正常工作了。</p>
-<p>最近写代码时，总是纠结import出来的结果要不要带{}，又听工友说</p>
-<pre><code>if （export var a = 1）
-    import {a}
-if（export default var a = 1）
-    import a
-</code></pre><p>今天早上为此纠结了很久，下午看了下阮一峰的es6入门，看到模块这一章节才恍然大悟：<br>正常export出来的模块都需要{}，export default出来的模块不需要添加。比如：</p>
-<pre><code>export default function a（）{}
-import a from &apos;filepath&apos;
-</code></pre><p>这是因为default出一个默认模块，其他模块调用时随便给这个文件起个名字就行，例如：a <br><br>古人云： 学而不思则罔，思而不学则殆。诚不欺余！</p>
+        <p><strong>前端拼图之–ajax</strong><br>ajax返回码：<br>readyState:联想open(）和send()函数<br>0:open失败<br>1：open成功sned失败<br>2：send成功没有响应数据<br>3：响应部分数据<br>4：数据完全响应并返回</p>
+<p>status状态码：<br>1<strong>：http建立响应<br>2</strong>：响应成功<br>3<strong>：响应需要进一步跟进，典型304，缓存问题<br>4</strong>：客户端问题 404 url错误<br>5<strong>：服务器错误<br>9</strong>：自定义错误<br>参考：<img src="http://www.cnblogs.com/lxinxuan/archive/2009/10/22/1588053.html" alt="状态码"></p>
+<p><code>attention，state是adj，status是n</code></p>
+<p>终于撸了第一个简单ajax，找了很久bug，原来是readyState和status写错了。<br>关于跨域请求问题，jsonp可以部分解决，添加允许跨域头可以解决。测试的时候，我的做法是统一放到本地虚拟服务器下。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>ajax<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>1212<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">	<span class="keyword">var</span> xmlhttp;</span></span><br><span class="line"><span class="javascript">	<span class="comment">//适配现在浏览器和古老的ie 5,6浏览器</span></span></span><br><span class="line"><span class="javascript">	<span class="built_in">window</span>.XMLHttpRequest ? xmlhttp = <span class="keyword">new</span> XMLHttpRequest() : xmlhttp = <span class="keyword">new</span> ActiveObject(<span class="string">"Microsoft.XMLHttpRequest"</span>);</span></span><br><span class="line"><span class="javascript">	<span class="comment">//get or post</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//url</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//true = 异步加载，false = 同步加载</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//xmlhttp.open("get","http://127.0.0.1/test/test.asp",true);</span></span></span><br><span class="line"><span class="javascript">	xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"test.text"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="undefined">	xmlhttp.send();</span></span><br><span class="line"><span class="undefined">	</span></span><br><span class="line"><span class="javascript">	xmlhttp.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">if</span>(xmlhttp.readyState == <span class="number">4</span> &amp;&amp; xmlhttp.status == <span class="number">200</span>)&#123;</span></span><br><span class="line"><span class="javascript">			<span class="built_in">document</span>.getElementsByTagName(<span class="string">"div"</span>)[<span class="number">0</span>].innerHTML = xmlhttp.responseText;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	&#125; </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>test.text文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p style=&apos;color:red;&apos;&gt;本内容是使用 GET 方法请求的。&lt;/p&gt;&lt;p style=&apos;color:red;&apos;&gt;请求时间：2015-10-28 16:16:47&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/02/git ignore&&es6 export/" data-id="ck7kig7i90008w495lms564uf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/02/原生js-ajax/" data-id="ck89l8pqy000s7sbwy4thb991" class="article-share-link">Share</a>
       
       
     </footer>
@@ -152,7 +133,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/28/乞丐版登录/" data-id="ck7kig7il000qw495mk9nkbbm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/28/乞丐版登录/" data-id="ck89l8pqy000r7sbw6wy9qr3g" class="article-share-link">Share</a>
       
       
     </footer>
@@ -190,7 +171,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/27/ht-js-table/" data-id="ck7kig7ib000bw495wovgoqck" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/27/ht-js-table/" data-id="ck89l8pqo000b7sbwd6sajtur" class="article-share-link">Share</a>
       
       
     </footer>
@@ -231,7 +212,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/27/css画图形/" data-id="ck7kig7i50004w495flysjojz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/27/css画图形/" data-id="ck89l8pqi00057sbwo3p3dxm4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -284,7 +265,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/22/某家前端笔试题/" data-id="ck7kig7ip000zw4956yvtm8p6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/22/某家前端笔试题/" data-id="ck89l8prr00147sbwjgj4c6bv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -326,7 +307,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/17/某生it金融公司面试题/" data-id="ck7kig7iq0011w495jigpte4y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/17/某生it金融公司面试题/" data-id="ck89l8pru001a7sbwgvnwljtq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -366,7 +347,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/16/getElementsByClassName/" data-id="ck7kig7i90009w4953azy1brn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/16/getElementsByClassName/" data-id="ck89l8pqn000a7sbwsgeqsxfc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -409,7 +390,7 @@ w3c盒子宽度 = content_width;</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/15/css-html总结/" data-id="ck7kig7i40002w495ay7b2mqz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/15/css-html总结/" data-id="ck89l8pqe00017sbw4zkm56wn" class="article-share-link">Share</a>
       
       
     </footer>
@@ -455,7 +436,7 @@ w3c盒子宽度 = content_width;</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/14/同花顺前端面试题/" data-id="ck7kig7im000sw495ekqg4qok" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/14/同花顺前端面试题/" data-id="ck89l8pqz000v7sbw0r38tzbp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/">reptile</a></li></ul>
@@ -497,7 +478,7 @@ w3c盒子宽度 = content_width;</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/13/js笔试题/" data-id="ck7kig7if000fw4953pku0smw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/13/js笔试题/" data-id="ck89l8pqq000e7sbwf11x7kxw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -562,7 +543,7 @@ w3c盒子宽度 = content_width;</code></p>
       <ul>
         
           <li>
-            <a href="/2020/03/09/迷茫-md/">迷茫.md</a>
+            <a href="/2020/03/27/shell脚本学习/">shell脚本学习</a>
           </li>
         
           <li>

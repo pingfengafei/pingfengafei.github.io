@@ -66,6 +66,59 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-js类与继承" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/31/js类与继承/" class="article-date">
+  <time datetime="2017-07-31T04:07:51.000Z" itemprop="datePublished">2017-07-31</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/31/js类与继承/">js 的类与继承</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>js的继承真是天坑，看过红宝书的原型链和继承章节不知所云。各种继承方式，颇有种乱花渐欲迷人眼的感觉。</p>
+<p>es6的class和extends给了我一丝曙光。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Foo &#123;</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    this.name = name</span><br><span class="line">  &#125;</span><br><span class="line">  sayHello()&#123;</span><br><span class="line">    console.log(`super name is $&#123;this.name&#125;`)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Bar extends Foo&#123;</span><br><span class="line">  sayHello()&#123;</span><br><span class="line">    super.sayHello()</span><br><span class="line">    console.log(`sub name is $&#123;this.name&#125;`)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var bar = new Bar(&apos;aaa&apos;)</span><br><span class="line">bar.sayHello()</span><br></pre></td></tr></table></figure>
+<p>这个简单例子包含了类，继承和调用父类。麻雀虽小却五脏俱全。不知道有没有人想的和我一样，类<br>只是个语法糖，在现有的环境下还是要被babel转换成es5的原型链继承方法。</p>
+<p>wait,<code>被babel转换成es5的原型链继承方法</code>，babel翻译后的一定是优秀的继承方式，我仿佛找到了onepiece</p>
+<p>先看看babel如何翻译Foo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos; //严格模式</span><br><span class="line"></span><br><span class="line">var _createClass = function () &#123;</span><br><span class="line">  function defineProperties (target, props) &#123;</span><br><span class="line">    for (var i = 0; i &lt; props.length; i++) &#123;</span><br><span class="line">      var descriptor = props[i]</span><br><span class="line">      descriptor.enumerable = descriptor.enumerable || false</span><br><span class="line">      descriptor.configurable = true</span><br><span class="line">      if (&apos;value&apos; in descriptor) descriptor.writable = true</span><br><span class="line">      Object.defineProperty(target, descriptor.key, descriptor)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return function (Constructor, protoProps, staticProps) &#123;</span><br><span class="line">    if (protoProps) defineProperties(Constructor.prototype, protoProps)</span><br><span class="line">    if (staticProps) defineProperties(Constructor, staticProps)</span><br><span class="line">    return Constructor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">function _classCallCheck (instance, Constructor) &#123;</span><br><span class="line">  if (!(instance instanceof Constructor)) &#123;</span><br><span class="line">    throw new TypeError(&apos;Cannot call a class as a function&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var Foo = function () &#123;</span><br><span class="line">  function Foo (name) &#123;</span><br><span class="line">    _classCallCheck(this, Foo)</span><br><span class="line"></span><br><span class="line">    this.name = name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  _createClass(Foo, [</span><br><span class="line">    &#123;</span><br><span class="line">      key: &apos;sayHello&apos;,</span><br><span class="line">      value: function sayHello () &#123;</span><br><span class="line">        console.log(&apos;super name is &apos; + this.name)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;])</span><br><span class="line"></span><br><span class="line">  return Foo</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure></p>
+<p>深入代码理清逻辑：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var Foo = function()&#123;&#125;()</span><br></pre></td></tr></table></figure></p>
+<p>还有这种写法？？？匿名函数先赋值给Foo，Foo和()结合在一起，执行Foo</p>
+<p>看看关键函数<code>_createClass</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var _createClass = function () &#123;</span><br><span class="line">  function defineProperties (target, props) &#123;</span><br><span class="line">    for (var i = 0; i &lt; props.length; i++) &#123;</span><br><span class="line">      var descriptor = props[i]</span><br><span class="line">      descriptor.enumerable = descriptor.enumerable || false</span><br><span class="line">      descriptor.configurable = true</span><br><span class="line">      if (&apos;value&apos; in descriptor) descriptor.writable = true</span><br><span class="line">      Object.defineProperty(target, descriptor.key, descriptor)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return function (Constructor, protoProps, staticProps) &#123;</span><br><span class="line">    if (protoProps) defineProperties(Constructor.prototype, protoProps)</span><br><span class="line">    if (staticProps) defineProperties(Constructor, staticProps)</span><br><span class="line">    return Constructor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+<p>背后的原理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Foo.prototype.key = value</span><br><span class="line">Foor.key = value //静态方法</span><br></pre></td></tr></table></figure></p>
+<p>再看看继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function _inherits (subClass, superClass) &#123;</span><br><span class="line">  if (typeof superClass !== &apos;function&apos; &amp;&amp; superClass !== null) &#123;</span><br><span class="line">    throw new TypeError(&apos;Super expression must either be null or a function, not &apos; + typeof superClass)</span><br><span class="line">  &#125;</span><br><span class="line">  subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype,</span><br><span class="line">    &#123;constructor: &#123;value: subClass, enumerable: false, writable: true, configurable: true&#125;&#125;)</span><br><span class="line">  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="回味原型链和继承"><a href="#回味原型链和继承" class="headerlink" title="回味原型链和继承"></a>回味原型链和继承</h3><p>对象都有一个私有属性<code>[[prptotype]]</code>,attention,这个私有属性有别于<code>prototype</code>,通常私有属性实现时用<strong>proto</strong>替代。<br>每个对象都有<strong>proto</strong><br>函数对象拥有prototype对象，函数也是对象，自然也拥有<strong>proto</strong></p>
+<p>object.<strong>proto</strong>指向object的原型<br>object.prototype指向object的原型对象 ？？？</p>
+<p><code>Object.defineProperty</code><br><code>Object.create</code><br><code>Object.getPrototypeOf</code><br><code>Object.setPrototypeOf</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/07/31/js类与继承/" data-id="ck89lcdwn000gb9bwshz0fjsm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/inherit/">inherit</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-原生nodejs爬mdn" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/07/31/原生nodejs爬mdn/" class="article-date">
@@ -118,63 +171,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/31/原生nodejs爬mdn/" data-id="ck89l8prr00127sbwrl80yrqd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/31/原生nodejs爬mdn/" data-id="ck89lcdxt001cb9bwikqd0039" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/">reptile</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-js类与继承" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/07/31/js类与继承/" class="article-date">
-  <time datetime="2017-07-31T04:07:51.000Z" itemprop="datePublished">2017-07-31</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/31/js类与继承/">js 的类与继承</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>js的继承真是天坑，看过红宝书的原型链和继承章节不知所云。各种继承方式，颇有种乱花渐欲迷人眼的感觉。</p>
-<p>es6的class和extends给了我一丝曙光。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class Foo &#123;</span><br><span class="line">  constructor(name)&#123;</span><br><span class="line">    this.name = name</span><br><span class="line">  &#125;</span><br><span class="line">  sayHello()&#123;</span><br><span class="line">    console.log(`super name is $&#123;this.name&#125;`)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Bar extends Foo&#123;</span><br><span class="line">  sayHello()&#123;</span><br><span class="line">    super.sayHello()</span><br><span class="line">    console.log(`sub name is $&#123;this.name&#125;`)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var bar = new Bar(&apos;aaa&apos;)</span><br><span class="line">bar.sayHello()</span><br></pre></td></tr></table></figure>
-<p>这个简单例子包含了类，继承和调用父类。麻雀虽小却五脏俱全。不知道有没有人想的和我一样，类<br>只是个语法糖，在现有的环境下还是要被babel转换成es5的原型链继承方法。</p>
-<p>wait,<code>被babel转换成es5的原型链继承方法</code>，babel翻译后的一定是优秀的继承方式，我仿佛找到了onepiece</p>
-<p>先看看babel如何翻译Foo<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos; //严格模式</span><br><span class="line"></span><br><span class="line">var _createClass = function () &#123;</span><br><span class="line">  function defineProperties (target, props) &#123;</span><br><span class="line">    for (var i = 0; i &lt; props.length; i++) &#123;</span><br><span class="line">      var descriptor = props[i]</span><br><span class="line">      descriptor.enumerable = descriptor.enumerable || false</span><br><span class="line">      descriptor.configurable = true</span><br><span class="line">      if (&apos;value&apos; in descriptor) descriptor.writable = true</span><br><span class="line">      Object.defineProperty(target, descriptor.key, descriptor)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return function (Constructor, protoProps, staticProps) &#123;</span><br><span class="line">    if (protoProps) defineProperties(Constructor.prototype, protoProps)</span><br><span class="line">    if (staticProps) defineProperties(Constructor, staticProps)</span><br><span class="line">    return Constructor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line">function _classCallCheck (instance, Constructor) &#123;</span><br><span class="line">  if (!(instance instanceof Constructor)) &#123;</span><br><span class="line">    throw new TypeError(&apos;Cannot call a class as a function&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var Foo = function () &#123;</span><br><span class="line">  function Foo (name) &#123;</span><br><span class="line">    _classCallCheck(this, Foo)</span><br><span class="line"></span><br><span class="line">    this.name = name</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  _createClass(Foo, [</span><br><span class="line">    &#123;</span><br><span class="line">      key: &apos;sayHello&apos;,</span><br><span class="line">      value: function sayHello () &#123;</span><br><span class="line">        console.log(&apos;super name is &apos; + this.name)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;])</span><br><span class="line"></span><br><span class="line">  return Foo</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure></p>
-<p>深入代码理清逻辑：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var Foo = function()&#123;&#125;()</span><br></pre></td></tr></table></figure></p>
-<p>还有这种写法？？？匿名函数先赋值给Foo，Foo和()结合在一起，执行Foo</p>
-<p>看看关键函数<code>_createClass</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">var _createClass = function () &#123;</span><br><span class="line">  function defineProperties (target, props) &#123;</span><br><span class="line">    for (var i = 0; i &lt; props.length; i++) &#123;</span><br><span class="line">      var descriptor = props[i]</span><br><span class="line">      descriptor.enumerable = descriptor.enumerable || false</span><br><span class="line">      descriptor.configurable = true</span><br><span class="line">      if (&apos;value&apos; in descriptor) descriptor.writable = true</span><br><span class="line">      Object.defineProperty(target, descriptor.key, descriptor)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  return function (Constructor, protoProps, staticProps) &#123;</span><br><span class="line">    if (protoProps) defineProperties(Constructor.prototype, protoProps)</span><br><span class="line">    if (staticProps) defineProperties(Constructor, staticProps)</span><br><span class="line">    return Constructor</span><br><span class="line">  &#125;</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
-<p>背后的原理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Foo.prototype.key = value</span><br><span class="line">Foor.key = value //静态方法</span><br></pre></td></tr></table></figure></p>
-<p>再看看继承<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function _inherits (subClass, superClass) &#123;</span><br><span class="line">  if (typeof superClass !== &apos;function&apos; &amp;&amp; superClass !== null) &#123;</span><br><span class="line">    throw new TypeError(&apos;Super expression must either be null or a function, not &apos; + typeof superClass)</span><br><span class="line">  &#125;</span><br><span class="line">  subClass.prototype = Object.create(superClass &amp;&amp; superClass.prototype,</span><br><span class="line">    &#123;constructor: &#123;value: subClass, enumerable: false, writable: true, configurable: true&#125;&#125;)</span><br><span class="line">  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="回味原型链和继承"><a href="#回味原型链和继承" class="headerlink" title="回味原型链和继承"></a>回味原型链和继承</h3><p>对象都有一个私有属性<code>[[prptotype]]</code>,attention,这个私有属性有别于<code>prototype</code>,通常私有属性实现时用<strong>proto</strong>替代。<br>每个对象都有<strong>proto</strong><br>函数对象拥有prototype对象，函数也是对象，自然也拥有<strong>proto</strong></p>
-<p>object.<strong>proto</strong>指向object的原型<br>object.prototype指向object的原型对象 ？？？</p>
-<p><code>Object.defineProperty</code><br><code>Object.create</code><br><code>Object.getPrototypeOf</code><br><code>Object.setPrototypeOf</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/31/js类与继承/" data-id="ck89l8pqr000f7sbwq8octb66" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/inherit/">inherit</a></li></ul>
 
     </footer>
   </div>
@@ -223,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/07/11/杂文/" data-id="ck89l8prs00157sbw0me6hxd9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/07/11/杂文/" data-id="ck89lcdwy000zb9bwr2f6v76k" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随想/">随想</a></li></ul>
@@ -270,7 +270,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/04/style-and-getComputedStyle/" data-id="ck89l8pqv000m7sbwqwetanx9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/04/style-and-getComputedStyle/" data-id="ck89lcdwr000mb9bwgl02s0fy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -313,7 +313,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/04/callback和promise/" data-id="ck89l8pqg00037sbw5xjvlcwk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/04/callback和promise/" data-id="ck89lcdwb0004b9bwmjejn2la" class="article-share-link">Share</a>
       
       
     </footer>
@@ -397,7 +397,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/04/spring13小结/" data-id="ck89l8pro00107sbw9sp52jny" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/03/04/spring13小结/" data-id="ck89lcdxr001ab9bwm0s6tlc1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -441,7 +441,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/12/04/数组去重/" data-id="ck89l8pr0000x7sbwd5zwtuew" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/12/04/数组去重/" data-id="ck89lcdwy000yb9bwyjvjjqkg" class="article-share-link">Share</a>
       
       
     </footer>
@@ -497,7 +497,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/23/react-autoFocus问题总结/" data-id="ck89l8pqt000j7sbwvt2oxhob" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/23/react-autoFocus问题总结/" data-id="ck89lcdwp000jb9bw4pjg5yxz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -701,7 +701,7 @@ app.listen(3000, () =&gt; {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/04/to_my_friend_项目小结/" data-id="ck89l8prq00117sbwo182pzpg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/04/to_my_friend_项目小结/" data-id="ck89lcdxs001bb9bw3ox2vkp9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -738,7 +738,7 @@ app.listen(3000, () =&gt; {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/17/transform-bug/" data-id="ck89l8pqx000q7sbw8lc9jezk" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/17/transform-bug/" data-id="ck89lcdws000nb9bwcb4ja7hc" class="article-share-link">Share</a>
       
       
     </footer>

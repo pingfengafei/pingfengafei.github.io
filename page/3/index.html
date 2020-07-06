@@ -66,6 +66,43 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-transform-bug" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/17/transform-bug/" class="article-date">
+  <time datetime="2016-10-17T10:46:19.000Z" itemprop="datePublished">2016-10-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/17/transform-bug/">transform bug</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#transform有毒<br><code>transform : translate(1px, 1px)</code>有毒，<code>translate</code>会导致<code>z-index</code>混乱，stackoverflow上有大神解析了原因：<a href="http://stackoverflow.com/questions/20851452/z-index-is-canceled-by-setting-transformrotate" target="_blank" rel="noopener">z-index is canceled by setting transform(rotate)</a>,奈何等级不够无法理解，不知道怎么去处理这个问题。那就只能绕过这个问题：实际项目中的需求是鼠标hover上去x轴上平移-2个像素，完全可以用<code>margin</code>去替代<code>transform</code>:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">element&#123;</span><br><span class="line">    transition : margin <span class="number">1</span>s linear;</span><br><span class="line">    margin : <span class="number">0</span> ;</span><br><span class="line">&#125;</span><br><span class="line">element:hover&#123;</span><br><span class="line">    margin : <span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">-2</span>px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/10/17/transform-bug/" data-id="ckca5p0n0000ndebwpdvb7x45" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-es6-promise-fetch" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/10/17/es6-promise-fetch/" class="article-date">
@@ -98,7 +135,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/17/es6-promise-fetch/" data-id="ck89lcdwc0006b9bwk2dp1sm5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/17/es6-promise-fetch/" data-id="ckca5p0mo0006debwvuofmve1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -138,7 +175,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/10/17/Immutable总结/" data-id="ck89lcdw30000b9bw9x0hugfm" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/10/17/Immutable总结/" data-id="ckca5p0mf0000debwwtdg7dz3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -182,7 +219,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/23/debug之旅-解决jsonwebtoken缺少包问题/" data-id="ck89lcdwd0007b9bw5medv5vz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/23/debug之旅-解决jsonwebtoken缺少包问题/" data-id="ckca5p0mq0007debwx3f0gk6l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -221,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/07/18/小随笔/" data-id="ck89lcdwv000tb9bwo1sz7kga" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/07/18/小随笔/" data-id="ckca5p0n3000vdebwldnxdzxu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -270,7 +307,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/20/锚点和事件响应/" data-id="ck89lcdx10016b9bw9axtog78" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/20/锚点和事件响应/" data-id="ckca5p0n80016debw3lfei1cu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -306,7 +343,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/12/16/html锚点/" data-id="ck89lcdwi000cb9bw846ujvim" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/12/16/html锚点/" data-id="ckca5p0mt000bdebw3ydg5qmo" class="article-share-link">Share</a>
       
       
     </footer>
@@ -343,7 +380,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/26/那些年写过的脑残bug/" data-id="ck89lcdx10015b9bwkltbwx4m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/26/那些年写过的脑残bug/" data-id="ckca5p0n80015debw82pyh4v9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -381,7 +418,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/04/append与after区别/" data-id="ck89lcdw80001b9bwuwe6c5j1" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/04/append与after区别/" data-id="ckca5p0mk0001debwsymwycg3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -428,67 +465,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/02/某家笔试题/" data-id="ck89lcdwz0011b9bwd4m17dcj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-git ignore&amp;&amp;es6 export" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/11/02/git ignore&&es6 export/" class="article-date">
-  <time datetime="2015-11-02T07:56:47.000Z" itemprop="datePublished">2015-11-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/02/git ignore&&es6 export/">gitignore无法ignore问题解决 &amp;&amp; es6的import带不带{}</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>###.gitignore无法ignore问题解决 &amp;&amp; es6的import带不带{}<br>webstorm会给项目自动生成一个.idea文件夹，第一次创建项目并上传到github，没有注意到.idea文件也被上传上去。再次编辑文件并上传时发现了.idea文件也做了修改：</p>
-<pre><code>modified:   .idea/workspace.xml
-modified:   components/Counter.js
-modified:   reducers/counterReducer.js
-</code></pre><p>在.gitignore中添加配置项：</p>
-<pre><code>#ignore .ignore files
-#.ignore
-#ignore node_modules
-/node_modules/*
-.idea
-</code></pre><p>然而似乎.gitignore似乎失效了，每次修改后还是会提示modified了.idea文件。<br><br>查证资料：如果一个文件已经存在于git远程仓库中，向.gitignore中添加配置项会失效（有人说这是git bug）。<br>删除远程git仓库代码：</p>
-<pre><code>git rm -r —cached  .idea
-git commit -m &apos;delete file&apos;
-git push origin master
-</code></pre><p>再次编辑文件，.gitignore就能正常工作了。</p>
-<p>最近写代码时，总是纠结import出来的结果要不要带{}，又听工友说</p>
-<pre><code>if （export var a = 1）
-    import {a}
-if（export default var a = 1）
-    import a
-</code></pre><p>今天早上为此纠结了很久，下午看了下阮一峰的es6入门，看到模块这一章节才恍然大悟：<br>正常export出来的模块都需要{}，export default出来的模块不需要添加。比如：</p>
-<pre><code>export default function a（）{}
-import a from &apos;filepath&apos;
-</code></pre><p>这是因为default出一个默认模块，其他模块调用时随便给这个文件起个名字就行，例如：a <br><br>古人云： 学而不思则罔，思而不学则殆。诚不欺余！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/02/git ignore&&es6 export/" data-id="ck89lcdwf000ab9bwx0dyue8y" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/02/某家笔试题/" data-id="ckca5p0n70013debwoahtzbq0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -540,7 +517,7 @@ import a from &apos;filepath&apos;
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
     </div>
   </div>
 
@@ -553,7 +530,11 @@ import a from &apos;filepath&apos;
       <ul>
         
           <li>
-            <a href="/2020/03/27/shell脚本学习/">shell脚本学习</a>
+            <a href="/2020/04/26/knapsack/">knapsack</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/13/从爬楼梯问题入门动态规划/">从爬楼梯问题入门动态规划</a>
           </li>
         
           <li>
@@ -566,10 +547,6 @@ import a from &apos;filepath&apos;
         
           <li>
             <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/24/一月记/">一月记</a>
           </li>
         
       </ul>

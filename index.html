@@ -66,10 +66,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-shell脚本学习" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-knapsack" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/03/27/shell脚本学习/" class="article-date">
-  <time datetime="2020-03-27T02:40:07.000Z" itemprop="datePublished">2020-03-27</time>
+    <a href="/2020/04/26/knapsack/" class="article-date">
+  <time datetime="2020-04-26T06:06:42.000Z" itemprop="datePublished">2020-04-26</time>
 </a>
     
   </div>
@@ -80,7 +80,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/27/shell脚本学习/">shell脚本学习</a>
+      <a class="article-title" href="/2020/04/26/knapsack/">knapsack</a>
     </h1>
   
 
@@ -88,11 +88,76 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>做完爬楼梯问题后，我们继续挑战01背包问题，直接上代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> cap = <span class="number">100</span>;</span><br><span class="line"><span class="keyword">const</span> count = <span class="number">10</span>;</span><br><span class="line"><span class="keyword">const</span> weights = [<span class="number">0</span>, <span class="number">20</span>, <span class="number">5</span>, <span class="number">30</span>, <span class="number">6</span>,  <span class="number">15</span>, <span class="number">13</span>, <span class="number">10</span>, <span class="number">27</span>, <span class="number">17</span>, <span class="number">13</span>];</span><br><span class="line"><span class="keyword">const</span> values =  [<span class="number">0</span>, <span class="number">20</span>, <span class="number">7</span>, <span class="number">25</span>, <span class="number">15</span>, <span class="number">30</span>, <span class="number">1</span>,  <span class="number">7</span>,  <span class="number">50</span>, <span class="number">40</span>, <span class="number">10</span>];</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> maps = [[<span class="number">0</span>,<span class="number">0</span>], [<span class="number">0</span>,<span class="number">0</span>]];</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> getKnapsackValue = <span class="function">(<span class="params">cap, count, weights, values</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= count; i++)&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt;= cap; j++) &#123;</span><br><span class="line">      maps[i] = maps[i] || [<span class="number">0</span>];</span><br><span class="line">      <span class="keyword">if</span>(j &lt; weights[i])&#123;</span><br><span class="line">        maps[i][j] = maps[i<span class="number">-1</span>][j] || <span class="number">0</span>;</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        maps[i][j] = <span class="built_in">Math</span>.max( maps[i<span class="number">-1</span>][j] || <span class="number">0</span>, ( maps[i<span class="number">-1</span>][j-weights[i]] || <span class="number">0</span> )  + values[i]);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getKnapsackValue(cap, count, weights, values)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(maps[<span class="number">10</span>][<span class="number">100</span>])</span><br></pre></td></tr></table></figure></p>
+<p>代码能得出正确的答案，状态转移公式就不上了，网上全是。一些小心得：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> weights values 和index遍历<span class="number">0</span>位先填充<span class="number">0</span>，方便遍历</span><br><span class="line"><span class="number">2.</span> maps[i][j]初始化用了一点不优雅的技巧。</span><br></pre></td></tr></table></figure></p>
+<p>这是最原始的版本，背包九讲里可知，O(n^2)时间复杂度是不能优化了，空间可以被优化，上面是O(n^2)</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/27/shell脚本学习/" data-id="ck89lcdwo000ib9bwscrtsaj7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/04/26/knapsack/" data-id="ckca5p0mv000edebwy1tl9zdi" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-从爬楼梯问题入门动态规划" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/13/从爬楼梯问题入门动态规划/" class="article-date">
+  <time datetime="2020-04-13T07:52:47.000Z" itemprop="datePublished">2020-04-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/04/13/从爬楼梯问题入门动态规划/">从爬楼梯问题入门动态规划</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Description:<br>n个台阶的楼梯，一次只能爬1个台阶或者2个台阶，爬到n个台阶一共有多少种可能性？</p>
+<p>我对这道题印象极其深刻，最早知道它是高中数学课上大象老师提出它，解题思路是：</p>
+<ol>
+<li>记n个台阶的可能性是<code>s(n)</code>,因为一次只能爬1或者2个台阶，因此上一步，只能是从第n-1爬一步，或者从第n-2爬2步</li>
+<li>第n-1记<code>s(n-1)</code>,第n-2记<code>s(n-2)</code></li>
+<li>于是可得出递归函数: <code>s(n) = s(n-1) + s(n-2)</code></li>
+</ol>
+<p>LeetCode 70: <a href="https://leetcode.com/problems/climbing-stairs/submissions/" target="_blank" rel="noopener">https://leetcode.com/problems/climbing-stairs/submissions/</a></p>
+<p>我们以迅雷不及掩耳之响铃铛芝士提交代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> climbStairs = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n === <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span>(n === <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> climbStairs(n - <span class="number">1</span>) + climbStairs( n - <span class="number">2</span>)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>系统反手一个超时！<br>问题出现在递归函数，展开递归函数，是一个近乎完全二叉树，容易得出结论：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">`s(n-2)`</span>计算<span class="number">2</span>次</span><br><span class="line"><span class="string">`s(n-3)`</span>计算<span class="number">3</span>次</span><br><span class="line"> 。。。</span><br><span class="line"><span class="string">`s(1)`</span>计算n<span class="number">-1</span>次</span><br></pre></td></tr></table></figure></p>
+<p>计算量如此，映射到实际的运行时间上：<code>t(n) = t(n-1) + t(n-2)</code>, 实际打表显示的耗时符合这个公式。<br>触目惊心，额外计算了这么多次。</p>
+<p>我们要记录这些中间计算，这样耗时就是线性的n了。<br>我突然明白了动态第二个核心: 缓存中间计算，大约也叫剪纸吧,因为缓存子问题结果后，就不用再重复计算子问题了。在知乎上看到一个例子：</p>
+<p>如何像小学生解释动态规划：</p>
+<ol>
+<li>在纸上写1+1+1+1+1+1+1+1.</li>
+<li>求出答案是8</li>
+<li>在左侧写个1+，问答案是多少？</li>
+<li>瞬间计算出答案9，原因是记录了中间值8.</li>
+</ol>
+<p>好，我们用记录中间值得思路去解决这个问题：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> stepMap = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> climbStairs = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n === <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(n === <span class="number">2</span>) <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> steps = (stepMap[n - <span class="number">1</span>] ||  climbStairs(n - <span class="number">1</span>)) + (stepMap[ n - <span class="number">2</span>] || climbStairs( n - <span class="number">2</span>));</span><br><span class="line">    stepMap[n] = steps;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> steps;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>至此再也不用担心超时了。我们继续优化代码到js的最优雅解法， it’s beautiful.<br> <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> climbStairs = <span class="function"><span class="keyword">function</span>(<span class="params">n, a=<span class="number">1</span>, b=<span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(n == <span class="number">1</span>) <span class="keyword">return</span> b;</span><br><span class="line">  <span class="keyword">return</span> climbStairs(n<span class="number">-1</span>,b,a+b); </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>以上可以得出DP的解题思路：</p>
+<ol>
+<li>找出状态转移公式（用递归切割子问题）</li>
+<li>缓存中间状态值。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/13/从爬楼梯问题入门动态规划/" data-id="ckca5p0n1000qdebwm79xe5t7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -132,7 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/03/09/当缺点变成桎梏/" data-id="ck89lcdww000vb9bw3nbtbmjv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/03/09/当缺点变成桎梏/" data-id="ckca5p0n5000ydebwke2b582d" class="article-share-link">Share</a>
       
       
     </footer>
@@ -178,7 +243,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/04/28/understand-compose-and-pipe-in-JS/" data-id="ck89lcdwt000ob9bw1ckxy0xl" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2019/04/28/understand-compose-and-pipe-in-JS/" data-id="ckca5p0n0000odebwm64iqy6x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -221,7 +286,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/06/ctrip总结/" data-id="ck89lcdwb0005b9bw90wq4cox" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/12/06/ctrip总结/" data-id="ckca5p0mo0005debwu8mfq3am" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/离职感言/">离职感言</a></li></ul>
@@ -266,7 +331,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/01/24/一月记/" data-id="ck89lcdwu000qb9bwgut7nmeg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/01/24/一月记/" data-id="ckca5p0n2000rdebwblzsjx80" class="article-share-link">Share</a>
       
       
     </footer>
@@ -303,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/12/21/redux札记/" data-id="ck89lcdwr000lb9bwvxkyw26u" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/12/21/redux札记/" data-id="ckca5p0mz000ldebwprjvdbpz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -343,7 +408,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/16/license/" data-id="ck89lcdwn000hb9bwryw6rf80" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/08/16/license/" data-id="ckca5p0mz000kdebwfruryl3l" class="article-share-link">Share</a>
       
       
     </footer>
@@ -384,7 +449,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/09/类数组是什么？/" data-id="ck89lcdwz0012b9bwxa1opitp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/08/09/类数组是什么？/" data-id="ckca5p0n90018debwg0vu0n4a" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
@@ -423,49 +488,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/04/npm操作秀/" data-id="ck89lcdwq000kb9bways0r5w5" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/08/04/npm操作秀/" data-id="ckca5p0my000idebwqk3c5cf7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/npm/">npm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/前端/">前端</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-vtmim重构" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/08/03/vtmim重构/" class="article-date">
-  <time datetime="2017-08-03T05:40:22.000Z" itemprop="datePublished">2017-08-03</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/03/vtmim重构/">vtmim重构</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先放一个占位符。vtmim是我接手的第一个我厂项目，在维护过程中感觉到如下问题：<br>5000行代码一个文件，动辄一个函数200行，文件代码冗余，经常看到if else里出现同样的代码，代码的注释文不对题，以及缺乏合理的模块管理。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/08/03/vtmim重构/" data-id="ck89lcdwt000pb9bwgb4dhjax" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/重构/">重构</a></li></ul>
 
     </footer>
   </div>
@@ -516,7 +542,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
     </div>
   </div>
 
@@ -529,7 +555,11 @@
       <ul>
         
           <li>
-            <a href="/2020/03/27/shell脚本学习/">shell脚本学习</a>
+            <a href="/2020/04/26/knapsack/">knapsack</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/13/从爬楼梯问题入门动态规划/">从爬楼梯问题入门动态规划</a>
           </li>
         
           <li>
@@ -542,10 +572,6 @@
         
           <li>
             <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
-          </li>
-        
-          <li>
-            <a href="/2018/01/24/一月记/">一月记</a>
           </li>
         
       </ul>

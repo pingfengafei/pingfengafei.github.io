@@ -66,6 +66,54 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-同花顺前端面试题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/14/同花顺前端面试题/" class="article-date">
+  <time datetime="2015-10-14T09:22:34.000Z" itemprop="datePublished">2015-10-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/14/同花顺前端面试题/">同花顺前端面试题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>—<strong>介绍DOM结构</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;Document&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	 &lt;input type=<span class="string">"text"</span> name=<span class="string">"input"</span> id=<span class="string">"input"</span> value=<span class="string">"121"</span> /&gt;</span><br><span class="line">	 &lt;input type=<span class="string">"button"</span> onclick=<span class="string">"getInputValue()"</span> value=<span class="string">"输入按钮"</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">	function getInputValue()&#123;</span></span><br><span class="line"><span class="regexp">	&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>css内容合并</strong><br>grunt！！！</p>
+<p><strong>JS写在上面和下面的区别</strong><br>写在下面可以防止html css资源被阻塞</p>
+<p><strong>前端缓存机制</strong><br>作用：<br><code>1：减少磁盘IO</code><br><code>2：存储临时结果</code><br><code>3:存储高频访问的数据</code></p>
+<p>缓存机制：<br>数据库端缓存：在一张表上建立新表，存储高频数据或者统计数据，读操作是读取新表，写操作时再一并更新表和新表。<br>应用层缓存，和前端没啥大关系。<br>前端缓存：主要是采用CDN缓存，将图片，css，js，html静态资源放在CDN上，使用squid等缓存技术。<br>客户端缓存：使用本地缓存机制</p>
+<p><strong>cdn缓存的好处</strong><br>存放静态资源<br>解决高容量高并并发为题<br>解决南北的电信和联通服务商之间传输延迟问题<br>减小网站主服务器的压力<br>防止DDOS攻击<br>提高访问时间和运营成本</p>
+<p><strong>post get区别</strong><br>今天学习了pst和get区别，挺有意思的，来源：<a href="http://www.cnblogs.com/hyddd/archive/2009/03/31/1426026.html" target="_blank" rel="noopener">cnblog</a>.<br>http定义了与服务器交互的方式。将url想象成一条sql语句，那么put delte post get则分别对应增、删、改、查<br>历史+实际，最后最常用的只有post和get方法<br>get：单纯查询数据，安全+幂等<br>get的数据格式：<br>以百度搜索url为例子：<br><a href="https://www.baidu.com/s?ie=utf-8&amp;f=3&amp;rsv_bp=1&amp;rsv_idx=2&amp;tn=baidutop10&amp;wd=URL%20post%20get%E4%B8%AA%E6%95%B0%E9%99%90%E5%88%B6&amp;oq=http%25E8%25BF%2594%25E5%259B%259E%25E7%258A%25B6%25E6%2580%2581%25E7%25A0%2581&amp;rsv_pq=b522bb6400015c33&amp;rsv_t=58fdbr6CSYjGurXtrLvz7qjxNAZYLfpiF%2F2xFuskEGyAyO5iLrEyKIIh20Cb%2B62jLQ&amp;rsv_enter=0&amp;inputT=774&amp;rsv_n=2&amp;rsv_sug3=36&amp;prefixsug=URL%2520post%2520get%25E4%25B8%25AA%25E6%2595%25B0%25E9%2599%2590%25E5%2588%25B6&amp;rsp=0&amp;rsv_sug4=774" target="_blank" rel="noopener">https://www.baidu.com/s?ie=utf-8&amp;f=3&amp;rsv_bp=1&amp;rsv_idx=2&amp;tn=baidutop10&amp;wd=URL%20post%20get%E4%B8%AA%E6%95%B0%E9%99%90%E5%88%B6&amp;oq=http%25E8%25BF%2594%25E5%259B%259E%25E7%258A%25B6%25E6%2580%2581%25E7%25A0%2581&amp;rsv_pq=b522bb6400015c33&amp;rsv_t=58fdbr6CSYjGurXtrLvz7qjxNAZYLfpiF%2F2xFuskEGyAyO5iLrEyKIIh20Cb%2B62jLQ&amp;rsv_enter=0&amp;inputT=774&amp;rsv_n=2&amp;rsv_sug3=36&amp;prefixsug=URL%2520post%2520get%25E4%25B8%25AA%25E6%2595%25B0%25E9%2599%2590%25E5%2588%25B6&amp;rsp=0&amp;rsv_sug4=774</a><br><code>？</code>分隔url和get数据<br><code>&amp;</code>连接参数<br>英语+数字：原样发送<br>空格：+<br>汉字或者其他字符：base64加密，%形式发送<br>get最大长度？<br>get本身没有长度限制，有长度限制的是url.IE对url限制：2K+35，其他浏览器，看具体情况了。<br>post最大长度？<br>post本身没有大小限制的，有限制的是服务器处理接口的限制。</p>
+<p>form表单post和get问题<br>get：向服务器请求数据<br>post：想服务器发送数据<br>form表单默认是get</p>
+<p><strong>http返回状态码</strong><br>1<strong>：请求临时响应，程序需要进一步操作<br>2</strong>：服务器成功响应了请求<br>3<strong>:重定向<br>4</strong>:请求错误<br>5<strong>:服务器错误<br>9</strong>:自定义错误</p>
+<p><strong>rel=follow vs rel=nofollow</strong><br>seo优化，参照<a href="http://www.cnblogs.com/shuchao/archive/2009/09/19/rel-nofollow.html" target="_blank" rel="noopener">cnblog</a>.<br>nofollow有两种用法：<br>1.用于meta元标签：<code>&lt;meta name=&quot;robots&quot; content=&quot;nofollow&quot; /&gt;</code>，告诉爬虫该页面上所有链接都无需追踪。<br>2.用于a标签：<code>&lt;a href=&quot;login.aspx&quot; rel=&quot;nofollow&quot;&gt;&lt;/a&gt;</code>,告诉爬虫该页面无需追踪。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/10/14/同花顺前端面试题/" data-id="ckcbkr8f3000ulsbwhuk9nj2b" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/">reptile</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js笔试题" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/10/13/js笔试题/" class="article-date">
@@ -96,7 +144,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/13/js笔试题/" data-id="ckca5p0mw000fdebwsbppwvpn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/13/js笔试题/" data-id="ckcbkr8ew000glsbwky5vkn50" class="article-share-link">Share</a>
       
       
     </footer>
@@ -137,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/12/跨域请求/" data-id="ckca5p0n70014debwr4m3uv3q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/12/跨域请求/" data-id="ckcbkr8g5001nlsbwvd86f4e5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -177,7 +225,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/11/支持markdown表格/" data-id="ckca5p0n4000xdebwxncenkal" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/11/支持markdown表格/" data-id="ckcbkr8f5000ylsbweug5ivqu" class="article-share-link">Share</a>
       
       
     </footer>
@@ -266,7 +314,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/10/面试数据结构/" data-id="ckca5p0n90017debwbch9lv4m" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/10/面试数据结构/" data-id="ckcbkr8g6001tlsbwck4zc7i1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -308,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/09/搭建github博客走过的路/" data-id="ckca5p0n4000wdebwy7ira5p4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/09/搭建github博客走过的路/" data-id="ckcbkr8f4000xlsbwo73iaenv" class="article-share-link">Share</a>
       
       
     </footer>
@@ -356,7 +404,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/09/js变量提升/" data-id="ckca5p0mv000ddebwimpapxk4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/09/js变量提升/" data-id="ckcbkr8eu000dlsbwvtah4qdj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -398,7 +446,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/09/js深度拷贝/" data-id="ckca5p0my000jdebwdyn58nyq" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/09/js深度拷贝/" data-id="ckcbkr8ev000elsbwuql3zmr0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -441,7 +489,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/01/hello-gitHub/" data-id="ckca5p0mr0009debw341bpz19" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/01/hello-gitHub/" data-id="ckcbkr8eq0009lsbwdgdy1qbx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -493,7 +541,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
     </div>
   </div>
 
@@ -504,6 +552,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/07/06/处理Postgres json格式数据/">记一次处理Postgres json字段的有趣历程</a>
+          </li>
         
           <li>
             <a href="/2020/04/26/knapsack/">knapsack</a>
@@ -519,10 +571,6 @@
         
           <li>
             <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
           </li>
         
       </ul>

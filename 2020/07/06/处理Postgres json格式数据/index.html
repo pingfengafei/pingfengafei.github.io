@@ -3,21 +3,19 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>.style and getComputedStyle | Quiet to go far！</title>
+  <title>记一次处理Postgres json字段的有趣历程 | Quiet to go far！</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="#.style vs window.getComputedStyle1&amp;lt;div className=&amp;quot;filter-header-tabs&amp;quot; ref=&amp;quot;filterHeaderTabs&amp;quot; style=&amp;#123;&amp;#123;&amp;apos;width&amp;apos;: &amp;apos;500px&amp;apos;&amp;#125;&amp;#125;&amp;gt; 1234.filter-">
+  <meta name="description" content="任务123前端根据IDs向数据库查询数据。数据结构复杂，有null/array/object，不排除有其他形式的legacy数据。array/object字段不一，path不一，可能存在某个key的value属于IDs。 任务被分割成前后端2部分，因为难点在数据库JSON的处理上。任务没有deadline的压力，这是一次学习和实践数据库的机会，选择前后端一起做。 最初的想法，利用Postgres的">
 <meta property="og:type" content="article">
-<meta property="og:title" content=".style and getComputedStyle">
-<meta property="og:url" content="http://yoursite.com/2017/03/04/style-and-getComputedStyle/index.html">
+<meta property="og:title" content="记一次处理Postgres json字段的有趣历程">
+<meta property="og:url" content="http://yoursite.com/2020/07/06/处理Postgres json格式数据/index.html">
 <meta property="og:site_name" content="Quiet to go far！">
-<meta property="og:description" content="#.style vs window.getComputedStyle1&amp;lt;div className=&amp;quot;filter-header-tabs&amp;quot; ref=&amp;quot;filterHeaderTabs&amp;quot; style=&amp;#123;&amp;#123;&amp;apos;width&amp;apos;: &amp;apos;500px&amp;apos;&amp;#125;&amp;#125;&amp;gt; 1234.filter-">
+<meta property="og:description" content="任务123前端根据IDs向数据库查询数据。数据结构复杂，有null/array/object，不排除有其他形式的legacy数据。array/object字段不一，path不一，可能存在某个key的value属于IDs。 任务被分割成前后端2部分，因为难点在数据库JSON的处理上。任务没有deadline的压力，这是一次学习和实践数据库的机会，选择前后端一起做。 最初的想法，利用Postgres的">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://7xne0t.com1.z0.glb.clouddn.com/refs.png">
-<meta property="og:updated_time" content="2020-03-09T13:03:01.260Z">
+<meta property="og:updated_time" content="2020-07-07T06:45:22.368Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content=".style and getComputedStyle">
-<meta name="twitter:description" content="#.style vs window.getComputedStyle1&amp;lt;div className=&amp;quot;filter-header-tabs&amp;quot; ref=&amp;quot;filterHeaderTabs&amp;quot; style=&amp;#123;&amp;#123;&amp;apos;width&amp;apos;: &amp;apos;500px&amp;apos;&amp;#125;&amp;#125;&amp;gt; 1234.filter-">
-<meta name="twitter:image" content="http://7xne0t.com1.z0.glb.clouddn.com/refs.png">
+<meta name="twitter:title" content="记一次处理Postgres json字段的有趣历程">
+<meta name="twitter:description" content="任务123前端根据IDs向数据库查询数据。数据结构复杂，有null/array/object，不排除有其他形式的legacy数据。array/object字段不一，path不一，可能存在某个key的value属于IDs。 任务被分割成前后端2部分，因为难点在数据库JSON的处理上。任务没有deadline的压力，这是一次学习和实践数据库的机会，选择前后端一起做。 最初的想法，利用Postgres的">
   
     <link rel="alternate" href="/atom.xml" title="Quiet to go far！" type="application/atom+xml">
   
@@ -70,10 +68,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-style-and-getComputedStyle" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-处理Postgres json格式数据" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/03/04/style-and-getComputedStyle/" class="article-date">
-  <time datetime="2017-03-04T10:49:21.000Z" itemprop="datePublished">2017-03-04</time>
+    <a href="/2020/07/06/处理Postgres json格式数据/" class="article-date">
+  <time datetime="2020-07-06T07:09:18.000Z" itemprop="datePublished">2020-07-06</time>
 </a>
     
   </div>
@@ -84,7 +82,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      .style and getComputedStyle
+      记一次处理Postgres json字段的有趣历程
     </h1>
   
 
@@ -92,20 +90,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#.style vs window.getComputedStyle<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=&quot;filter-header-tabs&quot; ref=&quot;filterHeaderTabs&quot; style=&#123;&#123;&apos;width&apos;: &apos;500px&apos;&#125;&#125;&gt;</span><br></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.filter-header-tabs &#123;</span><br><span class="line">   display: inline-block;</span><br><span class="line">   width: 85%;</span><br><span class="line">   min-width: 660px;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(window.getComputedStyle(this.refs.filterHeaderTabs).width); // 660px</span><br><span class="line">console.log(this.refs.filterHeaderTabs.style.width); // 500px</span><br></pre></td></tr></table></figure>
-<p>总结：<br>1：.style只能获得div标签上的style，无法获得css内的style和真实的style, 未设置的style都是<code>&quot;&quot;</code><br>2：window.getComputedStyle获取的是节点的真实style</p>
-<p>#getDOMNode() vs findDOMNode() vs this.refs<br>从react14版本开始，getDOMNode被遗弃，使用findDOMNode替代<br><code>With this change, we’re deprecating .getDOMNode() and replacing it with ReactDOM.findDOMNode (see below). If your components are currently using .getDOMNode(), they will continue to work with a warning until 0.15.</code></p>
-<p>##findDOMNode()和this.refs的区别<br>14版本又说了：<br><code>Starting with this release, this.refs.giraffe is the actual DOM node</code><br>从这个版本开始，this.refs等同于真实的dom节点，也就是说（部分地）， findDOMNode9()等同于this.refs<br>14版本又说了：<br><code>Note that refs to custom (user-defined) components work exactly as before; only the built-in DOM components are affected by this change.</code></p>
-<p>总结：<br>1：在dom节点（div, p, span…）上用findDOMNode()等同于this.refs<br>2：在React组件上用，this.refs获取的是组件的引用，findDOMNode()获取的是组件的dom树</p>
-<p>作用在dom节点上<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=&quot;filter-header-tabs&quot; ref=&quot;filterHeaderTabs&quot;&gt;</span><br><span class="line">//&lt;div class=&quot;filter-header-tabs&quot;&gt;...&lt;/div&gt;</span><br><span class="line">console.log(ReactDOM.findDOMNode(this.refs.filterHeaderTabs));</span><br><span class="line">//&lt;div class=&quot;filter-header-tabs&quot;&gt;...&lt;/div&gt;</span><br><span class="line">console.log(this.refs.filterHeaderTabs);</span><br></pre></td></tr></table></figure></p>
-<p>作用在React组件上<br><img src="http://7xne0t.com1.z0.glb.clouddn.com/refs.png" alt></p>
+        <h2 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">前端根据IDs向数据库查询数据。</span><br><span class="line">数据结构复杂，有<span class="literal">null</span>/array/object，不排除有其他形式的legacy数据。</span><br><span class="line">array/object字段不一，path不一，可能存在某个key的value属于IDs。</span><br></pre></td></tr></table></figure>
+<p>任务被分割成前后端2部分，因为难点在数据库JSON的处理上。任务没有deadline的压力，这是一次学习和实践数据库的机会，选择前后端一起做。</p>
+<p>最初的想法，利用<code>Postgres</code>的<code>json</code>处理函数将字段<code>Id</code>提取出来和目标<code>IDs</code>匹配。现实中，字段的形式和数据格式都过于复杂，难以（优雅地）组装在<code>where</code>语句。一筹莫展之际，发现一个捷径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将json字段处理成text, 用text匹配IDs，绕过处理json.</span><br></pre></td></tr></table></figure></p>
+<p>类似于<code>%like%</code>， <code>in (1,2,3)</code>, <code>Postgres</code>支持<a href="https://www.postgresql.org/docs/current/functions-matching.html" target="_blank" rel="noopener">SIMILAR TO</a>正则匹配。问题简化成: <code>使用正则表达式匹配文本字符串。</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE data::text SIMILAR TO %(id<span class="number">-1</span>|id<span class="number">-2</span>|id<span class="number">-3</span>)%</span><br></pre></td></tr></table></figure></p>
+<h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><p>虽然<code>SIMILAR TO</code>是现实问题的最优解，却始终不是正解。 同时留下疑问，<code>json to text</code>对查询性能有多少影响？ 原生<code>jsonb</code>方法效率怎么样？</p>
+<p>这里实现一个包含100w条记录的table， 分别对比<code>char column字段查询 &amp;&amp; json 函数查询 &amp;&amp; json to string 查询</code>三种查询方式的效率。<br><a href="https://www.postgresql.org/docs/current/datatype-json.html#TYPE-JSONPATH-ACCESSORS" target="_blank" rel="noopener">官方文档</a>提供了<code>SQL/JSON Path Language</code>, 更加高效的处理<code>jsonb</code>数据，但是额外地，需要将字段<code>GIN indexes</code>, 本次测试没有使用<code>SQL/JSON Path Language</code>， 选择更加通用的<a href="https://www.postgresql.org/docs/current/functions-json.html" target="_blank" rel="noopener">一般操作符</a>.</p>
+<p>git repo： <a href="https://github.com/pingfengafei/pstgres-json-efficiency" target="_blank" rel="noopener">https://github.com/pingfengafei/pstgres-json-efficiency</a><br>测试结果：<a href="https://github.com/pingfengafei/pstgres-json-efficiency/blob/master/log" target="_blank" rel="noopener">https://github.com/pingfengafei/pstgres-json-efficiency/blob/master/log</a></p>
+<p>测试结论：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> 原生字段查询最快，大约是json查询的<span class="number">5</span>倍效率，约是json to string的<span class="number">10</span>倍。</span><br><span class="line"><span class="number">2.</span> json to string查询<span class="number">100</span>w条记录，大约耗时<span class="number">2</span>秒。</span><br><span class="line"><span class="number">3.</span> 尽量避免使用json/jsonb存储数据，必须时用jsonb + GIN index。</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/03/04/style-and-getComputedStyle/" data-id="ckcbkr8f0000mlsbw9jzsob2p" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/07/06/处理Postgres json格式数据/" data-id="ckcbkr8f4000wlsbw0h64bryj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -114,19 +111,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/07/11/杂文/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          杂文
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/03/04/callback和promise/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/04/26/knapsack/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">callback和promise</div>
+      <div class="article-nav-title">knapsack</div>
     </a>
   
 </nav>

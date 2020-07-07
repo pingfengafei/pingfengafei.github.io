@@ -66,6 +66,94 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-某家笔试题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/02/某家笔试题/" class="article-date">
+  <time datetime="2015-11-02T15:11:59.000Z" itemprop="datePublished">2015-11-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/02/某家笔试题/">某家笔试题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>某家笔试题总结<br>1：css样式顺序，就近原则；多个class id组合的顺序没有关系<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">		<span class="selector-class">.yellow</span>&#123;</span></span><br><span class="line"><span class="undefined">			color: yellow;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="css">		<span class="selector-class">.red</span>&#123;</span></span><br><span class="line"><span class="css">			<span class="selector-tag">color</span><span class="selector-pseudo">:red</span>;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"red yellow"</span>&gt;</span>hello world!<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><br><br>2:substring vs substr<br>substring(begin_index,end_index);<br>得到的子串是：begin_index到end_index-1<br>substr(begin_index,length);<br>得到的子串长度是：begin_index到length长度的子串，begin_index算第一个<br>关于子串下标更进一步的讨论<br>参考：<img src="http://www.cnblogs.com/wz327/archive/2010/04/11/1709433.html" alt="substring vs substr"><br><br><br>3:Math.round(parseFloat(‘1.45b’)); // 1<br>a:pareseFloat先将’1.45b’转换成1.45<br>b:Math.round()再四舍五入、<br><br><br>4：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br></pre></td><td class="code"><pre><span class="line">   (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> 		<span class="keyword">return</span> <span class="keyword">typeof</span> <span class="built_in">arguments</span>; <span class="comment">//object</span></span><br><span class="line"> 	&#125;)()</span><br><span class="line"></span><br><span class="line">   <span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> 		<span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line"> 	&#125;</span><br><span class="line"> 	<span class="built_in">console</span>.log(<span class="keyword">typeof</span> f())<span class="comment">//number</span></span><br><span class="line"></span><br><span class="line">   (<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line"> 		<span class="keyword">delete</span> x;</span><br><span class="line"> 		<span class="keyword">return</span> x;</span><br><span class="line"> 	&#125;)(<span class="number">1</span>); <span class="comment">//1</span></span><br><span class="line"></span><br><span class="line">   (<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> 		<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="number">1</span>;&#125;</span><br><span class="line"> 		<span class="keyword">return</span> f();<span class="comment">//2</span></span><br><span class="line"> 		<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="number">2</span>;&#125;</span><br><span class="line"> 	&#125;)(); </span><br><span class="line"> 	</span><br><span class="line"><span class="keyword">var</span> foo = &#123;</span><br><span class="line"> 		bar : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>.num&#125;,</span><br><span class="line"> 		num : <span class="number">1</span></span><br><span class="line"> 	&#125;</span><br><span class="line"> 	(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"> 		<span class="keyword">return</span> <span class="keyword">typeof</span> <span class="built_in">arguments</span>[<span class="number">0</span>]; <span class="comment">//number</span></span><br><span class="line"> 	&#125;)(foo.bar());	</span><br><span class="line"></span><br><span class="line"> foo.bar() <span class="comment">//30</span></span><br><span class="line">  		<span class="keyword">var</span> foo = &#123;</span><br><span class="line">       x: <span class="number">20</span>,</span><br><span class="line">        bar: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">           <span class="keyword">var</span> x = <span class="number">30</span>;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">this</span>.x;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;;</span><br><span class="line">   foo.bar()<span class="comment">//20 	</span></span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">3</span>; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> i;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> arr;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> arr = fn();</span><br><span class="line">	<span class="built_in">console</span>.log(arr[<span class="number">0</span>]()); <span class="comment">//3</span></span><br><span class="line">	<span class="built_in">console</span>.log(arr[<span class="number">1</span>]()); <span class="comment">//3</span></span><br><span class="line">	<span class="built_in">console</span>.log(arr[<span class="number">2</span>]()); <span class="comment">//3</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt;<span class="number">3</span>; i++)</span><br><span class="line">		&#123;</span><br><span class="line">			arr[i] = <span class="function"><span class="keyword">function</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">				<span class="keyword">return</span> i;</span><br><span class="line">			&#125;(i);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> arr;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> arr = fn();</span><br><span class="line">	<span class="built_in">console</span>.log(arr[<span class="number">0</span>]); <span class="comment">//3</span></span><br><span class="line">	<span class="built_in">console</span>.log(arr[<span class="number">1</span>]); <span class="comment">//3</span></span><br><span class="line">	<span class="built_in">console</span>.log(arr[<span class="number">2</span>]); <span class="comment">//3</span></span><br><span class="line"></span><br><span class="line">	 <span class="keyword">var</span> name = <span class="string">'the windows'</span>;</span><br><span class="line">	 <span class="keyword">var</span> object = &#123;</span><br><span class="line">	 	name : <span class="string">'my object'</span>,</span><br><span class="line">	 	getName : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 			<span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">	 		&#125;</span><br><span class="line">	 	&#125;</span><br><span class="line">	 &#125;</span><br><span class="line"></span><br><span class="line">	 <span class="built_in">console</span>.log(object.getName()());  <span class="comment">//the windows</span></span><br><span class="line"></span><br><span class="line">	 <span class="keyword">var</span> name = <span class="string">'the windows'</span>;</span><br><span class="line">	 <span class="keyword">var</span> object = &#123;</span><br><span class="line">	 	name : <span class="string">'my object'</span>,</span><br><span class="line">	 	getName : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 		<span class="keyword">return</span> <span class="keyword">this</span>.name;</span><br><span class="line">	 	&#125;</span><br><span class="line">	 &#125;</span><br><span class="line">	 <span class="built_in">console</span>.log(object.getName());  <span class="comment">//my object</span></span><br><span class="line"></span><br><span class="line">	 <span class="keyword">var</span> name = <span class="string">'the windows'</span>;</span><br><span class="line">	 <span class="keyword">var</span> object = &#123;</span><br><span class="line">	 	name : <span class="string">'my object'</span>,</span><br><span class="line">	 	getName : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 		<span class="keyword">var</span> that = <span class="keyword">this</span>;</span><br><span class="line">	 		<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 			<span class="keyword">return</span> that.name;</span><br><span class="line">	 		&#125;</span><br><span class="line">	 	&#125;</span><br><span class="line">	 &#125;</span><br><span class="line"></span><br><span class="line">	 <span class="built_in">console</span>.log(object.getName()());  <span class="comment">//my object</span></span><br><span class="line"></span><br><span class="line">	 <span class="keyword">var</span> scope = <span class="string">"global scope"</span>;</span><br><span class="line">	 <span class="function"><span class="keyword">function</span> <span class="title">checkScope</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 	<span class="keyword">var</span> scope = <span class="string">"local scope"</span>;</span><br><span class="line">	 	<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 		<span class="keyword">return</span> scope;</span><br><span class="line">	 	&#125;</span><br><span class="line">	 	<span class="keyword">return</span> f();  <span class="comment">//local scope</span></span><br><span class="line">	 &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">	 <span class="built_in">console</span>.log(checkScope()); <span class="comment">//global scope //匿名函数this对象总是指向顶层window</span></span><br><span class="line"></span><br><span class="line">	 <span class="keyword">var</span> scope = <span class="string">"global scope"</span>;</span><br><span class="line">	 <span class="function"><span class="keyword">function</span> <span class="title">checkScope</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 	<span class="keyword">var</span> scope = <span class="string">"local scope"</span>;</span><br><span class="line">	 	<span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 		<span class="keyword">return</span> <span class="keyword">this</span>.scope;</span><br><span class="line">	 	&#125;</span><br><span class="line">	 	<span class="keyword">return</span> f();</span><br><span class="line">	 &#125;</span><br><span class="line">	 <span class="built_in">console</span>.log(checkScope()); <span class="comment">//global scope //匿名函数this对象总是指向顶层window</span></span><br><span class="line"></span><br><span class="line">	  <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">	 <span class="function"><span class="keyword">function</span> <span class="title">fn</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 	<span class="function"><span class="keyword">function</span> <span class="title">fn2</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	 		<span class="built_in">console</span>.log(a);</span><br><span class="line">	 	&#125;</span><br><span class="line">	 	<span class="keyword">return</span> fn2;</span><br><span class="line">	 &#125;</span><br><span class="line">	 fn()();<span class="comment">//1 //没有局部变量就向上查找全局变量</span></span><br></pre></td></tr></table></figure></p>
+<p>js数据类型<br>基本类型：number boolean underfined string null<br>复杂类型：object</p>
+<p>js数组比较<br>js数组不能直接使用==比较，返回的是false<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">var</span> b = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line">a == b; <span class="comment">//false</span></span><br></pre></td></tr></table></figure></p>
+<p>正确的做法是：遍历比较数组内部元素.之前有说使用toString方法来比较，这是万万不妥的，toString会强制转换所有数组内容为string类型，因此无法判断数据类型。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkArrayEqual</span>(<span class="params">a,b</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">if</span>(a.length !== b.length)</span><br><span class="line"> 	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line"> 	<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span> ; i &lt;= a.length; i++)</span><br><span class="line">  	<span class="keyword">if</span>(a[i] !== b[i])</span><br><span class="line">   	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实现方法temp(‘hello,{name}’, {name : ‘Lucy’})，输出’hello,Lucy’<br>当时的写法是：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">temp</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> a = <span class="built_in">arguments</span>[<span class="number">0</span>].substring(<span class="number">0</span>,<span class="number">6</span>);</span><br><span class="line">	<span class="keyword">var</span> b = <span class="built_in">arguments</span>[<span class="number">1</span>].name;</span><br><span class="line">	<span class="built_in">console</span>.log(a + b);</span><br><span class="line">&#125;</span><br><span class="line">temp(<span class="string">'hello,&#123;name&#125;'</span>, &#123;<span class="attr">name</span> : <span class="string">'Lucy'</span>&#125;);<span class="comment">//hello,Lucy</span></span><br></pre></td></tr></table></figure></p>
+<p>现在想一想，应该不是出题者的本意吧</p>
+<p>写一个响应式布局页面<br>移动优先  渐进增强 </p>
+<p>css3 Media Query<br>device-width device-height<br>width height<br>oritation<br>resolution</p>
+<p>css写一个input框，实现foucs功能<br>我ciao，忘记了placeholder误终身啊，结果就是这么简单。</p>
+<p><input type="text" class="inputarea" id="inputarea" placeholder="f***k world!"><br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input type=<span class="string">"text"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"inputarea"</span> id=<span class="string">"inputarea"</span>  placeholder=<span class="string">"f***k world!"</span>/&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/02/某家笔试题/" data-id="ckcbkr8f70013lsbw94q3kb83" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-原生js-ajax" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/02/原生js-ajax/" class="article-date">
+  <time datetime="2015-11-02T07:56:47.000Z" itemprop="datePublished">2015-11-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/02/原生js-ajax/">原生js_ajax</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>前端拼图之–ajax</strong><br>ajax返回码：<br>readyState:联想open(）和send()函数<br>0:open失败<br>1：open成功sned失败<br>2：send成功没有响应数据<br>3：响应部分数据<br>4：数据完全响应并返回</p>
+<p>status状态码：<br>1<strong>：http建立响应<br>2</strong>：响应成功<br>3<strong>：响应需要进一步跟进，典型304，缓存问题<br>4</strong>：客户端问题 404 url错误<br>5<strong>：服务器错误<br>9</strong>：自定义错误<br>参考：<img src="http://www.cnblogs.com/lxinxuan/archive/2009/10/22/1588053.html" alt="状态码"></p>
+<p><code>attention，state是adj，status是n</code></p>
+<p>终于撸了第一个简单ajax，找了很久bug，原来是readyState和status写错了。<br>关于跨域请求问题，jsonp可以部分解决，添加允许跨域头可以解决。测试的时候，我的做法是统一放到本地虚拟服务器下。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>ajax<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>1212<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">	<span class="keyword">var</span> xmlhttp;</span></span><br><span class="line"><span class="javascript">	<span class="comment">//适配现在浏览器和古老的ie 5,6浏览器</span></span></span><br><span class="line"><span class="javascript">	<span class="built_in">window</span>.XMLHttpRequest ? xmlhttp = <span class="keyword">new</span> XMLHttpRequest() : xmlhttp = <span class="keyword">new</span> ActiveObject(<span class="string">"Microsoft.XMLHttpRequest"</span>);</span></span><br><span class="line"><span class="javascript">	<span class="comment">//get or post</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//url</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//true = 异步加载，false = 同步加载</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//xmlhttp.open("get","http://127.0.0.1/test/test.asp",true);</span></span></span><br><span class="line"><span class="javascript">	xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"test.text"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="undefined">	xmlhttp.send();</span></span><br><span class="line"><span class="undefined">	</span></span><br><span class="line"><span class="javascript">	xmlhttp.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">if</span>(xmlhttp.readyState == <span class="number">4</span> &amp;&amp; xmlhttp.status == <span class="number">200</span>)&#123;</span></span><br><span class="line"><span class="javascript">			<span class="built_in">document</span>.getElementsByTagName(<span class="string">"div"</span>)[<span class="number">0</span>].innerHTML = xmlhttp.responseText;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	&#125; </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>test.text文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p style=&apos;color:red;&apos;&gt;本内容是使用 GET 方法请求的。&lt;/p&gt;&lt;p style=&apos;color:red;&apos;&gt;请求时间：2015-10-28 16:16:47&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/11/02/原生js-ajax/" data-id="ckcbkr8f2000slsbwrbt1dl6u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-git ignore&amp;&amp;es6 export" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/11/02/git ignore&&es6 export/" class="article-date">
@@ -116,48 +204,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/02/git ignore&&es6 export/" data-id="ckca5p0mu000cdebwzere55ie" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-原生js-ajax" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/11/02/原生js-ajax/" class="article-date">
-  <time datetime="2015-11-02T07:56:47.000Z" itemprop="datePublished">2015-11-02</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/11/02/原生js-ajax/">原生js_ajax</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>前端拼图之–ajax</strong><br>ajax返回码：<br>readyState:联想open(）和send()函数<br>0:open失败<br>1：open成功sned失败<br>2：send成功没有响应数据<br>3：响应部分数据<br>4：数据完全响应并返回</p>
-<p>status状态码：<br>1<strong>：http建立响应<br>2</strong>：响应成功<br>3<strong>：响应需要进一步跟进，典型304，缓存问题<br>4</strong>：客户端问题 404 url错误<br>5<strong>：服务器错误<br>9</strong>：自定义错误<br>参考：<img src="http://www.cnblogs.com/lxinxuan/archive/2009/10/22/1588053.html" alt="状态码"></p>
-<p><code>attention，state是adj，status是n</code></p>
-<p>终于撸了第一个简单ajax，找了很久bug，原来是readyState和status写错了。<br>关于跨域请求问题，jsonp可以部分解决，添加允许跨域头可以解决。测试的时候，我的做法是统一放到本地虚拟服务器下。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>ajax<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span>&gt;</span>1212<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript">	<span class="keyword">var</span> xmlhttp;</span></span><br><span class="line"><span class="javascript">	<span class="comment">//适配现在浏览器和古老的ie 5,6浏览器</span></span></span><br><span class="line"><span class="javascript">	<span class="built_in">window</span>.XMLHttpRequest ? xmlhttp = <span class="keyword">new</span> XMLHttpRequest() : xmlhttp = <span class="keyword">new</span> ActiveObject(<span class="string">"Microsoft.XMLHttpRequest"</span>);</span></span><br><span class="line"><span class="javascript">	<span class="comment">//get or post</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//url</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//true = 异步加载，false = 同步加载</span></span></span><br><span class="line"><span class="javascript">	<span class="comment">//xmlhttp.open("get","http://127.0.0.1/test/test.asp",true);</span></span></span><br><span class="line"><span class="javascript">	xmlhttp.open(<span class="string">"GET"</span>,<span class="string">"test.text"</span>,<span class="literal">true</span>);</span></span><br><span class="line"><span class="undefined">	xmlhttp.send();</span></span><br><span class="line"><span class="undefined">	</span></span><br><span class="line"><span class="javascript">	xmlhttp.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">		<span class="keyword">if</span>(xmlhttp.readyState == <span class="number">4</span> &amp;&amp; xmlhttp.status == <span class="number">200</span>)&#123;</span></span><br><span class="line"><span class="javascript">			<span class="built_in">document</span>.getElementsByTagName(<span class="string">"div"</span>)[<span class="number">0</span>].innerHTML = xmlhttp.responseText;</span></span><br><span class="line"><span class="undefined">		&#125;</span></span><br><span class="line"><span class="undefined">	&#125; </span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>test.text文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;p style=&apos;color:red;&apos;&gt;本内容是使用 GET 方法请求的。&lt;/p&gt;&lt;p style=&apos;color:red;&apos;&gt;请求时间：2015-10-28 16:16:47&lt;/p&gt;</span><br></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/11/02/原生js-ajax/" data-id="ckca5p0n3000udebw7p121jrt" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/11/02/git ignore&&es6 export/" data-id="ckcbkr8es000alsbwuuxg3k7o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -193,7 +240,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/28/乞丐版登录/" data-id="ckca5p0n2000sdebw402k0l3h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/28/乞丐版登录/" data-id="ckcbkr8f2000rlsbwq0s1dmao" class="article-share-link">Share</a>
       
       
     </footer>
@@ -231,7 +278,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/27/ht-js-table/" data-id="ckca5p0ms000adebw923qewj3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/27/ht-js-table/" data-id="ckcbkr8et000blsbw6oq0s5c1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -272,7 +319,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/27/css画图形/" data-id="ckca5p0mm0002debwr05uw76w" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/27/css画图形/" data-id="ckcbkr8el0004lsbwnesn09yx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -325,7 +372,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/22/某家前端笔试题/" data-id="ckca5p0n60011debwgt5okor3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/22/某家前端笔试题/" data-id="ckcbkr8f80014lsbw2vy1qbv4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -367,7 +414,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/17/某生it金融公司面试题/" data-id="ckca5p0n60012debw8nc6gkfo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/17/某生it金融公司面试题/" data-id="ckcbkr8f70012lsbwlgvydzzj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -407,7 +454,7 @@ import a from &apos;filepath&apos;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/16/getElementsByClassName/" data-id="ckca5p0mq0008debw259vopru" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/16/getElementsByClassName/" data-id="ckcbkr8ep0008lsbwigc9krx8" class="article-share-link">Share</a>
       
       
     </footer>
@@ -450,57 +497,9 @@ w3c盒子宽度 = content_width;</code></p>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/15/css-html总结/" data-id="ckca5p0mm0003debw260723uv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/10/15/css-html总结/" data-id="ckcbkr8ei0001lsbwn10t9oiy" class="article-share-link">Share</a>
       
       
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-同花顺前端面试题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/14/同花顺前端面试题/" class="article-date">
-  <time datetime="2015-10-14T09:22:34.000Z" itemprop="datePublished">2015-10-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/14/同花顺前端面试题/">同花顺前端面试题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>—<strong>介绍DOM结构</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">"en"</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset=<span class="string">"UTF-8"</span>&gt;</span><br><span class="line">	&lt;title&gt;Document&lt;<span class="regexp">/title&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">	 &lt;input type=<span class="string">"text"</span> name=<span class="string">"input"</span> id=<span class="string">"input"</span> value=<span class="string">"121"</span> /&gt;</span><br><span class="line">	 &lt;input type=<span class="string">"button"</span> onclick=<span class="string">"getInputValue()"</span> value=<span class="string">"输入按钮"</span>&gt;</span><br><span class="line">&lt;<span class="regexp">/body&gt;</span></span><br><span class="line"><span class="regexp">&lt;script&gt;</span></span><br><span class="line"><span class="regexp">	function getInputValue()&#123;</span></span><br><span class="line"><span class="regexp">	&#125;</span></span><br><span class="line"><span class="regexp">&lt;/</span>script&gt;</span><br><span class="line">&lt;<span class="regexp">/html&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>css内容合并</strong><br>grunt！！！</p>
-<p><strong>JS写在上面和下面的区别</strong><br>写在下面可以防止html css资源被阻塞</p>
-<p><strong>前端缓存机制</strong><br>作用：<br><code>1：减少磁盘IO</code><br><code>2：存储临时结果</code><br><code>3:存储高频访问的数据</code></p>
-<p>缓存机制：<br>数据库端缓存：在一张表上建立新表，存储高频数据或者统计数据，读操作是读取新表，写操作时再一并更新表和新表。<br>应用层缓存，和前端没啥大关系。<br>前端缓存：主要是采用CDN缓存，将图片，css，js，html静态资源放在CDN上，使用squid等缓存技术。<br>客户端缓存：使用本地缓存机制</p>
-<p><strong>cdn缓存的好处</strong><br>存放静态资源<br>解决高容量高并并发为题<br>解决南北的电信和联通服务商之间传输延迟问题<br>减小网站主服务器的压力<br>防止DDOS攻击<br>提高访问时间和运营成本</p>
-<p><strong>post get区别</strong><br>今天学习了pst和get区别，挺有意思的，来源：<a href="http://www.cnblogs.com/hyddd/archive/2009/03/31/1426026.html" target="_blank" rel="noopener">cnblog</a>.<br>http定义了与服务器交互的方式。将url想象成一条sql语句，那么put delte post get则分别对应增、删、改、查<br>历史+实际，最后最常用的只有post和get方法<br>get：单纯查询数据，安全+幂等<br>get的数据格式：<br>以百度搜索url为例子：<br><a href="https://www.baidu.com/s?ie=utf-8&amp;f=3&amp;rsv_bp=1&amp;rsv_idx=2&amp;tn=baidutop10&amp;wd=URL%20post%20get%E4%B8%AA%E6%95%B0%E9%99%90%E5%88%B6&amp;oq=http%25E8%25BF%2594%25E5%259B%259E%25E7%258A%25B6%25E6%2580%2581%25E7%25A0%2581&amp;rsv_pq=b522bb6400015c33&amp;rsv_t=58fdbr6CSYjGurXtrLvz7qjxNAZYLfpiF%2F2xFuskEGyAyO5iLrEyKIIh20Cb%2B62jLQ&amp;rsv_enter=0&amp;inputT=774&amp;rsv_n=2&amp;rsv_sug3=36&amp;prefixsug=URL%2520post%2520get%25E4%25B8%25AA%25E6%2595%25B0%25E9%2599%2590%25E5%2588%25B6&amp;rsp=0&amp;rsv_sug4=774" target="_blank" rel="noopener">https://www.baidu.com/s?ie=utf-8&amp;f=3&amp;rsv_bp=1&amp;rsv_idx=2&amp;tn=baidutop10&amp;wd=URL%20post%20get%E4%B8%AA%E6%95%B0%E9%99%90%E5%88%B6&amp;oq=http%25E8%25BF%2594%25E5%259B%259E%25E7%258A%25B6%25E6%2580%2581%25E7%25A0%2581&amp;rsv_pq=b522bb6400015c33&amp;rsv_t=58fdbr6CSYjGurXtrLvz7qjxNAZYLfpiF%2F2xFuskEGyAyO5iLrEyKIIh20Cb%2B62jLQ&amp;rsv_enter=0&amp;inputT=774&amp;rsv_n=2&amp;rsv_sug3=36&amp;prefixsug=URL%2520post%2520get%25E4%25B8%25AA%25E6%2595%25B0%25E9%2599%2590%25E5%2588%25B6&amp;rsp=0&amp;rsv_sug4=774</a><br><code>？</code>分隔url和get数据<br><code>&amp;</code>连接参数<br>英语+数字：原样发送<br>空格：+<br>汉字或者其他字符：base64加密，%形式发送<br>get最大长度？<br>get本身没有长度限制，有长度限制的是url.IE对url限制：2K+35，其他浏览器，看具体情况了。<br>post最大长度？<br>post本身没有大小限制的，有限制的是服务器处理接口的限制。</p>
-<p>form表单post和get问题<br>get：向服务器请求数据<br>post：想服务器发送数据<br>form表单默认是get</p>
-<p><strong>http返回状态码</strong><br>1<strong>：请求临时响应，程序需要进一步操作<br>2</strong>：服务器成功响应了请求<br>3<strong>:重定向<br>4</strong>:请求错误<br>5<strong>:服务器错误<br>9</strong>:自定义错误</p>
-<p><strong>rel=follow vs rel=nofollow</strong><br>seo优化，参照<a href="http://www.cnblogs.com/shuchao/archive/2009/09/19/rel-nofollow.html" target="_blank" rel="noopener">cnblog</a>.<br>nofollow有两种用法：<br>1.用于meta元标签：<code>&lt;meta name=&quot;robots&quot; content=&quot;nofollow&quot; /&gt;</code>，告诉爬虫该页面上所有链接都无需追踪。<br>2.用于a标签：<code>&lt;a href=&quot;login.aspx&quot; rel=&quot;nofollow&quot;&gt;&lt;/a&gt;</code>,告诉爬虫该页面无需追踪。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/10/14/同花顺前端面试题/" data-id="ckca5p0n3000tdebwcaz7zhxr" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/frontend/">frontend</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reptile/">reptile</a></li></ul>
-
     </footer>
   </div>
   
@@ -550,7 +549,7 @@ w3c盒子宽度 = content_width;</code></p>
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/07/">July 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">March 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">August 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">July 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li></ul>
     </div>
   </div>
 
@@ -561,6 +560,10 @@ w3c盒子宽度 = content_width;</code></p>
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2020/07/06/处理Postgres json格式数据/">记一次处理Postgres json字段的有趣历程</a>
+          </li>
         
           <li>
             <a href="/2020/04/26/knapsack/">knapsack</a>
@@ -576,10 +579,6 @@ w3c盒子宽度 = content_width;</code></p>
         
           <li>
             <a href="/2019/04/28/understand-compose-and-pipe-in-JS/">understand compose and pipe in JS</a>
-          </li>
-        
-          <li>
-            <a href="/2018/12/06/ctrip总结/">ctrip总结</a>
           </li>
         
       </ul>
